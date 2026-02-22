@@ -2,7 +2,7 @@
 
 ## 📋 Overview
 
-This guide covers the complete setup of the PDF Report Generator for production deployment with all new features:
+This guide covers the complete setup of the DocuForge for production deployment with all new features:
 
 - ✅ Supabase removed (Pure FastAPI + PostgreSQL)
 - ✅ Cloud storage (AWS S3 / MinIO)
@@ -108,7 +108,7 @@ VITE_WS_URL=wss://api.yourdomain.com/ws
 **Optional:**
 
 ```bash
-VITE_APP_NAME=PDF Report Generator
+VITE_APP_NAME=DocuForge
 VITE_ENV=production
 VITE_ENABLE_ANALYTICS=true
 VITE_SENTRY_DSN=your-sentry-dsn
@@ -366,7 +366,7 @@ ws.onmessage = (event) => {
 
 ## 🎉 You're Ready!
 
-Your PDF Report Generator is now production-ready with:
+Your DocuForge is now production-ready with:
 - ✅ Cloud storage
 - ✅ Rate limiting
 - ✅ API key management

@@ -1,4 +1,4 @@
-# PDF Report Generator
+# DocuForge
 
 A production-ready FastAPI backend for automated PDF report generation with scheduling capabilities.
 

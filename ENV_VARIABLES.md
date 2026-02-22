@@ -146,7 +146,7 @@ VITE_WS_URL=ws://localhost:8000/ws
 ### 🎨 Application Configuration
 ```bash
 # Application name
-VITE_APP_NAME=PDF Report Generator
+VITE_APP_NAME=DocuForge
 
 # Application version
 VITE_APP_VERSION=1.0.0

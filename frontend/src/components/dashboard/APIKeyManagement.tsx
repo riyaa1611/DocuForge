@@ -144,7 +144,7 @@ export const APIKeyManagement = () => {
             <div>
               <CardTitle>API Key Management</CardTitle>
               <CardDescription>
-                Manage API keys for programmatic access to the PDF Generator
+                Manage API keys for programmatic access to DocuForge
               </CardDescription>
             </div>
             <Button onClick={apiKeys.length > 0 ? regenerateApiKey : generateApiKey} disabled={loading}>

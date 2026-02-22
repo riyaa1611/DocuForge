@@ -149,7 +149,7 @@ SMTP_PORT=587
 SMTP_USER=your-email@gmail.com
 SMTP_PASSWORD=your-app-password
 SMTP_FROM_EMAIL=noreply@yourapp.com
-SMTP_FROM_NAME=PDF Report Generator
+SMTP_FROM_NAME=DocuForge
 ```
 
 ---
