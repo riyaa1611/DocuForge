@@ -50,7 +50,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
               <FileText className="h-5 w-5" />
             </div>
             <span className="text-lg font-semibold text-sidebar-foreground">
-              PDF Reports
+              DocuForge
             </span>
           </div>
           <Button
@@ -91,7 +91,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         {/* Footer */}
         <div className="border-t border-sidebar-border p-4">
           <p className="text-xs text-sidebar-muted-foreground">
-            © 2025 PDF Reports
+            © 2025 DocuForge
           </p>
         </div>
       </aside>

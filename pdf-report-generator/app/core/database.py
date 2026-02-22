@@ -32,13 +32,14 @@ async_session_factory = async_sessionmaker(
 
 class Base(DeclarativeBase):
     """Base class for all SQLAlchemy models."""
+
     pass
 
 
 async def get_session() -> AsyncGenerator[AsyncSession, None]:
     """
     Dependency that provides an async database session.
-    
+
     Usage:
         @router.get("/items")
         async def get_items(db: AsyncSession = Depends(get_session)):

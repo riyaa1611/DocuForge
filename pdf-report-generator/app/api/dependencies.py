@@ -20,7 +20,7 @@ security = HTTPBearer()
 async def get_db() -> AsyncSession:
     """
     Dependency that provides an async database session.
-    
+
     Usage:
         @router.get("/items")
         async def get_items(db: AsyncSession = Depends(get_db)):
@@ -42,7 +42,7 @@ async def get_current_user(
 ) -> User:
     """
     Dependency that validates JWT token and returns the current user.
-    
+
     Raises:
         HTTPException 401: If token is invalid or expired
         HTTPException 401: If user not found
@@ -52,13 +52,13 @@ async def get_current_user(
         detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
-    
+
     token = credentials.credentials
     payload = decode_token(token)
-    
+
     if payload is None:
         raise credentials_exception
-    
+
     # Check token type
     if payload.get("type") != "access":
         raise HTTPException(
@@ -66,21 +66,21 @@ async def get_current_user(
             detail="Invalid token type",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    
+
     user_id = payload.get("sub")
     if user_id is None:
         raise credentials_exception
-    
+
     try:
         user_uuid = UUID(user_id)
     except ValueError:
         raise credentials_exception
-    
+
     # Get user from database
     user = await db.get(User, user_uuid)
     if user is None:
         raise credentials_exception
-    
+
     return user
 
 
@@ -96,7 +96,7 @@ async def get_current_user_optional(
     """
     if credentials is None:
         return None
-    
+
     try:
         return await get_current_user(credentials, db)
     except HTTPException:
@@ -109,7 +109,7 @@ async def verify_api_key(
 ) -> User:
     """
     Verify API key and return the associated user.
-    
+
     Usage:
         @router.get("/items")
         async def get_items(
@@ -119,17 +119,15 @@ async def verify_api_key(
             user = await verify_api_key(api_key, db)
             ...
     """
-    result = await db.execute(
-        select(User).where(User.api_key == api_key)
-    )
+    result = await db.execute(select(User).where(User.api_key == api_key))
     user = result.scalar_one_or_none()
-    
+
     if user is None:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid API key",
         )
-    
+
     return user
 
 
@@ -140,37 +138,37 @@ async def get_current_user_from_token(
     """
     Get user from JWT token string (for WebSocket authentication).
     Returns None if token is invalid.
-    
+
     Args:
         token: JWT token string
         db: Database session
-    
+
     Returns:
         User object or None if authentication fails
     """
     try:
         payload = decode_token(token)
-        
+
         if payload is None:
             return None
-        
+
         # Check token type
         if payload.get("type") != "access":
             return None
-        
+
         user_id = payload.get("sub")
         if user_id is None:
             return None
-        
+
         try:
             user_uuid = UUID(user_id)
         except ValueError:
             return None
-        
+
         # Get user from database
         user = await db.get(User, user_uuid)
         return user
-        
+
     except Exception as e:
         logger.error(f"Token validation failed: {e}")
         return None

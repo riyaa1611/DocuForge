@@ -1,5 +1,5 @@
 """
-PDF Report Generator - FastAPI Application
+DocuForge - FastAPI Application
 
 A production-ready backend for automated PDF report generation with scheduling.
 """
@@ -49,39 +49,39 @@ async def lifespan(app: FastAPI):
     Handles startup and shutdown events.
     """
     # Startup
-    logger.info("Starting PDF Report Generator...")
-    
+    logger.info("Starting DocuForge...")
+
     # Initialize database
     await init_db()
     logger.info("Database initialized")
-    
+
     # Seed default templates
     await seed_templates()
-    
+
     # Start scheduler
     SchedulerService.start()
     logger.info("Scheduler started")
-    
+
     # Load existing schedules into scheduler
     await load_schedules()
-    
-    logger.info("PDF Report Generator started successfully!")
-    
+
+    logger.info("DocuForge started successfully!")
+
     yield
-    
+
     # Shutdown
-    logger.info("Shutting down PDF Report Generator...")
-    
+    logger.info("Shutting down DocuForge...")
+
     # Stop scheduler
     SchedulerService.shutdown()
-    
+
     # Close browser
     await PDFGenerator.close_browser()
-    
+
     # Close database
     await close_db()
-    
-    logger.info("PDF Report Generator stopped.")
+
+    logger.info("DocuForge stopped.")
 
 
 async def seed_templates():
@@ -89,7 +89,7 @@ async def seed_templates():
     from app.core.database import async_session_factory
     from app.models.template import Template
     from sqlalchemy import select
-    
+
     templates_data = [
         {
             "name": "financial_report.html",
@@ -135,7 +135,7 @@ async def seed_templates():
             },
         },
     ]
-    
+
     async with async_session_factory() as session:
         for data in templates_data:
             # Check if template exists
@@ -146,7 +146,7 @@ async def seed_templates():
                 template = Template(**data)
                 session.add(template)
                 logger.info(f"Seeded template: {data['name']}")
-        
+
         await session.commit()
 
 
@@ -156,13 +156,13 @@ async def load_schedules():
     from app.models.schedule import Schedule
     from app.api.routes.schedules import execute_scheduled_report
     from sqlalchemy import select
-    
+
     async with async_session_factory() as session:
         result = await session.execute(
             select(Schedule).where(Schedule.is_active == True)
         )
         schedules = result.scalars().all()
-        
+
         for schedule in schedules:
             try:
                 SchedulerService.add_job(
@@ -173,13 +173,13 @@ async def load_schedules():
                 )
             except Exception as e:
                 logger.error(f"Failed to load schedule {schedule.id}: {e}")
-        
+
         logger.info(f"Loaded {len(schedules)} schedules")
 
 
 # Create FastAPI app
 app = FastAPI(
-    title="PDF Report Generator",
+    title="DocuForge",
     description="""
     A production-ready API for automated PDF report generation with scheduling.
     
@@ -230,17 +230,19 @@ app.include_router(websocket_router)  # WebSocket doesn't need /api/v1 prefix
 
 
 @app.get("/health", tags=["Health"])
-@app.get("/api/v1/health", tags=["Health"], include_in_schema=False)  # Alias for frontend
+@app.get(
+    "/api/v1/health", tags=["Health"], include_in_schema=False
+)  # Alias for frontend
 async def health_check():
     """
     Health check endpoint.
-    
+
     Returns the service status and version.
     """
     return {
         "status": "healthy",
         "version": "1.0.0",
-        "service": "PDF Report Generator",
+        "service": "DocuForge",
     }
 
 
@@ -248,11 +250,11 @@ async def health_check():
 async def root():
     """
     Root endpoint.
-    
+
     Redirects to API documentation.
     """
     return {
-        "message": "Welcome to PDF Report Generator API",
+        "message": "Welcome to DocuForge API",
         "docs": "/docs",
         "health": "/health",
     }
@@ -260,7 +262,7 @@ async def root():
 
 if __name__ == "__main__":
     import uvicorn
-    
+
     uvicorn.run(
         "app.main:app",
         host=settings.host,

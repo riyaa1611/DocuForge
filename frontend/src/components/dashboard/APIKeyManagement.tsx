@@ -32,7 +32,7 @@ export const APIKeyManagement = () => {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
 
-  const loadApiKeys = async () => {
+  const loadApiKeys = React.useCallback(async () => {
     try {
       const keys = await api.get<APIKey[]>('/api-keys');
       setApiKeys(keys);
@@ -43,11 +43,11 @@ export const APIKeyManagement = () => {
         variant: 'destructive',
       });
     }
-  };
+  }, [toast]);
 
   React.useEffect(() => {
     loadApiKeys();
-  }, []);
+  }, [loadApiKeys]);
 
   const generateApiKey = async () => {
     setLoading(true);

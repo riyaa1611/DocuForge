@@ -17,51 +17,33 @@ if TYPE_CHECKING:
 
 class User(Base):
     """User account model."""
-    
+
     __tablename__ = "users"
-    
+
     id: Mapped[uuid.UUID] = mapped_column(
-        Uuid(as_uuid=True),
-        primary_key=True,
-        default=uuid.uuid4
+        Uuid(as_uuid=True), primary_key=True, default=uuid.uuid4
     )
     email: Mapped[str] = mapped_column(
-        String(255),
-        unique=True,
-        nullable=False,
-        index=True
+        String(255), unique=True, nullable=False, index=True
     )
-    name: Mapped[Optional[str]] = mapped_column(
-        String(100),
-        nullable=True
-    )
-    hashed_password: Mapped[str] = mapped_column(
-        String(255),
-        nullable=False
-    )
+    name: Mapped[Optional[str]] = mapped_column(String(100), nullable=True)
+    hashed_password: Mapped[str] = mapped_column(String(255), nullable=False)
     api_key: Mapped[Optional[str]] = mapped_column(
-        String(64),
-        unique=True,
-        nullable=True,
-        index=True
+        String(64), unique=True, nullable=True, index=True
     )
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         default=lambda: datetime.now(timezone.utc),
-        nullable=False
+        nullable=False,
     )
-    
+
     # Relationships
     reports: Mapped[List["Report"]] = relationship(
-        "Report",
-        back_populates="user",
-        cascade="all, delete-orphan"
+        "Report", back_populates="user", cascade="all, delete-orphan"
     )
     schedules: Mapped[List["Schedule"]] = relationship(
-        "Schedule",
-        back_populates="user",
-        cascade="all, delete-orphan"
+        "Schedule", back_populates="user", cascade="all, delete-orphan"
     )
-    
+
     def __repr__(self) -> str:
         return f"<User(id={self.id}, email={self.email})>"

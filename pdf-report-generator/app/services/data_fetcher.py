@@ -16,7 +16,7 @@ class DataFetcher:
     Service for fetching data from various sources.
     Supports SQL queries, REST APIs, and CSV files.
     """
-    
+
     @classmethod
     async def fetch_from_sql(
         cls,
@@ -26,12 +26,12 @@ class DataFetcher:
     ) -> list[dict[str, Any]]:
         """
         Fetch data using a SQL query.
-        
+
         Args:
             session: Database session
             query: SQL query string
             params: Query parameters
-            
+
         Returns:
             List of dictionaries representing rows
         """
@@ -39,16 +39,16 @@ class DataFetcher:
             result = await session.execute(text(query), params or {})
             columns = result.keys()
             rows = result.fetchall()
-            
+
             data = [dict(zip(columns, row)) for row in rows]
             logger.debug(f"Fetched {len(data)} rows from SQL")
-            
+
             return data
-            
+
         except Exception as e:
             logger.error(f"SQL fetch error: {e}")
             raise
-    
+
     @classmethod
     async def fetch_from_api(
         cls,
@@ -61,7 +61,7 @@ class DataFetcher:
     ) -> dict[str, Any]:
         """
         Fetch data from a REST API.
-        
+
         Args:
             url: API endpoint URL
             method: HTTP method (GET, POST, etc.)
@@ -69,7 +69,7 @@ class DataFetcher:
             params: Query parameters
             json_data: JSON body for POST/PUT requests
             timeout: Request timeout in seconds
-            
+
         Returns:
             JSON response as dictionary
         """
@@ -83,16 +83,16 @@ class DataFetcher:
                     json=json_data,
                 )
                 response.raise_for_status()
-                
+
                 data = response.json()
                 logger.debug(f"Fetched data from API: {url}")
-                
+
                 return data
-                
+
         except httpx.HTTPError as e:
             logger.error(f"API fetch error: {e}")
             raise
-    
+
     @classmethod
     def fetch_from_csv(
         cls,
@@ -103,12 +103,12 @@ class DataFetcher:
     ) -> list[dict[str, Any]]:
         """
         Fetch data from a CSV file.
-        
+
         Args:
             file_path: Path to the CSV file
             encoding: File encoding
             **pandas_kwargs: Additional pandas read_csv arguments
-            
+
         Returns:
             List of dictionaries representing rows
         """
@@ -122,32 +122,32 @@ class DataFetcher:
                 path = Path(file_path)
                 if not path.exists():
                     raise FileNotFoundError(f"CSV file not found: {file_path}")
-                
+
                 df = pd.read_csv(path, encoding=encoding, **pandas_kwargs)
                 source_desc = f"file: {file_path}"
             else:
                 raise ValueError("Either file_path or content must be provided")
-            
+
             # Convert NaN to None for JSON serialization
             df = df.where(pd.notna(df), None)
-            
-            data = df.to_dict(orient='records')
+
+            data = df.to_dict(orient="records")
             logger.debug(f"Fetched {len(data)} rows from CSV ({source_desc})")
-            
+
             return data
-            
+
         except Exception as e:
             logger.error(f"CSV fetch error: {e}")
             raise
-    
+
     @classmethod
     def get_sample_data(cls, template_name: str) -> dict[str, Any]:
         """
         Get sample data for a template (for testing/demo purposes).
-        
+
         Args:
             template_name: Name of the template
-            
+
         Returns:
             Sample data dictionary
         """
@@ -190,9 +190,24 @@ class DataFetcher:
                     "email": "accounts@clientcorp.com",
                 },
                 "items": [
-                    {"description": "Web Development Services", "quantity": 40, "rate": 150.00, "amount": 6000.00},
-                    {"description": "UI/UX Design", "quantity": 20, "rate": 125.00, "amount": 2500.00},
-                    {"description": "Project Management", "quantity": 10, "rate": 100.00, "amount": 1000.00},
+                    {
+                        "description": "Web Development Services",
+                        "quantity": 40,
+                        "rate": 150.00,
+                        "amount": 6000.00,
+                    },
+                    {
+                        "description": "UI/UX Design",
+                        "quantity": 20,
+                        "rate": 125.00,
+                        "amount": 2500.00,
+                    },
+                    {
+                        "description": "Project Management",
+                        "quantity": 10,
+                        "rate": 100.00,
+                        "amount": 1000.00,
+                    },
                 ],
                 "subtotal": 9500.00,
                 "tax_rate": 8.5,
@@ -223,5 +238,5 @@ class DataFetcher:
                 ],
             },
         }
-        
+
         return samples.get(template_name, {})

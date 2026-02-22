@@ -17,68 +17,49 @@ if TYPE_CHECKING:
 
 class Schedule(Base):
     """Scheduled report generation model."""
-    
+
     __tablename__ = "schedules"
-    
+
     id: Mapped[uuid.UUID] = mapped_column(
-        Uuid(as_uuid=True),
-        primary_key=True,
-        default=uuid.uuid4
+        Uuid(as_uuid=True), primary_key=True, default=uuid.uuid4
     )
     user_id: Mapped[uuid.UUID] = mapped_column(
         Uuid(as_uuid=True),
         ForeignKey("users.id", ondelete="CASCADE"),
         nullable=False,
-        index=True
+        index=True,
     )
     template_id: Mapped[uuid.UUID] = mapped_column(
         Uuid(as_uuid=True),
         ForeignKey("templates.id", ondelete="CASCADE"),
         nullable=False,
-        index=True
+        index=True,
     )
-    name: Mapped[str] = mapped_column(
-        String(100),
-        nullable=False
-    )
+    name: Mapped[str] = mapped_column(String(100), nullable=False)
     cron_expression: Mapped[str] = mapped_column(
         String(100),
         nullable=False,
-        comment="Cron expression, e.g., '0 8 * * *' for daily at 8 AM"
+        comment="Cron expression, e.g., '0 8 * * *' for daily at 8 AM",
     )
     params: Mapped[Optional[dict]] = mapped_column(
-        JSONB,
-        nullable=True,
-        comment="Report generation parameters"
+        JSONB, nullable=True, comment="Report generation parameters"
     )
-    is_active: Mapped[bool] = mapped_column(
-        Boolean,
-        default=True,
-        nullable=False
-    )
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
     next_run: Mapped[Optional[datetime]] = mapped_column(
-        DateTime(timezone=True),
-        nullable=True
+        DateTime(timezone=True), nullable=True
     )
     last_run: Mapped[Optional[datetime]] = mapped_column(
-        DateTime(timezone=True),
-        nullable=True
+        DateTime(timezone=True), nullable=True
     )
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         default=lambda: datetime.now(timezone.utc),
-        nullable=False
+        nullable=False,
     )
-    
+
     # Relationships
-    user: Mapped["User"] = relationship(
-        "User",
-        back_populates="schedules"
-    )
-    template: Mapped["Template"] = relationship(
-        "Template",
-        back_populates="schedules"
-    )
-    
+    user: Mapped["User"] = relationship("User", back_populates="schedules")
+    template: Mapped["Template"] = relationship("Template", back_populates="schedules")
+
     def __repr__(self) -> str:
         return f"<Schedule(id={self.id}, cron={self.cron_expression})>"

@@ -29,7 +29,7 @@ async def list_templates(
     """
     result = await db.execute(select(Template).order_by(Template.name))
     templates = result.scalars().all()
-    
+
     return [TemplateResponse.model_validate(t) for t in templates]
 
 
@@ -48,11 +48,11 @@ async def get_template(
     including its expected data schema.
     """
     template = await db.get(Template, template_id)
-    
+
     if not template:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Template not found",
         )
-    
+
     return TemplateDetail.model_validate(template)

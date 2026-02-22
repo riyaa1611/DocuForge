@@ -2,7 +2,6 @@
 
 from datetime import datetime, timezone
 from typing import Callable, Any, Optional
-from uuid import UUID
 
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
@@ -15,26 +14,24 @@ class SchedulerService:
     """
     Service for managing scheduled jobs using APScheduler.
     """
-    
+
     _scheduler: Optional[AsyncIOScheduler] = None
     _initialized: bool = False
-    
+
     @classmethod
     def get_scheduler(cls) -> AsyncIOScheduler:
         """Get or create the scheduler instance."""
         if cls._scheduler is None:
             cls._scheduler = AsyncIOScheduler(
-                jobstores={
-                    'default': MemoryJobStore()
-                },
+                jobstores={"default": MemoryJobStore()},
                 job_defaults={
-                    'coalesce': True,
-                    'max_instances': 1,
-                    'misfire_grace_time': 60 * 60,  # 1 hour grace time
-                }
+                    "coalesce": True,
+                    "max_instances": 1,
+                    "misfire_grace_time": 60 * 60,  # 1 hour grace time
+                },
             )
         return cls._scheduler
-    
+
     @classmethod
     def start(cls) -> None:
         """Start the scheduler."""
@@ -43,7 +40,7 @@ class SchedulerService:
             scheduler.start()
             cls._initialized = True
             logger.info("Scheduler started")
-    
+
     @classmethod
     def shutdown(cls) -> None:
         """Shutdown the scheduler."""
@@ -51,7 +48,7 @@ class SchedulerService:
             cls._scheduler.shutdown(wait=False)
             cls._initialized = False
             logger.info("Scheduler stopped")
-    
+
     @classmethod
     def add_job(
         cls,
@@ -63,19 +60,19 @@ class SchedulerService:
     ) -> datetime:
         """
         Add a scheduled job.
-        
+
         Args:
             job_id: Unique identifier for the job
             func: Function to execute
             cron_expression: Cron expression for scheduling
             args: Positional arguments for the function
             kwargs: Keyword arguments for the function
-            
+
         Returns:
             Next run time
         """
         scheduler = cls.get_scheduler()
-        
+
         # Parse cron expression into trigger
         cron_parts = cron_expression.split()
         if len(cron_parts) == 5:
@@ -88,7 +85,7 @@ class SchedulerService:
             )
         else:
             raise ValueError(f"Invalid cron expression: {cron_expression}")
-        
+
         # Add job
         job = scheduler.add_job(
             func,
@@ -98,23 +95,23 @@ class SchedulerService:
             kwargs=kwargs or {},
             replace_existing=True,
         )
-        
+
         next_run = getattr(job, "next_run_time", None)
         if not next_run:
             next_run = trigger.get_next_fire_time(None, datetime.now(timezone.utc))
-        
+
         logger.info(f"Added job {job_id}, next run: {next_run}")
-        
+
         return next_run
-    
+
     @classmethod
     def remove_job(cls, job_id: str) -> bool:
         """
         Remove a scheduled job.
-        
+
         Args:
             job_id: Job identifier
-            
+
         Returns:
             True if job was removed, False if not found
         """
@@ -126,7 +123,7 @@ class SchedulerService:
         except Exception:
             logger.warning(f"Job not found: {job_id}")
             return False
-    
+
     @classmethod
     def pause_job(cls, job_id: str) -> bool:
         """Pause a scheduled job."""
@@ -137,7 +134,7 @@ class SchedulerService:
             return True
         except Exception:
             return False
-    
+
     @classmethod
     def resume_job(cls, job_id: str) -> bool:
         """Resume a paused job."""
@@ -148,7 +145,7 @@ class SchedulerService:
             return True
         except Exception:
             return False
-    
+
     @classmethod
     def get_job(cls, job_id: str) -> Optional[dict]:
         """Get job information."""
@@ -161,21 +158,21 @@ class SchedulerService:
                 "pending": job.pending,
             }
         return None
-    
+
     @classmethod
     def get_next_run_time(cls, cron_expression: str) -> datetime:
         """
         Calculate the next run time for a cron expression.
-        
+
         Args:
             cron_expression: Cron expression
-            
+
         Returns:
             Next run time as datetime
         """
         cron = croniter(cron_expression, datetime.now(timezone.utc))
         return cron.get_next(datetime)
-    
+
     @classmethod
     def is_valid_cron(cls, cron_expression: str) -> bool:
         """Check if a cron expression is valid."""
