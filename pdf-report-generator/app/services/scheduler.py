@@ -99,7 +99,10 @@ class SchedulerService:
             replace_existing=True,
         )
         
-        next_run = job.next_run_time
+        next_run = getattr(job, "next_run_time", None)
+        if not next_run:
+            next_run = trigger.get_next_fire_time(None, datetime.now(timezone.utc))
+        
         logger.info(f"Added job {job_id}, next run: {next_run}")
         
         return next_run

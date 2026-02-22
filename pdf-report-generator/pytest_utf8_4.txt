@@ -1,0 +1,20 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.9.2rc1, pytest-7.4.4, pluggy-1.6.0 -- d:\pdf generator\pdf-report-generator\venv\scripts\python.exe
+cachedir: .pytest_cache
+rootdir: D:\PDF Generator\pdf-report-generator
+plugins: anyio-4.12.1, asyncio-0.23.3, cov-4.1.0
+asyncio: mode=strict
+collecting ... collected 25 items
+
+tests/test_api/test_auth.py::test_register_user PASSED                   [  4%]
+tests/test_api/test_auth.py::test_register_duplicate_email PASSED        [  8%]
+tests/test_api/test_auth.py::test_login_success PASSED                   [ 12%]
+tests/test_api/test_auth.py::test_login_wrong_password PASSED            [ 16%]
+tests/test_api/test_auth.py::test_login_nonexistent_user PASSED          [ 20%]
+tests/test_api/test_auth.py::test_get_me PASSED                          [ 24%]
+tests/test_api/test_auth.py::test_get_me_unauthorized PASSED             [ 28%]
+tests/test_api/test_auth.py::test_refresh_token PASSED                   [ 32%]
+tests/test_api/test_reports.py::test_generate_report PASSED              [ 36%]
+tests/test_api/test_reports.py::test_generate_report_invalid_template PASSED [ 40%]
+tests/test_api/test_reports.py::test_list_reports PASSED                 [ 44%]
+tests/test_api/test_reports.py::test_list_reports_unauthorized PASSED    [ 48%]

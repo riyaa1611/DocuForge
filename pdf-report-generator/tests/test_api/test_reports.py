@@ -3,16 +3,18 @@
 import pytest
 from uuid import uuid4
 from httpx import AsyncClient
+from unittest.mock import patch
 
 
 @pytest.mark.asyncio
 async def test_generate_report(test_client: AsyncClient, auth_headers, test_template):
     """Test report generation."""
-    response = await test_client.post(
-        "/api/v1/reports/generate",
-        headers=auth_headers,
-        json={"template_id": str(test_template.id)},
-    )
+    with patch("app.api.routes.reports.process_report_background"):
+        response = await test_client.post(
+            "/api/v1/reports/generate",
+            headers=auth_headers,
+            json={"template_id": str(test_template.id)},
+        )
     
     assert response.status_code == 202
     data = response.json()

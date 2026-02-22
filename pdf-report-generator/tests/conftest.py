@@ -3,6 +3,7 @@
 import asyncio
 from typing import AsyncGenerator, Generator
 from uuid import uuid4
+from unittest.mock import patch, AsyncMock
 
 import pytest
 import pytest_asyncio
@@ -28,6 +29,16 @@ def event_loop() -> Generator:
     loop = asyncio.get_event_loop_policy().new_event_loop()
     yield loop
     loop.close()
+
+
+@pytest_asyncio.fixture(autouse=True)
+async def mock_redis():
+    """Mock Redis connection for rate limiting middleware."""
+    with patch("app.core.rate_limit.aioredis.from_url") as mock_from_url:
+        mock_client = AsyncMock()
+        mock_client.incr.return_value = 1
+        mock_from_url.return_value = mock_client
+        yield mock_client
 
 
 @pytest_asyncio.fixture(scope="function")

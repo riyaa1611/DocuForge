@@ -1,0 +1,3762 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.9.2rc1, pytest-7.4.4, pluggy-1.6.0 -- d:\pdf generator\pdf-report-generator\venv\scripts\python.exe
+cachedir: .pytest_cache
+rootdir: D:\PDF Generator\pdf-report-generator
+plugins: anyio-4.12.1, asyncio-0.23.3, cov-4.1.0
+asyncio: mode=strict
+collecting ... collected 25 items
+
+tests/test_api/test_auth.py::test_register_user ERROR                    [  4%]
+tests/test_api/test_auth.py::test_register_duplicate_email ERROR         [  8%]
+tests/test_api/test_auth.py::test_login_success ERROR                    [ 12%]
+tests/test_api/test_auth.py::test_login_wrong_password ERROR             [ 16%]
+tests/test_api/test_auth.py::test_login_nonexistent_user ERROR           [ 20%]
+tests/test_api/test_auth.py::test_get_me ERROR                           [ 24%]
+tests/test_api/test_auth.py::test_get_me_unauthorized ERROR              [ 28%]
+tests/test_api/test_auth.py::test_refresh_token ERROR                    [ 32%]
+tests/test_api/test_reports.py::test_generate_report ERROR               [ 36%]
+tests/test_api/test_reports.py::test_generate_report_invalid_template ERROR [ 40%]
+tests/test_api/test_reports.py::test_list_reports ERROR                  [ 44%]
+tests/test_api/test_reports.py::test_list_reports_unauthorized ERROR     [ 48%]
+tests/test_api/test_reports.py::test_get_report_not_found ERROR          [ 52%]
+tests/test_api/test_schedules.py::test_create_schedule ERROR             [ 56%]
+tests/test_api/test_schedules.py::test_create_schedule_invalid_cron ERROR [ 60%]
+tests/test_api/test_schedules.py::test_list_schedules ERROR              [ 64%]
+tests/test_services/test_chart_generator.py::TestChartGenerator::test_generate_bar_chart PASSED [ 68%]
+tests/test_services/test_chart_generator.py::TestChartGenerator::test_generate_line_chart PASSED [ 72%]
+tests/test_services/test_chart_generator.py::TestChartGenerator::test_generate_pie_chart PASSED [ 76%]
+tests/test_services/test_chart_generator.py::TestChartGenerator::test_invalid_chart_type PASSED [ 80%]
+tests/test_services/test_data_fetcher_csv_content.py::test_fetch_from_csv_content PASSED [ 84%]
+tests/test_services/test_data_fetcher_csv_content.py::test_fetch_from_csv_content_empty PASSED [ 88%]
+tests/test_services/test_data_fetcher_csv_content.py::test_fetch_from_csv_error_no_input PASSED [ 92%]
+tests/test_services/test_pdf_generator.py::test_generate_pdf PASSED      [ 96%]
+tests/test_services/test_pdf_generator.py::test_generate_pdf_with_options PASSED [100%]
+
+=================================== ERRORS ====================================
+____________________ ERROR at setup of test_register_user _____________________
+
+self = UUID()
+visitor = <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5AF4480D0>
+kw = {'type_expression': Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColumnDefault(<function uuid4 at 0x000001C59DCD0940>))}
+
+    def _compiler_dispatch(
+        self: Visitable, visitor: Any, **kw: Any
+    ) -> str:
+        """Look for an attribute named "visit_<visit_name>" on the
+        visitor, and call it with the same kw params.
+    
+        """
+        try:
+>           meth = getter(visitor)
+E           AttributeError: 'SQLiteTypeCompiler' object has no attribute 'visit_UUID'
+
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:139: AttributeError
+
+The above exception was the direct cause of the following exception:
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteDDLCompiler object at 0x000001C5AF4AD400>
+create = <sqlalchemy.sql.ddl.CreateTable object at 0x000001C5AF4AD040>, kw = {}
+table = Table('users', MetaData(), Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColum...e=<users>, nullable=False, default=CallableColumnDefault(<function User.<lambda> at 0x000001C59DCD0D30>)), schema=None)
+preparer = <sqlalchemy.dialects.sqlite.base.SQLiteIdentifierPreparer object at 0x000001C5AF448130>
+text = '\nCREATE TABLE users (', create_table_suffix = '', separator = '\n'
+first_pk = False
+create_column = <sqlalchemy.sql.ddl.CreateColumn object at 0x000001C5AF4AD220>
+
+    def visit_create_table(self, create, **kw):
+        table = create.element
+        preparer = self.preparer
+    
+        text = "\nCREATE "
+        if table._prefixes:
+            text += " ".join(table._prefixes) + " "
+    
+        text += "TABLE "
+        if create.if_not_exists:
+            text += "IF NOT EXISTS "
+    
+        text += preparer.format_table(table) + " "
+    
+        create_table_suffix = self.create_table_suffix(table)
+        if create_table_suffix:
+            text += create_table_suffix + " "
+    
+        text += "("
+    
+        separator = "\n"
+    
+        # if only one primary key, specify it along with the column
+        first_pk = False
+        for create_column in create.columns:
+            column = create_column.element
+            try:
+>               processed = self.process(
+                    create_column, first_pk=column.primary_key and not first_pk
+                )
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6522: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:912: in process
+    return obj._compiler_dispatch(self, **kwargs)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:143: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6553: in visit_create_column
+    text = self.get_column_specification(column, first_pk=first_pk)
+venv\lib\site-packages\sqlalchemy\dialects\sqlite\base.py:1534: in get_column_specification
+    coltype = self.dialect.type_compiler_instance.process(
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:957: in process
+    return type_._compiler_dispatch(self, **kw)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:141: in _compiler_dispatch
+    return visitor.visit_unsupported_compilation(self, err, **kw)  # type: ignore  # noqa: E501
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5AF4480D0>
+element = UUID()
+err = AttributeError("'SQLiteTypeCompiler' object has no attribute 'visit_UUID'")
+kw = {'type_expression': Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColumnDefault(<function uuid4 at 0x000001C59DCD0940>))}
+
+    def visit_unsupported_compilation(
+        self, element: Any, err: Exception, **kw: Any
+    ) -> NoReturn:
+>       raise exc.UnsupportedCompilationError(self, element) from err
+E       sqlalchemy.exc.UnsupportedCompilationError: Compiler <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5AF4480D0> can't render element of type UUID (Background on this error at: https://sqlalche.me/e/20/l7de)
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:962: UnsupportedCompilationError
+
+The above exception was the direct cause of the following exception:
+
+request = <SubRequest 'test_engine' for <Coroutine test_register_user>>
+kwargs = {}, func = <function test_engine at 0x000001C5AF2FF040>
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0x000001C5AF437160>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0x000001C5AF4371F0>
+
+    @functools.wraps(fixture)
+    def _asyncgen_fixture_wrapper(request: SubRequest, **kwargs: Any):
+        func = _perhaps_rebind_fixture_func(
+            fixture, request.instance, fixturedef.unittest
+        )
+        event_loop = kwargs.pop(event_loop_fixture_id)
+        gen_obj = func(
+            **_add_kwargs(func, kwargs, event_loop_fixture_id, event_loop, request)
+        )
+    
+        async def setup():
+            res = await gen_obj.__anext__()
+            return res
+    
+        def finalizer() -> None:
+            """Yield again, to finalize."""
+    
+            async def async_finalizer() -> None:
+                try:
+                    await gen_obj.__anext__()
+                except StopAsyncIteration:
+                    pass
+                else:
+                    msg = "Async generator fixture didn't stop."
+                    msg += "Yield only once."
+                    raise ValueError(msg)
+    
+            event_loop.run_until_complete(async_finalizer())
+    
+>       result = event_loop.run_until_complete(setup())
+
+venv\lib\site-packages\pytest_asyncio\plugin.py:337: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Program Files\Python39\lib\asyncio\base_events.py:642: in run_until_complete
+    return future.result()
+venv\lib\site-packages\pytest_asyncio\plugin.py:319: in setup
+    res = await gen_obj.__anext__()
+tests\conftest.py:43: in test_engine
+    await conn.run_sync(Base.metadata.create_all)
+venv\lib\site-packages\sqlalchemy\ext\asyncio\engine.py:891: in run_sync
+    return await greenlet_spawn(fn, self._proxied, *arg, **kw)
+venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py:202: in greenlet_spawn
+    result = context.switch(value)
+venv\lib\site-packages\sqlalchemy\sql\schema.py:5832: in create_all
+    bind._run_ddl_visitor(
+venv\lib\site-packages\sqlalchemy\engine\base.py:2448: in _run_ddl_visitor
+    visitorcallable(self.dialect, self, **kwargs).traverse_single(element)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:671: in traverse_single
+    return meth(obj, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:919: in visit_metadata
+    self.traverse_single(
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:671: in traverse_single
+    return meth(obj, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:952: in visit_table
+    CreateTable(
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:315: in _invoke_with
+    return bind.execute(self)
+venv\lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:181: in _execute_on_connection
+    return connection._execute_ddl(
+venv\lib\site-packages\sqlalchemy\engine\base.py:1525: in _execute_ddl
+    compiled = ddl.compile(
+venv\lib\site-packages\sqlalchemy\sql\elements.py:309: in compile
+    return self._compiler(dialect, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:69: in _compiler
+    return dialect.ddl_compiler(dialect, self, **kw)
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:867: in __init__
+    self.string = self.process(self.statement, **compile_kwargs)
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:912: in process
+    return obj._compiler_dispatch(self, **kwargs)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:143: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteDDLCompiler object at 0x000001C5AF4AD400>
+create = <sqlalchemy.sql.ddl.CreateTable object at 0x000001C5AF4AD040>, kw = {}
+table = Table('users', MetaData(), Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColum...e=<users>, nullable=False, default=CallableColumnDefault(<function User.<lambda> at 0x000001C59DCD0D30>)), schema=None)
+preparer = <sqlalchemy.dialects.sqlite.base.SQLiteIdentifierPreparer object at 0x000001C5AF448130>
+text = '\nCREATE TABLE users (', create_table_suffix = '', separator = '\n'
+first_pk = False
+create_column = <sqlalchemy.sql.ddl.CreateColumn object at 0x000001C5AF4AD220>
+
+    def visit_create_table(self, create, **kw):
+        table = create.element
+        preparer = self.preparer
+    
+        text = "\nCREATE "
+        if table._prefixes:
+            text += " ".join(table._prefixes) + " "
+    
+        text += "TABLE "
+        if create.if_not_exists:
+            text += "IF NOT EXISTS "
+    
+        text += preparer.format_table(table) + " "
+    
+        create_table_suffix = self.create_table_suffix(table)
+        if create_table_suffix:
+            text += create_table_suffix + " "
+    
+        text += "("
+    
+        separator = "\n"
+    
+        # if only one primary key, specify it along with the column
+        first_pk = False
+        for create_column in create.columns:
+            column = create_column.element
+            try:
+                processed = self.process(
+                    create_column, first_pk=column.primary_key and not first_pk
+                )
+                if processed is not None:
+                    text += separator
+                    separator = ", \n"
+                    text += "\t" + processed
+                if column.primary_key:
+                    first_pk = True
+            except exc.CompileError as ce:
+>               raise exc.CompileError(
+                    "(in table '%s', column '%s'): %s"
+                    % (table.description, column.name, ce.args[0])
+                ) from ce
+E               sqlalchemy.exc.CompileError: (in table 'users', column 'id'): Compiler <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5AF4480D0> can't render element of type UUID
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6532: CompileError
+_______________ ERROR at setup of test_register_duplicate_email _______________
+
+self = UUID()
+visitor = <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B117B130>
+kw = {'type_expression': Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColumnDefault(<function uuid4 at 0x000001C59DCD0940>))}
+
+    def _compiler_dispatch(
+        self: Visitable, visitor: Any, **kw: Any
+    ) -> str:
+        """Look for an attribute named "visit_<visit_name>" on the
+        visitor, and call it with the same kw params.
+    
+        """
+        try:
+>           meth = getter(visitor)
+E           AttributeError: 'SQLiteTypeCompiler' object has no attribute 'visit_UUID'
+
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:139: AttributeError
+
+The above exception was the direct cause of the following exception:
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteDDLCompiler object at 0x000001C5B0F036A0>
+create = <sqlalchemy.sql.ddl.CreateTable object at 0x000001C5B0F03160>, kw = {}
+table = Table('users', MetaData(), Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColum...e=<users>, nullable=False, default=CallableColumnDefault(<function User.<lambda> at 0x000001C59DCD0D30>)), schema=None)
+preparer = <sqlalchemy.dialects.sqlite.base.SQLiteIdentifierPreparer object at 0x000001C5B117B160>
+text = '\nCREATE TABLE users (', create_table_suffix = '', separator = '\n'
+first_pk = False
+create_column = <sqlalchemy.sql.ddl.CreateColumn object at 0x000001C5B0F03310>
+
+    def visit_create_table(self, create, **kw):
+        table = create.element
+        preparer = self.preparer
+    
+        text = "\nCREATE "
+        if table._prefixes:
+            text += " ".join(table._prefixes) + " "
+    
+        text += "TABLE "
+        if create.if_not_exists:
+            text += "IF NOT EXISTS "
+    
+        text += preparer.format_table(table) + " "
+    
+        create_table_suffix = self.create_table_suffix(table)
+        if create_table_suffix:
+            text += create_table_suffix + " "
+    
+        text += "("
+    
+        separator = "\n"
+    
+        # if only one primary key, specify it along with the column
+        first_pk = False
+        for create_column in create.columns:
+            column = create_column.element
+            try:
+>               processed = self.process(
+                    create_column, first_pk=column.primary_key and not first_pk
+                )
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6522: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:912: in process
+    return obj._compiler_dispatch(self, **kwargs)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:143: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6553: in visit_create_column
+    text = self.get_column_specification(column, first_pk=first_pk)
+venv\lib\site-packages\sqlalchemy\dialects\sqlite\base.py:1534: in get_column_specification
+    coltype = self.dialect.type_compiler_instance.process(
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:957: in process
+    return type_._compiler_dispatch(self, **kw)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:141: in _compiler_dispatch
+    return visitor.visit_unsupported_compilation(self, err, **kw)  # type: ignore  # noqa: E501
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B117B130>
+element = UUID()
+err = AttributeError("'SQLiteTypeCompiler' object has no attribute 'visit_UUID'")
+kw = {'type_expression': Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColumnDefault(<function uuid4 at 0x000001C59DCD0940>))}
+
+    def visit_unsupported_compilation(
+        self, element: Any, err: Exception, **kw: Any
+    ) -> NoReturn:
+>       raise exc.UnsupportedCompilationError(self, element) from err
+E       sqlalchemy.exc.UnsupportedCompilationError: Compiler <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B117B130> can't render element of type UUID (Background on this error at: https://sqlalche.me/e/20/l7de)
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:962: UnsupportedCompilationError
+
+The above exception was the direct cause of the following exception:
+
+request = <SubRequest 'test_engine' for <Coroutine test_register_duplicate_email>>
+kwargs = {}, func = <function test_engine at 0x000001C5AF2FF040>
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0x000001C5B1162790>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0x000001C5B1162940>
+
+    @functools.wraps(fixture)
+    def _asyncgen_fixture_wrapper(request: SubRequest, **kwargs: Any):
+        func = _perhaps_rebind_fixture_func(
+            fixture, request.instance, fixturedef.unittest
+        )
+        event_loop = kwargs.pop(event_loop_fixture_id)
+        gen_obj = func(
+            **_add_kwargs(func, kwargs, event_loop_fixture_id, event_loop, request)
+        )
+    
+        async def setup():
+            res = await gen_obj.__anext__()
+            return res
+    
+        def finalizer() -> None:
+            """Yield again, to finalize."""
+    
+            async def async_finalizer() -> None:
+                try:
+                    await gen_obj.__anext__()
+                except StopAsyncIteration:
+                    pass
+                else:
+                    msg = "Async generator fixture didn't stop."
+                    msg += "Yield only once."
+                    raise ValueError(msg)
+    
+            event_loop.run_until_complete(async_finalizer())
+    
+>       result = event_loop.run_until_complete(setup())
+
+venv\lib\site-packages\pytest_asyncio\plugin.py:337: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Program Files\Python39\lib\asyncio\base_events.py:642: in run_until_complete
+    return future.result()
+venv\lib\site-packages\pytest_asyncio\plugin.py:319: in setup
+    res = await gen_obj.__anext__()
+tests\conftest.py:43: in test_engine
+    await conn.run_sync(Base.metadata.create_all)
+venv\lib\site-packages\sqlalchemy\ext\asyncio\engine.py:891: in run_sync
+    return await greenlet_spawn(fn, self._proxied, *arg, **kw)
+venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py:202: in greenlet_spawn
+    result = context.switch(value)
+venv\lib\site-packages\sqlalchemy\sql\schema.py:5832: in create_all
+    bind._run_ddl_visitor(
+venv\lib\site-packages\sqlalchemy\engine\base.py:2448: in _run_ddl_visitor
+    visitorcallable(self.dialect, self, **kwargs).traverse_single(element)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:671: in traverse_single
+    return meth(obj, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:919: in visit_metadata
+    self.traverse_single(
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:671: in traverse_single
+    return meth(obj, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:952: in visit_table
+    CreateTable(
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:315: in _invoke_with
+    return bind.execute(self)
+venv\lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:181: in _execute_on_connection
+    return connection._execute_ddl(
+venv\lib\site-packages\sqlalchemy\engine\base.py:1525: in _execute_ddl
+    compiled = ddl.compile(
+venv\lib\site-packages\sqlalchemy\sql\elements.py:309: in compile
+    return self._compiler(dialect, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:69: in _compiler
+    return dialect.ddl_compiler(dialect, self, **kw)
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:867: in __init__
+    self.string = self.process(self.statement, **compile_kwargs)
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:912: in process
+    return obj._compiler_dispatch(self, **kwargs)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:143: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteDDLCompiler object at 0x000001C5B0F036A0>
+create = <sqlalchemy.sql.ddl.CreateTable object at 0x000001C5B0F03160>, kw = {}
+table = Table('users', MetaData(), Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColum...e=<users>, nullable=False, default=CallableColumnDefault(<function User.<lambda> at 0x000001C59DCD0D30>)), schema=None)
+preparer = <sqlalchemy.dialects.sqlite.base.SQLiteIdentifierPreparer object at 0x000001C5B117B160>
+text = '\nCREATE TABLE users (', create_table_suffix = '', separator = '\n'
+first_pk = False
+create_column = <sqlalchemy.sql.ddl.CreateColumn object at 0x000001C5B0F03310>
+
+    def visit_create_table(self, create, **kw):
+        table = create.element
+        preparer = self.preparer
+    
+        text = "\nCREATE "
+        if table._prefixes:
+            text += " ".join(table._prefixes) + " "
+    
+        text += "TABLE "
+        if create.if_not_exists:
+            text += "IF NOT EXISTS "
+    
+        text += preparer.format_table(table) + " "
+    
+        create_table_suffix = self.create_table_suffix(table)
+        if create_table_suffix:
+            text += create_table_suffix + " "
+    
+        text += "("
+    
+        separator = "\n"
+    
+        # if only one primary key, specify it along with the column
+        first_pk = False
+        for create_column in create.columns:
+            column = create_column.element
+            try:
+                processed = self.process(
+                    create_column, first_pk=column.primary_key and not first_pk
+                )
+                if processed is not None:
+                    text += separator
+                    separator = ", \n"
+                    text += "\t" + processed
+                if column.primary_key:
+                    first_pk = True
+            except exc.CompileError as ce:
+>               raise exc.CompileError(
+                    "(in table '%s', column '%s'): %s"
+                    % (table.description, column.name, ce.args[0])
+                ) from ce
+E               sqlalchemy.exc.CompileError: (in table 'users', column 'id'): Compiler <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B117B130> can't render element of type UUID
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6532: CompileError
+____________________ ERROR at setup of test_login_success _____________________
+
+self = UUID()
+visitor = <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5AF852F40>
+kw = {'type_expression': Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColumnDefault(<function uuid4 at 0x000001C59DCD0940>))}
+
+    def _compiler_dispatch(
+        self: Visitable, visitor: Any, **kw: Any
+    ) -> str:
+        """Look for an attribute named "visit_<visit_name>" on the
+        visitor, and call it with the same kw params.
+    
+        """
+        try:
+>           meth = getter(visitor)
+E           AttributeError: 'SQLiteTypeCompiler' object has no attribute 'visit_UUID'
+
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:139: AttributeError
+
+The above exception was the direct cause of the following exception:
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteDDLCompiler object at 0x000001C5B0CF8700>
+create = <sqlalchemy.sql.ddl.CreateTable object at 0x000001C5B0CF89A0>, kw = {}
+table = Table('users', MetaData(), Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColum...e=<users>, nullable=False, default=CallableColumnDefault(<function User.<lambda> at 0x000001C59DCD0D30>)), schema=None)
+preparer = <sqlalchemy.dialects.sqlite.base.SQLiteIdentifierPreparer object at 0x000001C5AF852EE0>
+text = '\nCREATE TABLE users (', create_table_suffix = '', separator = '\n'
+first_pk = False
+create_column = <sqlalchemy.sql.ddl.CreateColumn object at 0x000001C5B0CF86A0>
+
+    def visit_create_table(self, create, **kw):
+        table = create.element
+        preparer = self.preparer
+    
+        text = "\nCREATE "
+        if table._prefixes:
+            text += " ".join(table._prefixes) + " "
+    
+        text += "TABLE "
+        if create.if_not_exists:
+            text += "IF NOT EXISTS "
+    
+        text += preparer.format_table(table) + " "
+    
+        create_table_suffix = self.create_table_suffix(table)
+        if create_table_suffix:
+            text += create_table_suffix + " "
+    
+        text += "("
+    
+        separator = "\n"
+    
+        # if only one primary key, specify it along with the column
+        first_pk = False
+        for create_column in create.columns:
+            column = create_column.element
+            try:
+>               processed = self.process(
+                    create_column, first_pk=column.primary_key and not first_pk
+                )
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6522: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:912: in process
+    return obj._compiler_dispatch(self, **kwargs)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:143: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6553: in visit_create_column
+    text = self.get_column_specification(column, first_pk=first_pk)
+venv\lib\site-packages\sqlalchemy\dialects\sqlite\base.py:1534: in get_column_specification
+    coltype = self.dialect.type_compiler_instance.process(
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:957: in process
+    return type_._compiler_dispatch(self, **kw)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:141: in _compiler_dispatch
+    return visitor.visit_unsupported_compilation(self, err, **kw)  # type: ignore  # noqa: E501
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5AF852F40>
+element = UUID()
+err = AttributeError("'SQLiteTypeCompiler' object has no attribute 'visit_UUID'")
+kw = {'type_expression': Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColumnDefault(<function uuid4 at 0x000001C59DCD0940>))}
+
+    def visit_unsupported_compilation(
+        self, element: Any, err: Exception, **kw: Any
+    ) -> NoReturn:
+>       raise exc.UnsupportedCompilationError(self, element) from err
+E       sqlalchemy.exc.UnsupportedCompilationError: Compiler <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5AF852F40> can't render element of type UUID (Background on this error at: https://sqlalche.me/e/20/l7de)
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:962: UnsupportedCompilationError
+
+The above exception was the direct cause of the following exception:
+
+request = <SubRequest 'test_engine' for <Coroutine test_login_success>>
+kwargs = {}, func = <function test_engine at 0x000001C5AF2FF040>
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0x000001C5AF992040>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0x000001C5AF992700>
+
+    @functools.wraps(fixture)
+    def _asyncgen_fixture_wrapper(request: SubRequest, **kwargs: Any):
+        func = _perhaps_rebind_fixture_func(
+            fixture, request.instance, fixturedef.unittest
+        )
+        event_loop = kwargs.pop(event_loop_fixture_id)
+        gen_obj = func(
+            **_add_kwargs(func, kwargs, event_loop_fixture_id, event_loop, request)
+        )
+    
+        async def setup():
+            res = await gen_obj.__anext__()
+            return res
+    
+        def finalizer() -> None:
+            """Yield again, to finalize."""
+    
+            async def async_finalizer() -> None:
+                try:
+                    await gen_obj.__anext__()
+                except StopAsyncIteration:
+                    pass
+                else:
+                    msg = "Async generator fixture didn't stop."
+                    msg += "Yield only once."
+                    raise ValueError(msg)
+    
+            event_loop.run_until_complete(async_finalizer())
+    
+>       result = event_loop.run_until_complete(setup())
+
+venv\lib\site-packages\pytest_asyncio\plugin.py:337: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Program Files\Python39\lib\asyncio\base_events.py:642: in run_until_complete
+    return future.result()
+venv\lib\site-packages\pytest_asyncio\plugin.py:319: in setup
+    res = await gen_obj.__anext__()
+tests\conftest.py:43: in test_engine
+    await conn.run_sync(Base.metadata.create_all)
+venv\lib\site-packages\sqlalchemy\ext\asyncio\engine.py:891: in run_sync
+    return await greenlet_spawn(fn, self._proxied, *arg, **kw)
+venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py:202: in greenlet_spawn
+    result = context.switch(value)
+venv\lib\site-packages\sqlalchemy\sql\schema.py:5832: in create_all
+    bind._run_ddl_visitor(
+venv\lib\site-packages\sqlalchemy\engine\base.py:2448: in _run_ddl_visitor
+    visitorcallable(self.dialect, self, **kwargs).traverse_single(element)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:671: in traverse_single
+    return meth(obj, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:919: in visit_metadata
+    self.traverse_single(
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:671: in traverse_single
+    return meth(obj, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:952: in visit_table
+    CreateTable(
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:315: in _invoke_with
+    return bind.execute(self)
+venv\lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:181: in _execute_on_connection
+    return connection._execute_ddl(
+venv\lib\site-packages\sqlalchemy\engine\base.py:1525: in _execute_ddl
+    compiled = ddl.compile(
+venv\lib\site-packages\sqlalchemy\sql\elements.py:309: in compile
+    return self._compiler(dialect, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:69: in _compiler
+    return dialect.ddl_compiler(dialect, self, **kw)
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:867: in __init__
+    self.string = self.process(self.statement, **compile_kwargs)
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:912: in process
+    return obj._compiler_dispatch(self, **kwargs)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:143: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteDDLCompiler object at 0x000001C5B0CF8700>
+create = <sqlalchemy.sql.ddl.CreateTable object at 0x000001C5B0CF89A0>, kw = {}
+table = Table('users', MetaData(), Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColum...e=<users>, nullable=False, default=CallableColumnDefault(<function User.<lambda> at 0x000001C59DCD0D30>)), schema=None)
+preparer = <sqlalchemy.dialects.sqlite.base.SQLiteIdentifierPreparer object at 0x000001C5AF852EE0>
+text = '\nCREATE TABLE users (', create_table_suffix = '', separator = '\n'
+first_pk = False
+create_column = <sqlalchemy.sql.ddl.CreateColumn object at 0x000001C5B0CF86A0>
+
+    def visit_create_table(self, create, **kw):
+        table = create.element
+        preparer = self.preparer
+    
+        text = "\nCREATE "
+        if table._prefixes:
+            text += " ".join(table._prefixes) + " "
+    
+        text += "TABLE "
+        if create.if_not_exists:
+            text += "IF NOT EXISTS "
+    
+        text += preparer.format_table(table) + " "
+    
+        create_table_suffix = self.create_table_suffix(table)
+        if create_table_suffix:
+            text += create_table_suffix + " "
+    
+        text += "("
+    
+        separator = "\n"
+    
+        # if only one primary key, specify it along with the column
+        first_pk = False
+        for create_column in create.columns:
+            column = create_column.element
+            try:
+                processed = self.process(
+                    create_column, first_pk=column.primary_key and not first_pk
+                )
+                if processed is not None:
+                    text += separator
+                    separator = ", \n"
+                    text += "\t" + processed
+                if column.primary_key:
+                    first_pk = True
+            except exc.CompileError as ce:
+>               raise exc.CompileError(
+                    "(in table '%s', column '%s'): %s"
+                    % (table.description, column.name, ce.args[0])
+                ) from ce
+E               sqlalchemy.exc.CompileError: (in table 'users', column 'id'): Compiler <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5AF852F40> can't render element of type UUID
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6532: CompileError
+_________________ ERROR at setup of test_login_wrong_password _________________
+
+self = UUID()
+visitor = <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B0C78C10>
+kw = {'type_expression': Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColumnDefault(<function uuid4 at 0x000001C59DCD0940>))}
+
+    def _compiler_dispatch(
+        self: Visitable, visitor: Any, **kw: Any
+    ) -> str:
+        """Look for an attribute named "visit_<visit_name>" on the
+        visitor, and call it with the same kw params.
+    
+        """
+        try:
+>           meth = getter(visitor)
+E           AttributeError: 'SQLiteTypeCompiler' object has no attribute 'visit_UUID'
+
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:139: AttributeError
+
+The above exception was the direct cause of the following exception:
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteDDLCompiler object at 0x000001C5AF8F5E20>
+create = <sqlalchemy.sql.ddl.CreateTable object at 0x000001C5AF8F5B80>, kw = {}
+table = Table('users', MetaData(), Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColum...e=<users>, nullable=False, default=CallableColumnDefault(<function User.<lambda> at 0x000001C59DCD0D30>)), schema=None)
+preparer = <sqlalchemy.dialects.sqlite.base.SQLiteIdentifierPreparer object at 0x000001C5B0C78D00>
+text = '\nCREATE TABLE users (', create_table_suffix = '', separator = '\n'
+first_pk = False
+create_column = <sqlalchemy.sql.ddl.CreateColumn object at 0x000001C5AF8F5700>
+
+    def visit_create_table(self, create, **kw):
+        table = create.element
+        preparer = self.preparer
+    
+        text = "\nCREATE "
+        if table._prefixes:
+            text += " ".join(table._prefixes) + " "
+    
+        text += "TABLE "
+        if create.if_not_exists:
+            text += "IF NOT EXISTS "
+    
+        text += preparer.format_table(table) + " "
+    
+        create_table_suffix = self.create_table_suffix(table)
+        if create_table_suffix:
+            text += create_table_suffix + " "
+    
+        text += "("
+    
+        separator = "\n"
+    
+        # if only one primary key, specify it along with the column
+        first_pk = False
+        for create_column in create.columns:
+            column = create_column.element
+            try:
+>               processed = self.process(
+                    create_column, first_pk=column.primary_key and not first_pk
+                )
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6522: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:912: in process
+    return obj._compiler_dispatch(self, **kwargs)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:143: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6553: in visit_create_column
+    text = self.get_column_specification(column, first_pk=first_pk)
+venv\lib\site-packages\sqlalchemy\dialects\sqlite\base.py:1534: in get_column_specification
+    coltype = self.dialect.type_compiler_instance.process(
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:957: in process
+    return type_._compiler_dispatch(self, **kw)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:141: in _compiler_dispatch
+    return visitor.visit_unsupported_compilation(self, err, **kw)  # type: ignore  # noqa: E501
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B0C78C10>
+element = UUID()
+err = AttributeError("'SQLiteTypeCompiler' object has no attribute 'visit_UUID'")
+kw = {'type_expression': Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColumnDefault(<function uuid4 at 0x000001C59DCD0940>))}
+
+    def visit_unsupported_compilation(
+        self, element: Any, err: Exception, **kw: Any
+    ) -> NoReturn:
+>       raise exc.UnsupportedCompilationError(self, element) from err
+E       sqlalchemy.exc.UnsupportedCompilationError: Compiler <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B0C78C10> can't render element of type UUID (Background on this error at: https://sqlalche.me/e/20/l7de)
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:962: UnsupportedCompilationError
+
+The above exception was the direct cause of the following exception:
+
+request = <SubRequest 'test_engine' for <Coroutine test_login_wrong_password>>
+kwargs = {}, func = <function test_engine at 0x000001C5AF2FF040>
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0x000001C5AF98BD30>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0x000001C5AF98BEE0>
+
+    @functools.wraps(fixture)
+    def _asyncgen_fixture_wrapper(request: SubRequest, **kwargs: Any):
+        func = _perhaps_rebind_fixture_func(
+            fixture, request.instance, fixturedef.unittest
+        )
+        event_loop = kwargs.pop(event_loop_fixture_id)
+        gen_obj = func(
+            **_add_kwargs(func, kwargs, event_loop_fixture_id, event_loop, request)
+        )
+    
+        async def setup():
+            res = await gen_obj.__anext__()
+            return res
+    
+        def finalizer() -> None:
+            """Yield again, to finalize."""
+    
+            async def async_finalizer() -> None:
+                try:
+                    await gen_obj.__anext__()
+                except StopAsyncIteration:
+                    pass
+                else:
+                    msg = "Async generator fixture didn't stop."
+                    msg += "Yield only once."
+                    raise ValueError(msg)
+    
+            event_loop.run_until_complete(async_finalizer())
+    
+>       result = event_loop.run_until_complete(setup())
+
+venv\lib\site-packages\pytest_asyncio\plugin.py:337: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Program Files\Python39\lib\asyncio\base_events.py:642: in run_until_complete
+    return future.result()
+venv\lib\site-packages\pytest_asyncio\plugin.py:319: in setup
+    res = await gen_obj.__anext__()
+tests\conftest.py:43: in test_engine
+    await conn.run_sync(Base.metadata.create_all)
+venv\lib\site-packages\sqlalchemy\ext\asyncio\engine.py:891: in run_sync
+    return await greenlet_spawn(fn, self._proxied, *arg, **kw)
+venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py:202: in greenlet_spawn
+    result = context.switch(value)
+venv\lib\site-packages\sqlalchemy\sql\schema.py:5832: in create_all
+    bind._run_ddl_visitor(
+venv\lib\site-packages\sqlalchemy\engine\base.py:2448: in _run_ddl_visitor
+    visitorcallable(self.dialect, self, **kwargs).traverse_single(element)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:671: in traverse_single
+    return meth(obj, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:919: in visit_metadata
+    self.traverse_single(
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:671: in traverse_single
+    return meth(obj, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:952: in visit_table
+    CreateTable(
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:315: in _invoke_with
+    return bind.execute(self)
+venv\lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:181: in _execute_on_connection
+    return connection._execute_ddl(
+venv\lib\site-packages\sqlalchemy\engine\base.py:1525: in _execute_ddl
+    compiled = ddl.compile(
+venv\lib\site-packages\sqlalchemy\sql\elements.py:309: in compile
+    return self._compiler(dialect, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:69: in _compiler
+    return dialect.ddl_compiler(dialect, self, **kw)
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:867: in __init__
+    self.string = self.process(self.statement, **compile_kwargs)
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:912: in process
+    return obj._compiler_dispatch(self, **kwargs)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:143: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteDDLCompiler object at 0x000001C5AF8F5E20>
+create = <sqlalchemy.sql.ddl.CreateTable object at 0x000001C5AF8F5B80>, kw = {}
+table = Table('users', MetaData(), Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColum...e=<users>, nullable=False, default=CallableColumnDefault(<function User.<lambda> at 0x000001C59DCD0D30>)), schema=None)
+preparer = <sqlalchemy.dialects.sqlite.base.SQLiteIdentifierPreparer object at 0x000001C5B0C78D00>
+text = '\nCREATE TABLE users (', create_table_suffix = '', separator = '\n'
+first_pk = False
+create_column = <sqlalchemy.sql.ddl.CreateColumn object at 0x000001C5AF8F5700>
+
+    def visit_create_table(self, create, **kw):
+        table = create.element
+        preparer = self.preparer
+    
+        text = "\nCREATE "
+        if table._prefixes:
+            text += " ".join(table._prefixes) + " "
+    
+        text += "TABLE "
+        if create.if_not_exists:
+            text += "IF NOT EXISTS "
+    
+        text += preparer.format_table(table) + " "
+    
+        create_table_suffix = self.create_table_suffix(table)
+        if create_table_suffix:
+            text += create_table_suffix + " "
+    
+        text += "("
+    
+        separator = "\n"
+    
+        # if only one primary key, specify it along with the column
+        first_pk = False
+        for create_column in create.columns:
+            column = create_column.element
+            try:
+                processed = self.process(
+                    create_column, first_pk=column.primary_key and not first_pk
+                )
+                if processed is not None:
+                    text += separator
+                    separator = ", \n"
+                    text += "\t" + processed
+                if column.primary_key:
+                    first_pk = True
+            except exc.CompileError as ce:
+>               raise exc.CompileError(
+                    "(in table '%s', column '%s'): %s"
+                    % (table.description, column.name, ce.args[0])
+                ) from ce
+E               sqlalchemy.exc.CompileError: (in table 'users', column 'id'): Compiler <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B0C78C10> can't render element of type UUID
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6532: CompileError
+________________ ERROR at setup of test_login_nonexistent_user ________________
+
+self = UUID()
+visitor = <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B0D0D3D0>
+kw = {'type_expression': Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColumnDefault(<function uuid4 at 0x000001C59DCD0940>))}
+
+    def _compiler_dispatch(
+        self: Visitable, visitor: Any, **kw: Any
+    ) -> str:
+        """Look for an attribute named "visit_<visit_name>" on the
+        visitor, and call it with the same kw params.
+    
+        """
+        try:
+>           meth = getter(visitor)
+E           AttributeError: 'SQLiteTypeCompiler' object has no attribute 'visit_UUID'
+
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:139: AttributeError
+
+The above exception was the direct cause of the following exception:
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteDDLCompiler object at 0x000001C5AFA46E80>
+create = <sqlalchemy.sql.ddl.CreateTable object at 0x000001C5AFA46F70>, kw = {}
+table = Table('users', MetaData(), Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColum...e=<users>, nullable=False, default=CallableColumnDefault(<function User.<lambda> at 0x000001C59DCD0D30>)), schema=None)
+preparer = <sqlalchemy.dialects.sqlite.base.SQLiteIdentifierPreparer object at 0x000001C5B0D0D400>
+text = '\nCREATE TABLE users (', create_table_suffix = '', separator = '\n'
+first_pk = False
+create_column = <sqlalchemy.sql.ddl.CreateColumn object at 0x000001C5AFA46520>
+
+    def visit_create_table(self, create, **kw):
+        table = create.element
+        preparer = self.preparer
+    
+        text = "\nCREATE "
+        if table._prefixes:
+            text += " ".join(table._prefixes) + " "
+    
+        text += "TABLE "
+        if create.if_not_exists:
+            text += "IF NOT EXISTS "
+    
+        text += preparer.format_table(table) + " "
+    
+        create_table_suffix = self.create_table_suffix(table)
+        if create_table_suffix:
+            text += create_table_suffix + " "
+    
+        text += "("
+    
+        separator = "\n"
+    
+        # if only one primary key, specify it along with the column
+        first_pk = False
+        for create_column in create.columns:
+            column = create_column.element
+            try:
+>               processed = self.process(
+                    create_column, first_pk=column.primary_key and not first_pk
+                )
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6522: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:912: in process
+    return obj._compiler_dispatch(self, **kwargs)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:143: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6553: in visit_create_column
+    text = self.get_column_specification(column, first_pk=first_pk)
+venv\lib\site-packages\sqlalchemy\dialects\sqlite\base.py:1534: in get_column_specification
+    coltype = self.dialect.type_compiler_instance.process(
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:957: in process
+    return type_._compiler_dispatch(self, **kw)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:141: in _compiler_dispatch
+    return visitor.visit_unsupported_compilation(self, err, **kw)  # type: ignore  # noqa: E501
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B0D0D3D0>
+element = UUID()
+err = AttributeError("'SQLiteTypeCompiler' object has no attribute 'visit_UUID'")
+kw = {'type_expression': Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColumnDefault(<function uuid4 at 0x000001C59DCD0940>))}
+
+    def visit_unsupported_compilation(
+        self, element: Any, err: Exception, **kw: Any
+    ) -> NoReturn:
+>       raise exc.UnsupportedCompilationError(self, element) from err
+E       sqlalchemy.exc.UnsupportedCompilationError: Compiler <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B0D0D3D0> can't render element of type UUID (Background on this error at: https://sqlalche.me/e/20/l7de)
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:962: UnsupportedCompilationError
+
+The above exception was the direct cause of the following exception:
+
+request = <SubRequest 'test_engine' for <Coroutine test_login_nonexistent_user>>
+kwargs = {}, func = <function test_engine at 0x000001C5AF2FF040>
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0x000001C5B0FD9940>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0x000001C5B0FD9B80>
+
+    @functools.wraps(fixture)
+    def _asyncgen_fixture_wrapper(request: SubRequest, **kwargs: Any):
+        func = _perhaps_rebind_fixture_func(
+            fixture, request.instance, fixturedef.unittest
+        )
+        event_loop = kwargs.pop(event_loop_fixture_id)
+        gen_obj = func(
+            **_add_kwargs(func, kwargs, event_loop_fixture_id, event_loop, request)
+        )
+    
+        async def setup():
+            res = await gen_obj.__anext__()
+            return res
+    
+        def finalizer() -> None:
+            """Yield again, to finalize."""
+    
+            async def async_finalizer() -> None:
+                try:
+                    await gen_obj.__anext__()
+                except StopAsyncIteration:
+                    pass
+                else:
+                    msg = "Async generator fixture didn't stop."
+                    msg += "Yield only once."
+                    raise ValueError(msg)
+    
+            event_loop.run_until_complete(async_finalizer())
+    
+>       result = event_loop.run_until_complete(setup())
+
+venv\lib\site-packages\pytest_asyncio\plugin.py:337: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Program Files\Python39\lib\asyncio\base_events.py:642: in run_until_complete
+    return future.result()
+venv\lib\site-packages\pytest_asyncio\plugin.py:319: in setup
+    res = await gen_obj.__anext__()
+tests\conftest.py:43: in test_engine
+    await conn.run_sync(Base.metadata.create_all)
+venv\lib\site-packages\sqlalchemy\ext\asyncio\engine.py:891: in run_sync
+    return await greenlet_spawn(fn, self._proxied, *arg, **kw)
+venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py:202: in greenlet_spawn
+    result = context.switch(value)
+venv\lib\site-packages\sqlalchemy\sql\schema.py:5832: in create_all
+    bind._run_ddl_visitor(
+venv\lib\site-packages\sqlalchemy\engine\base.py:2448: in _run_ddl_visitor
+    visitorcallable(self.dialect, self, **kwargs).traverse_single(element)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:671: in traverse_single
+    return meth(obj, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:919: in visit_metadata
+    self.traverse_single(
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:671: in traverse_single
+    return meth(obj, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:952: in visit_table
+    CreateTable(
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:315: in _invoke_with
+    return bind.execute(self)
+venv\lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:181: in _execute_on_connection
+    return connection._execute_ddl(
+venv\lib\site-packages\sqlalchemy\engine\base.py:1525: in _execute_ddl
+    compiled = ddl.compile(
+venv\lib\site-packages\sqlalchemy\sql\elements.py:309: in compile
+    return self._compiler(dialect, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:69: in _compiler
+    return dialect.ddl_compiler(dialect, self, **kw)
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:867: in __init__
+    self.string = self.process(self.statement, **compile_kwargs)
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:912: in process
+    return obj._compiler_dispatch(self, **kwargs)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:143: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteDDLCompiler object at 0x000001C5AFA46E80>
+create = <sqlalchemy.sql.ddl.CreateTable object at 0x000001C5AFA46F70>, kw = {}
+table = Table('users', MetaData(), Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColum...e=<users>, nullable=False, default=CallableColumnDefault(<function User.<lambda> at 0x000001C59DCD0D30>)), schema=None)
+preparer = <sqlalchemy.dialects.sqlite.base.SQLiteIdentifierPreparer object at 0x000001C5B0D0D400>
+text = '\nCREATE TABLE users (', create_table_suffix = '', separator = '\n'
+first_pk = False
+create_column = <sqlalchemy.sql.ddl.CreateColumn object at 0x000001C5AFA46520>
+
+    def visit_create_table(self, create, **kw):
+        table = create.element
+        preparer = self.preparer
+    
+        text = "\nCREATE "
+        if table._prefixes:
+            text += " ".join(table._prefixes) + " "
+    
+        text += "TABLE "
+        if create.if_not_exists:
+            text += "IF NOT EXISTS "
+    
+        text += preparer.format_table(table) + " "
+    
+        create_table_suffix = self.create_table_suffix(table)
+        if create_table_suffix:
+            text += create_table_suffix + " "
+    
+        text += "("
+    
+        separator = "\n"
+    
+        # if only one primary key, specify it along with the column
+        first_pk = False
+        for create_column in create.columns:
+            column = create_column.element
+            try:
+                processed = self.process(
+                    create_column, first_pk=column.primary_key and not first_pk
+                )
+                if processed is not None:
+                    text += separator
+                    separator = ", \n"
+                    text += "\t" + processed
+                if column.primary_key:
+                    first_pk = True
+            except exc.CompileError as ce:
+>               raise exc.CompileError(
+                    "(in table '%s', column '%s'): %s"
+                    % (table.description, column.name, ce.args[0])
+                ) from ce
+E               sqlalchemy.exc.CompileError: (in table 'users', column 'id'): Compiler <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B0D0D3D0> can't render element of type UUID
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6532: CompileError
+________________________ ERROR at setup of test_get_me ________________________
+
+self = UUID()
+visitor = <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B18A54F0>
+kw = {'type_expression': Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColumnDefault(<function uuid4 at 0x000001C59DCD0940>))}
+
+    def _compiler_dispatch(
+        self: Visitable, visitor: Any, **kw: Any
+    ) -> str:
+        """Look for an attribute named "visit_<visit_name>" on the
+        visitor, and call it with the same kw params.
+    
+        """
+        try:
+>           meth = getter(visitor)
+E           AttributeError: 'SQLiteTypeCompiler' object has no attribute 'visit_UUID'
+
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:139: AttributeError
+
+The above exception was the direct cause of the following exception:
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteDDLCompiler object at 0x000001C5B1598130>
+create = <sqlalchemy.sql.ddl.CreateTable object at 0x000001C5B1598160>, kw = {}
+table = Table('users', MetaData(), Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColum...e=<users>, nullable=False, default=CallableColumnDefault(<function User.<lambda> at 0x000001C59DCD0D30>)), schema=None)
+preparer = <sqlalchemy.dialects.sqlite.base.SQLiteIdentifierPreparer object at 0x000001C5B18A5430>
+text = '\nCREATE TABLE users (', create_table_suffix = '', separator = '\n'
+first_pk = False
+create_column = <sqlalchemy.sql.ddl.CreateColumn object at 0x000001C5B1598430>
+
+    def visit_create_table(self, create, **kw):
+        table = create.element
+        preparer = self.preparer
+    
+        text = "\nCREATE "
+        if table._prefixes:
+            text += " ".join(table._prefixes) + " "
+    
+        text += "TABLE "
+        if create.if_not_exists:
+            text += "IF NOT EXISTS "
+    
+        text += preparer.format_table(table) + " "
+    
+        create_table_suffix = self.create_table_suffix(table)
+        if create_table_suffix:
+            text += create_table_suffix + " "
+    
+        text += "("
+    
+        separator = "\n"
+    
+        # if only one primary key, specify it along with the column
+        first_pk = False
+        for create_column in create.columns:
+            column = create_column.element
+            try:
+>               processed = self.process(
+                    create_column, first_pk=column.primary_key and not first_pk
+                )
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6522: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:912: in process
+    return obj._compiler_dispatch(self, **kwargs)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:143: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6553: in visit_create_column
+    text = self.get_column_specification(column, first_pk=first_pk)
+venv\lib\site-packages\sqlalchemy\dialects\sqlite\base.py:1534: in get_column_specification
+    coltype = self.dialect.type_compiler_instance.process(
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:957: in process
+    return type_._compiler_dispatch(self, **kw)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:141: in _compiler_dispatch
+    return visitor.visit_unsupported_compilation(self, err, **kw)  # type: ignore  # noqa: E501
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B18A54F0>
+element = UUID()
+err = AttributeError("'SQLiteTypeCompiler' object has no attribute 'visit_UUID'")
+kw = {'type_expression': Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColumnDefault(<function uuid4 at 0x000001C59DCD0940>))}
+
+    def visit_unsupported_compilation(
+        self, element: Any, err: Exception, **kw: Any
+    ) -> NoReturn:
+>       raise exc.UnsupportedCompilationError(self, element) from err
+E       sqlalchemy.exc.UnsupportedCompilationError: Compiler <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B18A54F0> can't render element of type UUID (Background on this error at: https://sqlalche.me/e/20/l7de)
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:962: UnsupportedCompilationError
+
+The above exception was the direct cause of the following exception:
+
+request = <SubRequest 'test_engine' for <Coroutine test_get_me>>, kwargs = {}
+func = <function test_engine at 0x000001C5AF2FF040>
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0x000001C5B166A280>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0x000001C5B0FD94C0>
+
+    @functools.wraps(fixture)
+    def _asyncgen_fixture_wrapper(request: SubRequest, **kwargs: Any):
+        func = _perhaps_rebind_fixture_func(
+            fixture, request.instance, fixturedef.unittest
+        )
+        event_loop = kwargs.pop(event_loop_fixture_id)
+        gen_obj = func(
+            **_add_kwargs(func, kwargs, event_loop_fixture_id, event_loop, request)
+        )
+    
+        async def setup():
+            res = await gen_obj.__anext__()
+            return res
+    
+        def finalizer() -> None:
+            """Yield again, to finalize."""
+    
+            async def async_finalizer() -> None:
+                try:
+                    await gen_obj.__anext__()
+                except StopAsyncIteration:
+                    pass
+                else:
+                    msg = "Async generator fixture didn't stop."
+                    msg += "Yield only once."
+                    raise ValueError(msg)
+    
+            event_loop.run_until_complete(async_finalizer())
+    
+>       result = event_loop.run_until_complete(setup())
+
+venv\lib\site-packages\pytest_asyncio\plugin.py:337: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Program Files\Python39\lib\asyncio\base_events.py:642: in run_until_complete
+    return future.result()
+venv\lib\site-packages\pytest_asyncio\plugin.py:319: in setup
+    res = await gen_obj.__anext__()
+tests\conftest.py:43: in test_engine
+    await conn.run_sync(Base.metadata.create_all)
+venv\lib\site-packages\sqlalchemy\ext\asyncio\engine.py:891: in run_sync
+    return await greenlet_spawn(fn, self._proxied, *arg, **kw)
+venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py:202: in greenlet_spawn
+    result = context.switch(value)
+venv\lib\site-packages\sqlalchemy\sql\schema.py:5832: in create_all
+    bind._run_ddl_visitor(
+venv\lib\site-packages\sqlalchemy\engine\base.py:2448: in _run_ddl_visitor
+    visitorcallable(self.dialect, self, **kwargs).traverse_single(element)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:671: in traverse_single
+    return meth(obj, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:919: in visit_metadata
+    self.traverse_single(
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:671: in traverse_single
+    return meth(obj, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:952: in visit_table
+    CreateTable(
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:315: in _invoke_with
+    return bind.execute(self)
+venv\lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:181: in _execute_on_connection
+    return connection._execute_ddl(
+venv\lib\site-packages\sqlalchemy\engine\base.py:1525: in _execute_ddl
+    compiled = ddl.compile(
+venv\lib\site-packages\sqlalchemy\sql\elements.py:309: in compile
+    return self._compiler(dialect, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:69: in _compiler
+    return dialect.ddl_compiler(dialect, self, **kw)
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:867: in __init__
+    self.string = self.process(self.statement, **compile_kwargs)
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:912: in process
+    return obj._compiler_dispatch(self, **kwargs)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:143: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteDDLCompiler object at 0x000001C5B1598130>
+create = <sqlalchemy.sql.ddl.CreateTable object at 0x000001C5B1598160>, kw = {}
+table = Table('users', MetaData(), Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColum...e=<users>, nullable=False, default=CallableColumnDefault(<function User.<lambda> at 0x000001C59DCD0D30>)), schema=None)
+preparer = <sqlalchemy.dialects.sqlite.base.SQLiteIdentifierPreparer object at 0x000001C5B18A5430>
+text = '\nCREATE TABLE users (', create_table_suffix = '', separator = '\n'
+first_pk = False
+create_column = <sqlalchemy.sql.ddl.CreateColumn object at 0x000001C5B1598430>
+
+    def visit_create_table(self, create, **kw):
+        table = create.element
+        preparer = self.preparer
+    
+        text = "\nCREATE "
+        if table._prefixes:
+            text += " ".join(table._prefixes) + " "
+    
+        text += "TABLE "
+        if create.if_not_exists:
+            text += "IF NOT EXISTS "
+    
+        text += preparer.format_table(table) + " "
+    
+        create_table_suffix = self.create_table_suffix(table)
+        if create_table_suffix:
+            text += create_table_suffix + " "
+    
+        text += "("
+    
+        separator = "\n"
+    
+        # if only one primary key, specify it along with the column
+        first_pk = False
+        for create_column in create.columns:
+            column = create_column.element
+            try:
+                processed = self.process(
+                    create_column, first_pk=column.primary_key and not first_pk
+                )
+                if processed is not None:
+                    text += separator
+                    separator = ", \n"
+                    text += "\t" + processed
+                if column.primary_key:
+                    first_pk = True
+            except exc.CompileError as ce:
+>               raise exc.CompileError(
+                    "(in table '%s', column '%s'): %s"
+                    % (table.description, column.name, ce.args[0])
+                ) from ce
+E               sqlalchemy.exc.CompileError: (in table 'users', column 'id'): Compiler <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B18A54F0> can't render element of type UUID
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6532: CompileError
+_________________ ERROR at setup of test_get_me_unauthorized __________________
+
+self = UUID()
+visitor = <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B1B62EE0>
+kw = {'type_expression': Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColumnDefault(<function uuid4 at 0x000001C59DCD0940>))}
+
+    def _compiler_dispatch(
+        self: Visitable, visitor: Any, **kw: Any
+    ) -> str:
+        """Look for an attribute named "visit_<visit_name>" on the
+        visitor, and call it with the same kw params.
+    
+        """
+        try:
+>           meth = getter(visitor)
+E           AttributeError: 'SQLiteTypeCompiler' object has no attribute 'visit_UUID'
+
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:139: AttributeError
+
+The above exception was the direct cause of the following exception:
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteDDLCompiler object at 0x000001C5B1B62130>
+create = <sqlalchemy.sql.ddl.CreateTable object at 0x000001C5B1B622B0>, kw = {}
+table = Table('users', MetaData(), Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColum...e=<users>, nullable=False, default=CallableColumnDefault(<function User.<lambda> at 0x000001C59DCD0D30>)), schema=None)
+preparer = <sqlalchemy.dialects.sqlite.base.SQLiteIdentifierPreparer object at 0x000001C5B1B62E20>
+text = '\nCREATE TABLE users (', create_table_suffix = '', separator = '\n'
+first_pk = False
+create_column = <sqlalchemy.sql.ddl.CreateColumn object at 0x000001C5B1B62220>
+
+    def visit_create_table(self, create, **kw):
+        table = create.element
+        preparer = self.preparer
+    
+        text = "\nCREATE "
+        if table._prefixes:
+            text += " ".join(table._prefixes) + " "
+    
+        text += "TABLE "
+        if create.if_not_exists:
+            text += "IF NOT EXISTS "
+    
+        text += preparer.format_table(table) + " "
+    
+        create_table_suffix = self.create_table_suffix(table)
+        if create_table_suffix:
+            text += create_table_suffix + " "
+    
+        text += "("
+    
+        separator = "\n"
+    
+        # if only one primary key, specify it along with the column
+        first_pk = False
+        for create_column in create.columns:
+            column = create_column.element
+            try:
+>               processed = self.process(
+                    create_column, first_pk=column.primary_key and not first_pk
+                )
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6522: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:912: in process
+    return obj._compiler_dispatch(self, **kwargs)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:143: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6553: in visit_create_column
+    text = self.get_column_specification(column, first_pk=first_pk)
+venv\lib\site-packages\sqlalchemy\dialects\sqlite\base.py:1534: in get_column_specification
+    coltype = self.dialect.type_compiler_instance.process(
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:957: in process
+    return type_._compiler_dispatch(self, **kw)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:141: in _compiler_dispatch
+    return visitor.visit_unsupported_compilation(self, err, **kw)  # type: ignore  # noqa: E501
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B1B62EE0>
+element = UUID()
+err = AttributeError("'SQLiteTypeCompiler' object has no attribute 'visit_UUID'")
+kw = {'type_expression': Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColumnDefault(<function uuid4 at 0x000001C59DCD0940>))}
+
+    def visit_unsupported_compilation(
+        self, element: Any, err: Exception, **kw: Any
+    ) -> NoReturn:
+>       raise exc.UnsupportedCompilationError(self, element) from err
+E       sqlalchemy.exc.UnsupportedCompilationError: Compiler <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B1B62EE0> can't render element of type UUID (Background on this error at: https://sqlalche.me/e/20/l7de)
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:962: UnsupportedCompilationError
+
+The above exception was the direct cause of the following exception:
+
+request = <SubRequest 'test_engine' for <Coroutine test_get_me_unauthorized>>
+kwargs = {}, func = <function test_engine at 0x000001C5AF2FF040>
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0x000001C5B1162AF0>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0x000001C5B11628B0>
+
+    @functools.wraps(fixture)
+    def _asyncgen_fixture_wrapper(request: SubRequest, **kwargs: Any):
+        func = _perhaps_rebind_fixture_func(
+            fixture, request.instance, fixturedef.unittest
+        )
+        event_loop = kwargs.pop(event_loop_fixture_id)
+        gen_obj = func(
+            **_add_kwargs(func, kwargs, event_loop_fixture_id, event_loop, request)
+        )
+    
+        async def setup():
+            res = await gen_obj.__anext__()
+            return res
+    
+        def finalizer() -> None:
+            """Yield again, to finalize."""
+    
+            async def async_finalizer() -> None:
+                try:
+                    await gen_obj.__anext__()
+                except StopAsyncIteration:
+                    pass
+                else:
+                    msg = "Async generator fixture didn't stop."
+                    msg += "Yield only once."
+                    raise ValueError(msg)
+    
+            event_loop.run_until_complete(async_finalizer())
+    
+>       result = event_loop.run_until_complete(setup())
+
+venv\lib\site-packages\pytest_asyncio\plugin.py:337: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Program Files\Python39\lib\asyncio\base_events.py:642: in run_until_complete
+    return future.result()
+venv\lib\site-packages\pytest_asyncio\plugin.py:319: in setup
+    res = await gen_obj.__anext__()
+tests\conftest.py:43: in test_engine
+    await conn.run_sync(Base.metadata.create_all)
+venv\lib\site-packages\sqlalchemy\ext\asyncio\engine.py:891: in run_sync
+    return await greenlet_spawn(fn, self._proxied, *arg, **kw)
+venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py:202: in greenlet_spawn
+    result = context.switch(value)
+venv\lib\site-packages\sqlalchemy\sql\schema.py:5832: in create_all
+    bind._run_ddl_visitor(
+venv\lib\site-packages\sqlalchemy\engine\base.py:2448: in _run_ddl_visitor
+    visitorcallable(self.dialect, self, **kwargs).traverse_single(element)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:671: in traverse_single
+    return meth(obj, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:919: in visit_metadata
+    self.traverse_single(
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:671: in traverse_single
+    return meth(obj, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:952: in visit_table
+    CreateTable(
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:315: in _invoke_with
+    return bind.execute(self)
+venv\lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:181: in _execute_on_connection
+    return connection._execute_ddl(
+venv\lib\site-packages\sqlalchemy\engine\base.py:1525: in _execute_ddl
+    compiled = ddl.compile(
+venv\lib\site-packages\sqlalchemy\sql\elements.py:309: in compile
+    return self._compiler(dialect, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:69: in _compiler
+    return dialect.ddl_compiler(dialect, self, **kw)
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:867: in __init__
+    self.string = self.process(self.statement, **compile_kwargs)
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:912: in process
+    return obj._compiler_dispatch(self, **kwargs)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:143: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteDDLCompiler object at 0x000001C5B1B62130>
+create = <sqlalchemy.sql.ddl.CreateTable object at 0x000001C5B1B622B0>, kw = {}
+table = Table('users', MetaData(), Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColum...e=<users>, nullable=False, default=CallableColumnDefault(<function User.<lambda> at 0x000001C59DCD0D30>)), schema=None)
+preparer = <sqlalchemy.dialects.sqlite.base.SQLiteIdentifierPreparer object at 0x000001C5B1B62E20>
+text = '\nCREATE TABLE users (', create_table_suffix = '', separator = '\n'
+first_pk = False
+create_column = <sqlalchemy.sql.ddl.CreateColumn object at 0x000001C5B1B62220>
+
+    def visit_create_table(self, create, **kw):
+        table = create.element
+        preparer = self.preparer
+    
+        text = "\nCREATE "
+        if table._prefixes:
+            text += " ".join(table._prefixes) + " "
+    
+        text += "TABLE "
+        if create.if_not_exists:
+            text += "IF NOT EXISTS "
+    
+        text += preparer.format_table(table) + " "
+    
+        create_table_suffix = self.create_table_suffix(table)
+        if create_table_suffix:
+            text += create_table_suffix + " "
+    
+        text += "("
+    
+        separator = "\n"
+    
+        # if only one primary key, specify it along with the column
+        first_pk = False
+        for create_column in create.columns:
+            column = create_column.element
+            try:
+                processed = self.process(
+                    create_column, first_pk=column.primary_key and not first_pk
+                )
+                if processed is not None:
+                    text += separator
+                    separator = ", \n"
+                    text += "\t" + processed
+                if column.primary_key:
+                    first_pk = True
+            except exc.CompileError as ce:
+>               raise exc.CompileError(
+                    "(in table '%s', column '%s'): %s"
+                    % (table.description, column.name, ce.args[0])
+                ) from ce
+E               sqlalchemy.exc.CompileError: (in table 'users', column 'id'): Compiler <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B1B62EE0> can't render element of type UUID
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6532: CompileError
+____________________ ERROR at setup of test_refresh_token _____________________
+
+self = UUID()
+visitor = <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5AF775940>
+kw = {'type_expression': Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColumnDefault(<function uuid4 at 0x000001C59DCD0940>))}
+
+    def _compiler_dispatch(
+        self: Visitable, visitor: Any, **kw: Any
+    ) -> str:
+        """Look for an attribute named "visit_<visit_name>" on the
+        visitor, and call it with the same kw params.
+    
+        """
+        try:
+>           meth = getter(visitor)
+E           AttributeError: 'SQLiteTypeCompiler' object has no attribute 'visit_UUID'
+
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:139: AttributeError
+
+The above exception was the direct cause of the following exception:
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteDDLCompiler object at 0x000001C5B1468670>
+create = <sqlalchemy.sql.ddl.CreateTable object at 0x000001C5B1468A60>, kw = {}
+table = Table('users', MetaData(), Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColum...e=<users>, nullable=False, default=CallableColumnDefault(<function User.<lambda> at 0x000001C59DCD0D30>)), schema=None)
+preparer = <sqlalchemy.dialects.sqlite.base.SQLiteIdentifierPreparer object at 0x000001C5AF775700>
+text = '\nCREATE TABLE users (', create_table_suffix = '', separator = '\n'
+first_pk = False
+create_column = <sqlalchemy.sql.ddl.CreateColumn object at 0x000001C5B14687F0>
+
+    def visit_create_table(self, create, **kw):
+        table = create.element
+        preparer = self.preparer
+    
+        text = "\nCREATE "
+        if table._prefixes:
+            text += " ".join(table._prefixes) + " "
+    
+        text += "TABLE "
+        if create.if_not_exists:
+            text += "IF NOT EXISTS "
+    
+        text += preparer.format_table(table) + " "
+    
+        create_table_suffix = self.create_table_suffix(table)
+        if create_table_suffix:
+            text += create_table_suffix + " "
+    
+        text += "("
+    
+        separator = "\n"
+    
+        # if only one primary key, specify it along with the column
+        first_pk = False
+        for create_column in create.columns:
+            column = create_column.element
+            try:
+>               processed = self.process(
+                    create_column, first_pk=column.primary_key and not first_pk
+                )
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6522: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:912: in process
+    return obj._compiler_dispatch(self, **kwargs)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:143: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6553: in visit_create_column
+    text = self.get_column_specification(column, first_pk=first_pk)
+venv\lib\site-packages\sqlalchemy\dialects\sqlite\base.py:1534: in get_column_specification
+    coltype = self.dialect.type_compiler_instance.process(
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:957: in process
+    return type_._compiler_dispatch(self, **kw)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:141: in _compiler_dispatch
+    return visitor.visit_unsupported_compilation(self, err, **kw)  # type: ignore  # noqa: E501
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5AF775940>
+element = UUID()
+err = AttributeError("'SQLiteTypeCompiler' object has no attribute 'visit_UUID'")
+kw = {'type_expression': Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColumnDefault(<function uuid4 at 0x000001C59DCD0940>))}
+
+    def visit_unsupported_compilation(
+        self, element: Any, err: Exception, **kw: Any
+    ) -> NoReturn:
+>       raise exc.UnsupportedCompilationError(self, element) from err
+E       sqlalchemy.exc.UnsupportedCompilationError: Compiler <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5AF775940> can't render element of type UUID (Background on this error at: https://sqlalche.me/e/20/l7de)
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:962: UnsupportedCompilationError
+
+The above exception was the direct cause of the following exception:
+
+request = <SubRequest 'test_engine' for <Coroutine test_refresh_token>>
+kwargs = {}, func = <function test_engine at 0x000001C5AF2FF040>
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0x000001C5B166A280>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0x000001C5AF494C10>
+
+    @functools.wraps(fixture)
+    def _asyncgen_fixture_wrapper(request: SubRequest, **kwargs: Any):
+        func = _perhaps_rebind_fixture_func(
+            fixture, request.instance, fixturedef.unittest
+        )
+        event_loop = kwargs.pop(event_loop_fixture_id)
+        gen_obj = func(
+            **_add_kwargs(func, kwargs, event_loop_fixture_id, event_loop, request)
+        )
+    
+        async def setup():
+            res = await gen_obj.__anext__()
+            return res
+    
+        def finalizer() -> None:
+            """Yield again, to finalize."""
+    
+            async def async_finalizer() -> None:
+                try:
+                    await gen_obj.__anext__()
+                except StopAsyncIteration:
+                    pass
+                else:
+                    msg = "Async generator fixture didn't stop."
+                    msg += "Yield only once."
+                    raise ValueError(msg)
+    
+            event_loop.run_until_complete(async_finalizer())
+    
+>       result = event_loop.run_until_complete(setup())
+
+venv\lib\site-packages\pytest_asyncio\plugin.py:337: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Program Files\Python39\lib\asyncio\base_events.py:642: in run_until_complete
+    return future.result()
+venv\lib\site-packages\pytest_asyncio\plugin.py:319: in setup
+    res = await gen_obj.__anext__()
+tests\conftest.py:43: in test_engine
+    await conn.run_sync(Base.metadata.create_all)
+venv\lib\site-packages\sqlalchemy\ext\asyncio\engine.py:891: in run_sync
+    return await greenlet_spawn(fn, self._proxied, *arg, **kw)
+venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py:202: in greenlet_spawn
+    result = context.switch(value)
+venv\lib\site-packages\sqlalchemy\sql\schema.py:5832: in create_all
+    bind._run_ddl_visitor(
+venv\lib\site-packages\sqlalchemy\engine\base.py:2448: in _run_ddl_visitor
+    visitorcallable(self.dialect, self, **kwargs).traverse_single(element)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:671: in traverse_single
+    return meth(obj, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:919: in visit_metadata
+    self.traverse_single(
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:671: in traverse_single
+    return meth(obj, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:952: in visit_table
+    CreateTable(
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:315: in _invoke_with
+    return bind.execute(self)
+venv\lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:181: in _execute_on_connection
+    return connection._execute_ddl(
+venv\lib\site-packages\sqlalchemy\engine\base.py:1525: in _execute_ddl
+    compiled = ddl.compile(
+venv\lib\site-packages\sqlalchemy\sql\elements.py:309: in compile
+    return self._compiler(dialect, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:69: in _compiler
+    return dialect.ddl_compiler(dialect, self, **kw)
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:867: in __init__
+    self.string = self.process(self.statement, **compile_kwargs)
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:912: in process
+    return obj._compiler_dispatch(self, **kwargs)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:143: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteDDLCompiler object at 0x000001C5B1468670>
+create = <sqlalchemy.sql.ddl.CreateTable object at 0x000001C5B1468A60>, kw = {}
+table = Table('users', MetaData(), Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColum...e=<users>, nullable=False, default=CallableColumnDefault(<function User.<lambda> at 0x000001C59DCD0D30>)), schema=None)
+preparer = <sqlalchemy.dialects.sqlite.base.SQLiteIdentifierPreparer object at 0x000001C5AF775700>
+text = '\nCREATE TABLE users (', create_table_suffix = '', separator = '\n'
+first_pk = False
+create_column = <sqlalchemy.sql.ddl.CreateColumn object at 0x000001C5B14687F0>
+
+    def visit_create_table(self, create, **kw):
+        table = create.element
+        preparer = self.preparer
+    
+        text = "\nCREATE "
+        if table._prefixes:
+            text += " ".join(table._prefixes) + " "
+    
+        text += "TABLE "
+        if create.if_not_exists:
+            text += "IF NOT EXISTS "
+    
+        text += preparer.format_table(table) + " "
+    
+        create_table_suffix = self.create_table_suffix(table)
+        if create_table_suffix:
+            text += create_table_suffix + " "
+    
+        text += "("
+    
+        separator = "\n"
+    
+        # if only one primary key, specify it along with the column
+        first_pk = False
+        for create_column in create.columns:
+            column = create_column.element
+            try:
+                processed = self.process(
+                    create_column, first_pk=column.primary_key and not first_pk
+                )
+                if processed is not None:
+                    text += separator
+                    separator = ", \n"
+                    text += "\t" + processed
+                if column.primary_key:
+                    first_pk = True
+            except exc.CompileError as ce:
+>               raise exc.CompileError(
+                    "(in table '%s', column '%s'): %s"
+                    % (table.description, column.name, ce.args[0])
+                ) from ce
+E               sqlalchemy.exc.CompileError: (in table 'users', column 'id'): Compiler <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5AF775940> can't render element of type UUID
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6532: CompileError
+___________________ ERROR at setup of test_generate_report ____________________
+
+self = UUID()
+visitor = <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B13F2250>
+kw = {'type_expression': Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColumnDefault(<function uuid4 at 0x000001C59DCD0940>))}
+
+    def _compiler_dispatch(
+        self: Visitable, visitor: Any, **kw: Any
+    ) -> str:
+        """Look for an attribute named "visit_<visit_name>" on the
+        visitor, and call it with the same kw params.
+    
+        """
+        try:
+>           meth = getter(visitor)
+E           AttributeError: 'SQLiteTypeCompiler' object has no attribute 'visit_UUID'
+
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:139: AttributeError
+
+The above exception was the direct cause of the following exception:
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteDDLCompiler object at 0x000001C5AFA13C70>
+create = <sqlalchemy.sql.ddl.CreateTable object at 0x000001C5AFA136A0>, kw = {}
+table = Table('users', MetaData(), Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColum...e=<users>, nullable=False, default=CallableColumnDefault(<function User.<lambda> at 0x000001C59DCD0D30>)), schema=None)
+preparer = <sqlalchemy.dialects.sqlite.base.SQLiteIdentifierPreparer object at 0x000001C5B13F22B0>
+text = '\nCREATE TABLE users (', create_table_suffix = '', separator = '\n'
+first_pk = False
+create_column = <sqlalchemy.sql.ddl.CreateColumn object at 0x000001C5AFA13DC0>
+
+    def visit_create_table(self, create, **kw):
+        table = create.element
+        preparer = self.preparer
+    
+        text = "\nCREATE "
+        if table._prefixes:
+            text += " ".join(table._prefixes) + " "
+    
+        text += "TABLE "
+        if create.if_not_exists:
+            text += "IF NOT EXISTS "
+    
+        text += preparer.format_table(table) + " "
+    
+        create_table_suffix = self.create_table_suffix(table)
+        if create_table_suffix:
+            text += create_table_suffix + " "
+    
+        text += "("
+    
+        separator = "\n"
+    
+        # if only one primary key, specify it along with the column
+        first_pk = False
+        for create_column in create.columns:
+            column = create_column.element
+            try:
+>               processed = self.process(
+                    create_column, first_pk=column.primary_key and not first_pk
+                )
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6522: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:912: in process
+    return obj._compiler_dispatch(self, **kwargs)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:143: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6553: in visit_create_column
+    text = self.get_column_specification(column, first_pk=first_pk)
+venv\lib\site-packages\sqlalchemy\dialects\sqlite\base.py:1534: in get_column_specification
+    coltype = self.dialect.type_compiler_instance.process(
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:957: in process
+    return type_._compiler_dispatch(self, **kw)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:141: in _compiler_dispatch
+    return visitor.visit_unsupported_compilation(self, err, **kw)  # type: ignore  # noqa: E501
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B13F2250>
+element = UUID()
+err = AttributeError("'SQLiteTypeCompiler' object has no attribute 'visit_UUID'")
+kw = {'type_expression': Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColumnDefault(<function uuid4 at 0x000001C59DCD0940>))}
+
+    def visit_unsupported_compilation(
+        self, element: Any, err: Exception, **kw: Any
+    ) -> NoReturn:
+>       raise exc.UnsupportedCompilationError(self, element) from err
+E       sqlalchemy.exc.UnsupportedCompilationError: Compiler <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B13F2250> can't render element of type UUID (Background on this error at: https://sqlalche.me/e/20/l7de)
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:962: UnsupportedCompilationError
+
+The above exception was the direct cause of the following exception:
+
+request = <SubRequest 'test_engine' for <Coroutine test_generate_report>>
+kwargs = {}, func = <function test_engine at 0x000001C5AF2FF040>
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0x000001C5B14670D0>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0x000001C5B1467D30>
+
+    @functools.wraps(fixture)
+    def _asyncgen_fixture_wrapper(request: SubRequest, **kwargs: Any):
+        func = _perhaps_rebind_fixture_func(
+            fixture, request.instance, fixturedef.unittest
+        )
+        event_loop = kwargs.pop(event_loop_fixture_id)
+        gen_obj = func(
+            **_add_kwargs(func, kwargs, event_loop_fixture_id, event_loop, request)
+        )
+    
+        async def setup():
+            res = await gen_obj.__anext__()
+            return res
+    
+        def finalizer() -> None:
+            """Yield again, to finalize."""
+    
+            async def async_finalizer() -> None:
+                try:
+                    await gen_obj.__anext__()
+                except StopAsyncIteration:
+                    pass
+                else:
+                    msg = "Async generator fixture didn't stop."
+                    msg += "Yield only once."
+                    raise ValueError(msg)
+    
+            event_loop.run_until_complete(async_finalizer())
+    
+>       result = event_loop.run_until_complete(setup())
+
+venv\lib\site-packages\pytest_asyncio\plugin.py:337: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Program Files\Python39\lib\asyncio\base_events.py:642: in run_until_complete
+    return future.result()
+venv\lib\site-packages\pytest_asyncio\plugin.py:319: in setup
+    res = await gen_obj.__anext__()
+tests\conftest.py:43: in test_engine
+    await conn.run_sync(Base.metadata.create_all)
+venv\lib\site-packages\sqlalchemy\ext\asyncio\engine.py:891: in run_sync
+    return await greenlet_spawn(fn, self._proxied, *arg, **kw)
+venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py:202: in greenlet_spawn
+    result = context.switch(value)
+venv\lib\site-packages\sqlalchemy\sql\schema.py:5832: in create_all
+    bind._run_ddl_visitor(
+venv\lib\site-packages\sqlalchemy\engine\base.py:2448: in _run_ddl_visitor
+    visitorcallable(self.dialect, self, **kwargs).traverse_single(element)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:671: in traverse_single
+    return meth(obj, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:919: in visit_metadata
+    self.traverse_single(
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:671: in traverse_single
+    return meth(obj, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:952: in visit_table
+    CreateTable(
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:315: in _invoke_with
+    return bind.execute(self)
+venv\lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:181: in _execute_on_connection
+    return connection._execute_ddl(
+venv\lib\site-packages\sqlalchemy\engine\base.py:1525: in _execute_ddl
+    compiled = ddl.compile(
+venv\lib\site-packages\sqlalchemy\sql\elements.py:309: in compile
+    return self._compiler(dialect, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:69: in _compiler
+    return dialect.ddl_compiler(dialect, self, **kw)
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:867: in __init__
+    self.string = self.process(self.statement, **compile_kwargs)
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:912: in process
+    return obj._compiler_dispatch(self, **kwargs)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:143: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteDDLCompiler object at 0x000001C5AFA13C70>
+create = <sqlalchemy.sql.ddl.CreateTable object at 0x000001C5AFA136A0>, kw = {}
+table = Table('users', MetaData(), Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColum...e=<users>, nullable=False, default=CallableColumnDefault(<function User.<lambda> at 0x000001C59DCD0D30>)), schema=None)
+preparer = <sqlalchemy.dialects.sqlite.base.SQLiteIdentifierPreparer object at 0x000001C5B13F22B0>
+text = '\nCREATE TABLE users (', create_table_suffix = '', separator = '\n'
+first_pk = False
+create_column = <sqlalchemy.sql.ddl.CreateColumn object at 0x000001C5AFA13DC0>
+
+    def visit_create_table(self, create, **kw):
+        table = create.element
+        preparer = self.preparer
+    
+        text = "\nCREATE "
+        if table._prefixes:
+            text += " ".join(table._prefixes) + " "
+    
+        text += "TABLE "
+        if create.if_not_exists:
+            text += "IF NOT EXISTS "
+    
+        text += preparer.format_table(table) + " "
+    
+        create_table_suffix = self.create_table_suffix(table)
+        if create_table_suffix:
+            text += create_table_suffix + " "
+    
+        text += "("
+    
+        separator = "\n"
+    
+        # if only one primary key, specify it along with the column
+        first_pk = False
+        for create_column in create.columns:
+            column = create_column.element
+            try:
+                processed = self.process(
+                    create_column, first_pk=column.primary_key and not first_pk
+                )
+                if processed is not None:
+                    text += separator
+                    separator = ", \n"
+                    text += "\t" + processed
+                if column.primary_key:
+                    first_pk = True
+            except exc.CompileError as ce:
+>               raise exc.CompileError(
+                    "(in table '%s', column '%s'): %s"
+                    % (table.description, column.name, ce.args[0])
+                ) from ce
+E               sqlalchemy.exc.CompileError: (in table 'users', column 'id'): Compiler <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B13F2250> can't render element of type UUID
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6532: CompileError
+___________ ERROR at setup of test_generate_report_invalid_template ___________
+
+self = UUID()
+visitor = <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B1B30A30>
+kw = {'type_expression': Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColumnDefault(<function uuid4 at 0x000001C59DCD0940>))}
+
+    def _compiler_dispatch(
+        self: Visitable, visitor: Any, **kw: Any
+    ) -> str:
+        """Look for an attribute named "visit_<visit_name>" on the
+        visitor, and call it with the same kw params.
+    
+        """
+        try:
+>           meth = getter(visitor)
+E           AttributeError: 'SQLiteTypeCompiler' object has no attribute 'visit_UUID'
+
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:139: AttributeError
+
+The above exception was the direct cause of the following exception:
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteDDLCompiler object at 0x000001C5AF8078E0>
+create = <sqlalchemy.sql.ddl.CreateTable object at 0x000001C5AF807280>, kw = {}
+table = Table('users', MetaData(), Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColum...e=<users>, nullable=False, default=CallableColumnDefault(<function User.<lambda> at 0x000001C59DCD0D30>)), schema=None)
+preparer = <sqlalchemy.dialects.sqlite.base.SQLiteIdentifierPreparer object at 0x000001C5B1B30E80>
+text = '\nCREATE TABLE users (', create_table_suffix = '', separator = '\n'
+first_pk = False
+create_column = <sqlalchemy.sql.ddl.CreateColumn object at 0x000001C5AF8074C0>
+
+    def visit_create_table(self, create, **kw):
+        table = create.element
+        preparer = self.preparer
+    
+        text = "\nCREATE "
+        if table._prefixes:
+            text += " ".join(table._prefixes) + " "
+    
+        text += "TABLE "
+        if create.if_not_exists:
+            text += "IF NOT EXISTS "
+    
+        text += preparer.format_table(table) + " "
+    
+        create_table_suffix = self.create_table_suffix(table)
+        if create_table_suffix:
+            text += create_table_suffix + " "
+    
+        text += "("
+    
+        separator = "\n"
+    
+        # if only one primary key, specify it along with the column
+        first_pk = False
+        for create_column in create.columns:
+            column = create_column.element
+            try:
+>               processed = self.process(
+                    create_column, first_pk=column.primary_key and not first_pk
+                )
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6522: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:912: in process
+    return obj._compiler_dispatch(self, **kwargs)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:143: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6553: in visit_create_column
+    text = self.get_column_specification(column, first_pk=first_pk)
+venv\lib\site-packages\sqlalchemy\dialects\sqlite\base.py:1534: in get_column_specification
+    coltype = self.dialect.type_compiler_instance.process(
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:957: in process
+    return type_._compiler_dispatch(self, **kw)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:141: in _compiler_dispatch
+    return visitor.visit_unsupported_compilation(self, err, **kw)  # type: ignore  # noqa: E501
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B1B30A30>
+element = UUID()
+err = AttributeError("'SQLiteTypeCompiler' object has no attribute 'visit_UUID'")
+kw = {'type_expression': Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColumnDefault(<function uuid4 at 0x000001C59DCD0940>))}
+
+    def visit_unsupported_compilation(
+        self, element: Any, err: Exception, **kw: Any
+    ) -> NoReturn:
+>       raise exc.UnsupportedCompilationError(self, element) from err
+E       sqlalchemy.exc.UnsupportedCompilationError: Compiler <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B1B30A30> can't render element of type UUID (Background on this error at: https://sqlalche.me/e/20/l7de)
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:962: UnsupportedCompilationError
+
+The above exception was the direct cause of the following exception:
+
+request = <SubRequest 'test_engine' for <Coroutine test_generate_report_invalid_template>>
+kwargs = {}, func = <function test_engine at 0x000001C5AF2FF040>
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0x000001C5AF992160>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0x000001C5AF992700>
+
+    @functools.wraps(fixture)
+    def _asyncgen_fixture_wrapper(request: SubRequest, **kwargs: Any):
+        func = _perhaps_rebind_fixture_func(
+            fixture, request.instance, fixturedef.unittest
+        )
+        event_loop = kwargs.pop(event_loop_fixture_id)
+        gen_obj = func(
+            **_add_kwargs(func, kwargs, event_loop_fixture_id, event_loop, request)
+        )
+    
+        async def setup():
+            res = await gen_obj.__anext__()
+            return res
+    
+        def finalizer() -> None:
+            """Yield again, to finalize."""
+    
+            async def async_finalizer() -> None:
+                try:
+                    await gen_obj.__anext__()
+                except StopAsyncIteration:
+                    pass
+                else:
+                    msg = "Async generator fixture didn't stop."
+                    msg += "Yield only once."
+                    raise ValueError(msg)
+    
+            event_loop.run_until_complete(async_finalizer())
+    
+>       result = event_loop.run_until_complete(setup())
+
+venv\lib\site-packages\pytest_asyncio\plugin.py:337: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Program Files\Python39\lib\asyncio\base_events.py:642: in run_until_complete
+    return future.result()
+venv\lib\site-packages\pytest_asyncio\plugin.py:319: in setup
+    res = await gen_obj.__anext__()
+tests\conftest.py:43: in test_engine
+    await conn.run_sync(Base.metadata.create_all)
+venv\lib\site-packages\sqlalchemy\ext\asyncio\engine.py:891: in run_sync
+    return await greenlet_spawn(fn, self._proxied, *arg, **kw)
+venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py:202: in greenlet_spawn
+    result = context.switch(value)
+venv\lib\site-packages\sqlalchemy\sql\schema.py:5832: in create_all
+    bind._run_ddl_visitor(
+venv\lib\site-packages\sqlalchemy\engine\base.py:2448: in _run_ddl_visitor
+    visitorcallable(self.dialect, self, **kwargs).traverse_single(element)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:671: in traverse_single
+    return meth(obj, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:919: in visit_metadata
+    self.traverse_single(
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:671: in traverse_single
+    return meth(obj, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:952: in visit_table
+    CreateTable(
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:315: in _invoke_with
+    return bind.execute(self)
+venv\lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:181: in _execute_on_connection
+    return connection._execute_ddl(
+venv\lib\site-packages\sqlalchemy\engine\base.py:1525: in _execute_ddl
+    compiled = ddl.compile(
+venv\lib\site-packages\sqlalchemy\sql\elements.py:309: in compile
+    return self._compiler(dialect, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:69: in _compiler
+    return dialect.ddl_compiler(dialect, self, **kw)
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:867: in __init__
+    self.string = self.process(self.statement, **compile_kwargs)
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:912: in process
+    return obj._compiler_dispatch(self, **kwargs)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:143: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteDDLCompiler object at 0x000001C5AF8078E0>
+create = <sqlalchemy.sql.ddl.CreateTable object at 0x000001C5AF807280>, kw = {}
+table = Table('users', MetaData(), Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColum...e=<users>, nullable=False, default=CallableColumnDefault(<function User.<lambda> at 0x000001C59DCD0D30>)), schema=None)
+preparer = <sqlalchemy.dialects.sqlite.base.SQLiteIdentifierPreparer object at 0x000001C5B1B30E80>
+text = '\nCREATE TABLE users (', create_table_suffix = '', separator = '\n'
+first_pk = False
+create_column = <sqlalchemy.sql.ddl.CreateColumn object at 0x000001C5AF8074C0>
+
+    def visit_create_table(self, create, **kw):
+        table = create.element
+        preparer = self.preparer
+    
+        text = "\nCREATE "
+        if table._prefixes:
+            text += " ".join(table._prefixes) + " "
+    
+        text += "TABLE "
+        if create.if_not_exists:
+            text += "IF NOT EXISTS "
+    
+        text += preparer.format_table(table) + " "
+    
+        create_table_suffix = self.create_table_suffix(table)
+        if create_table_suffix:
+            text += create_table_suffix + " "
+    
+        text += "("
+    
+        separator = "\n"
+    
+        # if only one primary key, specify it along with the column
+        first_pk = False
+        for create_column in create.columns:
+            column = create_column.element
+            try:
+                processed = self.process(
+                    create_column, first_pk=column.primary_key and not first_pk
+                )
+                if processed is not None:
+                    text += separator
+                    separator = ", \n"
+                    text += "\t" + processed
+                if column.primary_key:
+                    first_pk = True
+            except exc.CompileError as ce:
+>               raise exc.CompileError(
+                    "(in table '%s', column '%s'): %s"
+                    % (table.description, column.name, ce.args[0])
+                ) from ce
+E               sqlalchemy.exc.CompileError: (in table 'users', column 'id'): Compiler <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B1B30A30> can't render element of type UUID
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6532: CompileError
+_____________________ ERROR at setup of test_list_reports _____________________
+
+self = UUID()
+visitor = <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B0F57430>
+kw = {'type_expression': Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColumnDefault(<function uuid4 at 0x000001C59DCD0940>))}
+
+    def _compiler_dispatch(
+        self: Visitable, visitor: Any, **kw: Any
+    ) -> str:
+        """Look for an attribute named "visit_<visit_name>" on the
+        visitor, and call it with the same kw params.
+    
+        """
+        try:
+>           meth = getter(visitor)
+E           AttributeError: 'SQLiteTypeCompiler' object has no attribute 'visit_UUID'
+
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:139: AttributeError
+
+The above exception was the direct cause of the following exception:
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteDDLCompiler object at 0x000001C5B14904F0>
+create = <sqlalchemy.sql.ddl.CreateTable object at 0x000001C5B1490610>, kw = {}
+table = Table('users', MetaData(), Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColum...e=<users>, nullable=False, default=CallableColumnDefault(<function User.<lambda> at 0x000001C59DCD0D30>)), schema=None)
+preparer = <sqlalchemy.dialects.sqlite.base.SQLiteIdentifierPreparer object at 0x000001C5B0F57460>
+text = '\nCREATE TABLE users (', create_table_suffix = '', separator = '\n'
+first_pk = False
+create_column = <sqlalchemy.sql.ddl.CreateColumn object at 0x000001C5B1490A30>
+
+    def visit_create_table(self, create, **kw):
+        table = create.element
+        preparer = self.preparer
+    
+        text = "\nCREATE "
+        if table._prefixes:
+            text += " ".join(table._prefixes) + " "
+    
+        text += "TABLE "
+        if create.if_not_exists:
+            text += "IF NOT EXISTS "
+    
+        text += preparer.format_table(table) + " "
+    
+        create_table_suffix = self.create_table_suffix(table)
+        if create_table_suffix:
+            text += create_table_suffix + " "
+    
+        text += "("
+    
+        separator = "\n"
+    
+        # if only one primary key, specify it along with the column
+        first_pk = False
+        for create_column in create.columns:
+            column = create_column.element
+            try:
+>               processed = self.process(
+                    create_column, first_pk=column.primary_key and not first_pk
+                )
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6522: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:912: in process
+    return obj._compiler_dispatch(self, **kwargs)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:143: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6553: in visit_create_column
+    text = self.get_column_specification(column, first_pk=first_pk)
+venv\lib\site-packages\sqlalchemy\dialects\sqlite\base.py:1534: in get_column_specification
+    coltype = self.dialect.type_compiler_instance.process(
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:957: in process
+    return type_._compiler_dispatch(self, **kw)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:141: in _compiler_dispatch
+    return visitor.visit_unsupported_compilation(self, err, **kw)  # type: ignore  # noqa: E501
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B0F57430>
+element = UUID()
+err = AttributeError("'SQLiteTypeCompiler' object has no attribute 'visit_UUID'")
+kw = {'type_expression': Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColumnDefault(<function uuid4 at 0x000001C59DCD0940>))}
+
+    def visit_unsupported_compilation(
+        self, element: Any, err: Exception, **kw: Any
+    ) -> NoReturn:
+>       raise exc.UnsupportedCompilationError(self, element) from err
+E       sqlalchemy.exc.UnsupportedCompilationError: Compiler <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B0F57430> can't render element of type UUID (Background on this error at: https://sqlalche.me/e/20/l7de)
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:962: UnsupportedCompilationError
+
+The above exception was the direct cause of the following exception:
+
+request = <SubRequest 'test_engine' for <Coroutine test_list_reports>>
+kwargs = {}, func = <function test_engine at 0x000001C5AF2FF040>
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0x000001C5AF98BD30>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0x000001C5B1162940>
+
+    @functools.wraps(fixture)
+    def _asyncgen_fixture_wrapper(request: SubRequest, **kwargs: Any):
+        func = _perhaps_rebind_fixture_func(
+            fixture, request.instance, fixturedef.unittest
+        )
+        event_loop = kwargs.pop(event_loop_fixture_id)
+        gen_obj = func(
+            **_add_kwargs(func, kwargs, event_loop_fixture_id, event_loop, request)
+        )
+    
+        async def setup():
+            res = await gen_obj.__anext__()
+            return res
+    
+        def finalizer() -> None:
+            """Yield again, to finalize."""
+    
+            async def async_finalizer() -> None:
+                try:
+                    await gen_obj.__anext__()
+                except StopAsyncIteration:
+                    pass
+                else:
+                    msg = "Async generator fixture didn't stop."
+                    msg += "Yield only once."
+                    raise ValueError(msg)
+    
+            event_loop.run_until_complete(async_finalizer())
+    
+>       result = event_loop.run_until_complete(setup())
+
+venv\lib\site-packages\pytest_asyncio\plugin.py:337: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Program Files\Python39\lib\asyncio\base_events.py:642: in run_until_complete
+    return future.result()
+venv\lib\site-packages\pytest_asyncio\plugin.py:319: in setup
+    res = await gen_obj.__anext__()
+tests\conftest.py:43: in test_engine
+    await conn.run_sync(Base.metadata.create_all)
+venv\lib\site-packages\sqlalchemy\ext\asyncio\engine.py:891: in run_sync
+    return await greenlet_spawn(fn, self._proxied, *arg, **kw)
+venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py:202: in greenlet_spawn
+    result = context.switch(value)
+venv\lib\site-packages\sqlalchemy\sql\schema.py:5832: in create_all
+    bind._run_ddl_visitor(
+venv\lib\site-packages\sqlalchemy\engine\base.py:2448: in _run_ddl_visitor
+    visitorcallable(self.dialect, self, **kwargs).traverse_single(element)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:671: in traverse_single
+    return meth(obj, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:919: in visit_metadata
+    self.traverse_single(
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:671: in traverse_single
+    return meth(obj, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:952: in visit_table
+    CreateTable(
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:315: in _invoke_with
+    return bind.execute(self)
+venv\lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:181: in _execute_on_connection
+    return connection._execute_ddl(
+venv\lib\site-packages\sqlalchemy\engine\base.py:1525: in _execute_ddl
+    compiled = ddl.compile(
+venv\lib\site-packages\sqlalchemy\sql\elements.py:309: in compile
+    return self._compiler(dialect, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:69: in _compiler
+    return dialect.ddl_compiler(dialect, self, **kw)
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:867: in __init__
+    self.string = self.process(self.statement, **compile_kwargs)
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:912: in process
+    return obj._compiler_dispatch(self, **kwargs)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:143: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteDDLCompiler object at 0x000001C5B14904F0>
+create = <sqlalchemy.sql.ddl.CreateTable object at 0x000001C5B1490610>, kw = {}
+table = Table('users', MetaData(), Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColum...e=<users>, nullable=False, default=CallableColumnDefault(<function User.<lambda> at 0x000001C59DCD0D30>)), schema=None)
+preparer = <sqlalchemy.dialects.sqlite.base.SQLiteIdentifierPreparer object at 0x000001C5B0F57460>
+text = '\nCREATE TABLE users (', create_table_suffix = '', separator = '\n'
+first_pk = False
+create_column = <sqlalchemy.sql.ddl.CreateColumn object at 0x000001C5B1490A30>
+
+    def visit_create_table(self, create, **kw):
+        table = create.element
+        preparer = self.preparer
+    
+        text = "\nCREATE "
+        if table._prefixes:
+            text += " ".join(table._prefixes) + " "
+    
+        text += "TABLE "
+        if create.if_not_exists:
+            text += "IF NOT EXISTS "
+    
+        text += preparer.format_table(table) + " "
+    
+        create_table_suffix = self.create_table_suffix(table)
+        if create_table_suffix:
+            text += create_table_suffix + " "
+    
+        text += "("
+    
+        separator = "\n"
+    
+        # if only one primary key, specify it along with the column
+        first_pk = False
+        for create_column in create.columns:
+            column = create_column.element
+            try:
+                processed = self.process(
+                    create_column, first_pk=column.primary_key and not first_pk
+                )
+                if processed is not None:
+                    text += separator
+                    separator = ", \n"
+                    text += "\t" + processed
+                if column.primary_key:
+                    first_pk = True
+            except exc.CompileError as ce:
+>               raise exc.CompileError(
+                    "(in table '%s', column '%s'): %s"
+                    % (table.description, column.name, ce.args[0])
+                ) from ce
+E               sqlalchemy.exc.CompileError: (in table 'users', column 'id'): Compiler <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B0F57430> can't render element of type UUID
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6532: CompileError
+______________ ERROR at setup of test_list_reports_unauthorized _______________
+
+self = UUID()
+visitor = <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B12FC400>
+kw = {'type_expression': Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColumnDefault(<function uuid4 at 0x000001C59DCD0940>))}
+
+    def _compiler_dispatch(
+        self: Visitable, visitor: Any, **kw: Any
+    ) -> str:
+        """Look for an attribute named "visit_<visit_name>" on the
+        visitor, and call it with the same kw params.
+    
+        """
+        try:
+>           meth = getter(visitor)
+E           AttributeError: 'SQLiteTypeCompiler' object has no attribute 'visit_UUID'
+
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:139: AttributeError
+
+The above exception was the direct cause of the following exception:
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteDDLCompiler object at 0x000001C5B16E8940>
+create = <sqlalchemy.sql.ddl.CreateTable object at 0x000001C5B16E80D0>, kw = {}
+table = Table('users', MetaData(), Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColum...e=<users>, nullable=False, default=CallableColumnDefault(<function User.<lambda> at 0x000001C59DCD0D30>)), schema=None)
+preparer = <sqlalchemy.dialects.sqlite.base.SQLiteIdentifierPreparer object at 0x000001C5B12FC430>
+text = '\nCREATE TABLE users (', create_table_suffix = '', separator = '\n'
+first_pk = False
+create_column = <sqlalchemy.sql.ddl.CreateColumn object at 0x000001C5B16E8310>
+
+    def visit_create_table(self, create, **kw):
+        table = create.element
+        preparer = self.preparer
+    
+        text = "\nCREATE "
+        if table._prefixes:
+            text += " ".join(table._prefixes) + " "
+    
+        text += "TABLE "
+        if create.if_not_exists:
+            text += "IF NOT EXISTS "
+    
+        text += preparer.format_table(table) + " "
+    
+        create_table_suffix = self.create_table_suffix(table)
+        if create_table_suffix:
+            text += create_table_suffix + " "
+    
+        text += "("
+    
+        separator = "\n"
+    
+        # if only one primary key, specify it along with the column
+        first_pk = False
+        for create_column in create.columns:
+            column = create_column.element
+            try:
+>               processed = self.process(
+                    create_column, first_pk=column.primary_key and not first_pk
+                )
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6522: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:912: in process
+    return obj._compiler_dispatch(self, **kwargs)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:143: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6553: in visit_create_column
+    text = self.get_column_specification(column, first_pk=first_pk)
+venv\lib\site-packages\sqlalchemy\dialects\sqlite\base.py:1534: in get_column_specification
+    coltype = self.dialect.type_compiler_instance.process(
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:957: in process
+    return type_._compiler_dispatch(self, **kw)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:141: in _compiler_dispatch
+    return visitor.visit_unsupported_compilation(self, err, **kw)  # type: ignore  # noqa: E501
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B12FC400>
+element = UUID()
+err = AttributeError("'SQLiteTypeCompiler' object has no attribute 'visit_UUID'")
+kw = {'type_expression': Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColumnDefault(<function uuid4 at 0x000001C59DCD0940>))}
+
+    def visit_unsupported_compilation(
+        self, element: Any, err: Exception, **kw: Any
+    ) -> NoReturn:
+>       raise exc.UnsupportedCompilationError(self, element) from err
+E       sqlalchemy.exc.UnsupportedCompilationError: Compiler <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B12FC400> can't render element of type UUID (Background on this error at: https://sqlalche.me/e/20/l7de)
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:962: UnsupportedCompilationError
+
+The above exception was the direct cause of the following exception:
+
+request = <SubRequest 'test_engine' for <Coroutine test_list_reports_unauthorized>>
+kwargs = {}, func = <function test_engine at 0x000001C5AF2FF040>
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0x000001C5AF992160>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0x000001C5AF494C10>
+
+    @functools.wraps(fixture)
+    def _asyncgen_fixture_wrapper(request: SubRequest, **kwargs: Any):
+        func = _perhaps_rebind_fixture_func(
+            fixture, request.instance, fixturedef.unittest
+        )
+        event_loop = kwargs.pop(event_loop_fixture_id)
+        gen_obj = func(
+            **_add_kwargs(func, kwargs, event_loop_fixture_id, event_loop, request)
+        )
+    
+        async def setup():
+            res = await gen_obj.__anext__()
+            return res
+    
+        def finalizer() -> None:
+            """Yield again, to finalize."""
+    
+            async def async_finalizer() -> None:
+                try:
+                    await gen_obj.__anext__()
+                except StopAsyncIteration:
+                    pass
+                else:
+                    msg = "Async generator fixture didn't stop."
+                    msg += "Yield only once."
+                    raise ValueError(msg)
+    
+            event_loop.run_until_complete(async_finalizer())
+    
+>       result = event_loop.run_until_complete(setup())
+
+venv\lib\site-packages\pytest_asyncio\plugin.py:337: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Program Files\Python39\lib\asyncio\base_events.py:642: in run_until_complete
+    return future.result()
+venv\lib\site-packages\pytest_asyncio\plugin.py:319: in setup
+    res = await gen_obj.__anext__()
+tests\conftest.py:43: in test_engine
+    await conn.run_sync(Base.metadata.create_all)
+venv\lib\site-packages\sqlalchemy\ext\asyncio\engine.py:891: in run_sync
+    return await greenlet_spawn(fn, self._proxied, *arg, **kw)
+venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py:202: in greenlet_spawn
+    result = context.switch(value)
+venv\lib\site-packages\sqlalchemy\sql\schema.py:5832: in create_all
+    bind._run_ddl_visitor(
+venv\lib\site-packages\sqlalchemy\engine\base.py:2448: in _run_ddl_visitor
+    visitorcallable(self.dialect, self, **kwargs).traverse_single(element)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:671: in traverse_single
+    return meth(obj, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:919: in visit_metadata
+    self.traverse_single(
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:671: in traverse_single
+    return meth(obj, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:952: in visit_table
+    CreateTable(
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:315: in _invoke_with
+    return bind.execute(self)
+venv\lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:181: in _execute_on_connection
+    return connection._execute_ddl(
+venv\lib\site-packages\sqlalchemy\engine\base.py:1525: in _execute_ddl
+    compiled = ddl.compile(
+venv\lib\site-packages\sqlalchemy\sql\elements.py:309: in compile
+    return self._compiler(dialect, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:69: in _compiler
+    return dialect.ddl_compiler(dialect, self, **kw)
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:867: in __init__
+    self.string = self.process(self.statement, **compile_kwargs)
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:912: in process
+    return obj._compiler_dispatch(self, **kwargs)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:143: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteDDLCompiler object at 0x000001C5B16E8940>
+create = <sqlalchemy.sql.ddl.CreateTable object at 0x000001C5B16E80D0>, kw = {}
+table = Table('users', MetaData(), Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColum...e=<users>, nullable=False, default=CallableColumnDefault(<function User.<lambda> at 0x000001C59DCD0D30>)), schema=None)
+preparer = <sqlalchemy.dialects.sqlite.base.SQLiteIdentifierPreparer object at 0x000001C5B12FC430>
+text = '\nCREATE TABLE users (', create_table_suffix = '', separator = '\n'
+first_pk = False
+create_column = <sqlalchemy.sql.ddl.CreateColumn object at 0x000001C5B16E8310>
+
+    def visit_create_table(self, create, **kw):
+        table = create.element
+        preparer = self.preparer
+    
+        text = "\nCREATE "
+        if table._prefixes:
+            text += " ".join(table._prefixes) + " "
+    
+        text += "TABLE "
+        if create.if_not_exists:
+            text += "IF NOT EXISTS "
+    
+        text += preparer.format_table(table) + " "
+    
+        create_table_suffix = self.create_table_suffix(table)
+        if create_table_suffix:
+            text += create_table_suffix + " "
+    
+        text += "("
+    
+        separator = "\n"
+    
+        # if only one primary key, specify it along with the column
+        first_pk = False
+        for create_column in create.columns:
+            column = create_column.element
+            try:
+                processed = self.process(
+                    create_column, first_pk=column.primary_key and not first_pk
+                )
+                if processed is not None:
+                    text += separator
+                    separator = ", \n"
+                    text += "\t" + processed
+                if column.primary_key:
+                    first_pk = True
+            except exc.CompileError as ce:
+>               raise exc.CompileError(
+                    "(in table '%s', column '%s'): %s"
+                    % (table.description, column.name, ce.args[0])
+                ) from ce
+E               sqlalchemy.exc.CompileError: (in table 'users', column 'id'): Compiler <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B12FC400> can't render element of type UUID
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6532: CompileError
+_________________ ERROR at setup of test_get_report_not_found _________________
+
+self = UUID()
+visitor = <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B17654F0>
+kw = {'type_expression': Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColumnDefault(<function uuid4 at 0x000001C59DCD0940>))}
+
+    def _compiler_dispatch(
+        self: Visitable, visitor: Any, **kw: Any
+    ) -> str:
+        """Look for an attribute named "visit_<visit_name>" on the
+        visitor, and call it with the same kw params.
+    
+        """
+        try:
+>           meth = getter(visitor)
+E           AttributeError: 'SQLiteTypeCompiler' object has no attribute 'visit_UUID'
+
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:139: AttributeError
+
+The above exception was the direct cause of the following exception:
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteDDLCompiler object at 0x000001C5AF82C7C0>
+create = <sqlalchemy.sql.ddl.CreateTable object at 0x000001C5AF82C430>, kw = {}
+table = Table('users', MetaData(), Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColum...e=<users>, nullable=False, default=CallableColumnDefault(<function User.<lambda> at 0x000001C59DCD0D30>)), schema=None)
+preparer = <sqlalchemy.dialects.sqlite.base.SQLiteIdentifierPreparer object at 0x000001C5B1765520>
+text = '\nCREATE TABLE users (', create_table_suffix = '', separator = '\n'
+first_pk = False
+create_column = <sqlalchemy.sql.ddl.CreateColumn object at 0x000001C5AF82C3D0>
+
+    def visit_create_table(self, create, **kw):
+        table = create.element
+        preparer = self.preparer
+    
+        text = "\nCREATE "
+        if table._prefixes:
+            text += " ".join(table._prefixes) + " "
+    
+        text += "TABLE "
+        if create.if_not_exists:
+            text += "IF NOT EXISTS "
+    
+        text += preparer.format_table(table) + " "
+    
+        create_table_suffix = self.create_table_suffix(table)
+        if create_table_suffix:
+            text += create_table_suffix + " "
+    
+        text += "("
+    
+        separator = "\n"
+    
+        # if only one primary key, specify it along with the column
+        first_pk = False
+        for create_column in create.columns:
+            column = create_column.element
+            try:
+>               processed = self.process(
+                    create_column, first_pk=column.primary_key and not first_pk
+                )
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6522: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:912: in process
+    return obj._compiler_dispatch(self, **kwargs)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:143: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6553: in visit_create_column
+    text = self.get_column_specification(column, first_pk=first_pk)
+venv\lib\site-packages\sqlalchemy\dialects\sqlite\base.py:1534: in get_column_specification
+    coltype = self.dialect.type_compiler_instance.process(
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:957: in process
+    return type_._compiler_dispatch(self, **kw)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:141: in _compiler_dispatch
+    return visitor.visit_unsupported_compilation(self, err, **kw)  # type: ignore  # noqa: E501
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B17654F0>
+element = UUID()
+err = AttributeError("'SQLiteTypeCompiler' object has no attribute 'visit_UUID'")
+kw = {'type_expression': Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColumnDefault(<function uuid4 at 0x000001C59DCD0940>))}
+
+    def visit_unsupported_compilation(
+        self, element: Any, err: Exception, **kw: Any
+    ) -> NoReturn:
+>       raise exc.UnsupportedCompilationError(self, element) from err
+E       sqlalchemy.exc.UnsupportedCompilationError: Compiler <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B17654F0> can't render element of type UUID (Background on this error at: https://sqlalche.me/e/20/l7de)
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:962: UnsupportedCompilationError
+
+The above exception was the direct cause of the following exception:
+
+request = <SubRequest 'test_engine' for <Coroutine test_get_report_not_found>>
+kwargs = {}, func = <function test_engine at 0x000001C5AF2FF040>
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0x000001C5B1182E50>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0x000001C5B1182D30>
+
+    @functools.wraps(fixture)
+    def _asyncgen_fixture_wrapper(request: SubRequest, **kwargs: Any):
+        func = _perhaps_rebind_fixture_func(
+            fixture, request.instance, fixturedef.unittest
+        )
+        event_loop = kwargs.pop(event_loop_fixture_id)
+        gen_obj = func(
+            **_add_kwargs(func, kwargs, event_loop_fixture_id, event_loop, request)
+        )
+    
+        async def setup():
+            res = await gen_obj.__anext__()
+            return res
+    
+        def finalizer() -> None:
+            """Yield again, to finalize."""
+    
+            async def async_finalizer() -> None:
+                try:
+                    await gen_obj.__anext__()
+                except StopAsyncIteration:
+                    pass
+                else:
+                    msg = "Async generator fixture didn't stop."
+                    msg += "Yield only once."
+                    raise ValueError(msg)
+    
+            event_loop.run_until_complete(async_finalizer())
+    
+>       result = event_loop.run_until_complete(setup())
+
+venv\lib\site-packages\pytest_asyncio\plugin.py:337: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Program Files\Python39\lib\asyncio\base_events.py:642: in run_until_complete
+    return future.result()
+venv\lib\site-packages\pytest_asyncio\plugin.py:319: in setup
+    res = await gen_obj.__anext__()
+tests\conftest.py:43: in test_engine
+    await conn.run_sync(Base.metadata.create_all)
+venv\lib\site-packages\sqlalchemy\ext\asyncio\engine.py:891: in run_sync
+    return await greenlet_spawn(fn, self._proxied, *arg, **kw)
+venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py:202: in greenlet_spawn
+    result = context.switch(value)
+venv\lib\site-packages\sqlalchemy\sql\schema.py:5832: in create_all
+    bind._run_ddl_visitor(
+venv\lib\site-packages\sqlalchemy\engine\base.py:2448: in _run_ddl_visitor
+    visitorcallable(self.dialect, self, **kwargs).traverse_single(element)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:671: in traverse_single
+    return meth(obj, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:919: in visit_metadata
+    self.traverse_single(
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:671: in traverse_single
+    return meth(obj, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:952: in visit_table
+    CreateTable(
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:315: in _invoke_with
+    return bind.execute(self)
+venv\lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:181: in _execute_on_connection
+    return connection._execute_ddl(
+venv\lib\site-packages\sqlalchemy\engine\base.py:1525: in _execute_ddl
+    compiled = ddl.compile(
+venv\lib\site-packages\sqlalchemy\sql\elements.py:309: in compile
+    return self._compiler(dialect, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:69: in _compiler
+    return dialect.ddl_compiler(dialect, self, **kw)
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:867: in __init__
+    self.string = self.process(self.statement, **compile_kwargs)
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:912: in process
+    return obj._compiler_dispatch(self, **kwargs)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:143: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteDDLCompiler object at 0x000001C5AF82C7C0>
+create = <sqlalchemy.sql.ddl.CreateTable object at 0x000001C5AF82C430>, kw = {}
+table = Table('users', MetaData(), Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColum...e=<users>, nullable=False, default=CallableColumnDefault(<function User.<lambda> at 0x000001C59DCD0D30>)), schema=None)
+preparer = <sqlalchemy.dialects.sqlite.base.SQLiteIdentifierPreparer object at 0x000001C5B1765520>
+text = '\nCREATE TABLE users (', create_table_suffix = '', separator = '\n'
+first_pk = False
+create_column = <sqlalchemy.sql.ddl.CreateColumn object at 0x000001C5AF82C3D0>
+
+    def visit_create_table(self, create, **kw):
+        table = create.element
+        preparer = self.preparer
+    
+        text = "\nCREATE "
+        if table._prefixes:
+            text += " ".join(table._prefixes) + " "
+    
+        text += "TABLE "
+        if create.if_not_exists:
+            text += "IF NOT EXISTS "
+    
+        text += preparer.format_table(table) + " "
+    
+        create_table_suffix = self.create_table_suffix(table)
+        if create_table_suffix:
+            text += create_table_suffix + " "
+    
+        text += "("
+    
+        separator = "\n"
+    
+        # if only one primary key, specify it along with the column
+        first_pk = False
+        for create_column in create.columns:
+            column = create_column.element
+            try:
+                processed = self.process(
+                    create_column, first_pk=column.primary_key and not first_pk
+                )
+                if processed is not None:
+                    text += separator
+                    separator = ", \n"
+                    text += "\t" + processed
+                if column.primary_key:
+                    first_pk = True
+            except exc.CompileError as ce:
+>               raise exc.CompileError(
+                    "(in table '%s', column '%s'): %s"
+                    % (table.description, column.name, ce.args[0])
+                ) from ce
+E               sqlalchemy.exc.CompileError: (in table 'users', column 'id'): Compiler <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B17654F0> can't render element of type UUID
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6532: CompileError
+___________________ ERROR at setup of test_create_schedule ____________________
+
+self = UUID()
+visitor = <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B10E8430>
+kw = {'type_expression': Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColumnDefault(<function uuid4 at 0x000001C59DCD0940>))}
+
+    def _compiler_dispatch(
+        self: Visitable, visitor: Any, **kw: Any
+    ) -> str:
+        """Look for an attribute named "visit_<visit_name>" on the
+        visitor, and call it with the same kw params.
+    
+        """
+        try:
+>           meth = getter(visitor)
+E           AttributeError: 'SQLiteTypeCompiler' object has no attribute 'visit_UUID'
+
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:139: AttributeError
+
+The above exception was the direct cause of the following exception:
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteDDLCompiler object at 0x000001C5AFAEB610>
+create = <sqlalchemy.sql.ddl.CreateTable object at 0x000001C5AFAEBC40>, kw = {}
+table = Table('users', MetaData(), Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColum...e=<users>, nullable=False, default=CallableColumnDefault(<function User.<lambda> at 0x000001C59DCD0D30>)), schema=None)
+preparer = <sqlalchemy.dialects.sqlite.base.SQLiteIdentifierPreparer object at 0x000001C5B10E8490>
+text = '\nCREATE TABLE users (', create_table_suffix = '', separator = '\n'
+first_pk = False
+create_column = <sqlalchemy.sql.ddl.CreateColumn object at 0x000001C5AFAEBBE0>
+
+    def visit_create_table(self, create, **kw):
+        table = create.element
+        preparer = self.preparer
+    
+        text = "\nCREATE "
+        if table._prefixes:
+            text += " ".join(table._prefixes) + " "
+    
+        text += "TABLE "
+        if create.if_not_exists:
+            text += "IF NOT EXISTS "
+    
+        text += preparer.format_table(table) + " "
+    
+        create_table_suffix = self.create_table_suffix(table)
+        if create_table_suffix:
+            text += create_table_suffix + " "
+    
+        text += "("
+    
+        separator = "\n"
+    
+        # if only one primary key, specify it along with the column
+        first_pk = False
+        for create_column in create.columns:
+            column = create_column.element
+            try:
+>               processed = self.process(
+                    create_column, first_pk=column.primary_key and not first_pk
+                )
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6522: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:912: in process
+    return obj._compiler_dispatch(self, **kwargs)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:143: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6553: in visit_create_column
+    text = self.get_column_specification(column, first_pk=first_pk)
+venv\lib\site-packages\sqlalchemy\dialects\sqlite\base.py:1534: in get_column_specification
+    coltype = self.dialect.type_compiler_instance.process(
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:957: in process
+    return type_._compiler_dispatch(self, **kw)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:141: in _compiler_dispatch
+    return visitor.visit_unsupported_compilation(self, err, **kw)  # type: ignore  # noqa: E501
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B10E8430>
+element = UUID()
+err = AttributeError("'SQLiteTypeCompiler' object has no attribute 'visit_UUID'")
+kw = {'type_expression': Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColumnDefault(<function uuid4 at 0x000001C59DCD0940>))}
+
+    def visit_unsupported_compilation(
+        self, element: Any, err: Exception, **kw: Any
+    ) -> NoReturn:
+>       raise exc.UnsupportedCompilationError(self, element) from err
+E       sqlalchemy.exc.UnsupportedCompilationError: Compiler <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B10E8430> can't render element of type UUID (Background on this error at: https://sqlalche.me/e/20/l7de)
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:962: UnsupportedCompilationError
+
+The above exception was the direct cause of the following exception:
+
+request = <SubRequest 'test_engine' for <Coroutine test_create_schedule>>
+kwargs = {}, func = <function test_engine at 0x000001C5AF2FF040>
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0x000001C5AF4943A0>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0x000001C5AF494C10>
+
+    @functools.wraps(fixture)
+    def _asyncgen_fixture_wrapper(request: SubRequest, **kwargs: Any):
+        func = _perhaps_rebind_fixture_func(
+            fixture, request.instance, fixturedef.unittest
+        )
+        event_loop = kwargs.pop(event_loop_fixture_id)
+        gen_obj = func(
+            **_add_kwargs(func, kwargs, event_loop_fixture_id, event_loop, request)
+        )
+    
+        async def setup():
+            res = await gen_obj.__anext__()
+            return res
+    
+        def finalizer() -> None:
+            """Yield again, to finalize."""
+    
+            async def async_finalizer() -> None:
+                try:
+                    await gen_obj.__anext__()
+                except StopAsyncIteration:
+                    pass
+                else:
+                    msg = "Async generator fixture didn't stop."
+                    msg += "Yield only once."
+                    raise ValueError(msg)
+    
+            event_loop.run_until_complete(async_finalizer())
+    
+>       result = event_loop.run_until_complete(setup())
+
+venv\lib\site-packages\pytest_asyncio\plugin.py:337: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Program Files\Python39\lib\asyncio\base_events.py:642: in run_until_complete
+    return future.result()
+venv\lib\site-packages\pytest_asyncio\plugin.py:319: in setup
+    res = await gen_obj.__anext__()
+tests\conftest.py:43: in test_engine
+    await conn.run_sync(Base.metadata.create_all)
+venv\lib\site-packages\sqlalchemy\ext\asyncio\engine.py:891: in run_sync
+    return await greenlet_spawn(fn, self._proxied, *arg, **kw)
+venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py:202: in greenlet_spawn
+    result = context.switch(value)
+venv\lib\site-packages\sqlalchemy\sql\schema.py:5832: in create_all
+    bind._run_ddl_visitor(
+venv\lib\site-packages\sqlalchemy\engine\base.py:2448: in _run_ddl_visitor
+    visitorcallable(self.dialect, self, **kwargs).traverse_single(element)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:671: in traverse_single
+    return meth(obj, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:919: in visit_metadata
+    self.traverse_single(
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:671: in traverse_single
+    return meth(obj, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:952: in visit_table
+    CreateTable(
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:315: in _invoke_with
+    return bind.execute(self)
+venv\lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:181: in _execute_on_connection
+    return connection._execute_ddl(
+venv\lib\site-packages\sqlalchemy\engine\base.py:1525: in _execute_ddl
+    compiled = ddl.compile(
+venv\lib\site-packages\sqlalchemy\sql\elements.py:309: in compile
+    return self._compiler(dialect, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:69: in _compiler
+    return dialect.ddl_compiler(dialect, self, **kw)
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:867: in __init__
+    self.string = self.process(self.statement, **compile_kwargs)
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:912: in process
+    return obj._compiler_dispatch(self, **kwargs)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:143: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteDDLCompiler object at 0x000001C5AFAEB610>
+create = <sqlalchemy.sql.ddl.CreateTable object at 0x000001C5AFAEBC40>, kw = {}
+table = Table('users', MetaData(), Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColum...e=<users>, nullable=False, default=CallableColumnDefault(<function User.<lambda> at 0x000001C59DCD0D30>)), schema=None)
+preparer = <sqlalchemy.dialects.sqlite.base.SQLiteIdentifierPreparer object at 0x000001C5B10E8490>
+text = '\nCREATE TABLE users (', create_table_suffix = '', separator = '\n'
+first_pk = False
+create_column = <sqlalchemy.sql.ddl.CreateColumn object at 0x000001C5AFAEBBE0>
+
+    def visit_create_table(self, create, **kw):
+        table = create.element
+        preparer = self.preparer
+    
+        text = "\nCREATE "
+        if table._prefixes:
+            text += " ".join(table._prefixes) + " "
+    
+        text += "TABLE "
+        if create.if_not_exists:
+            text += "IF NOT EXISTS "
+    
+        text += preparer.format_table(table) + " "
+    
+        create_table_suffix = self.create_table_suffix(table)
+        if create_table_suffix:
+            text += create_table_suffix + " "
+    
+        text += "("
+    
+        separator = "\n"
+    
+        # if only one primary key, specify it along with the column
+        first_pk = False
+        for create_column in create.columns:
+            column = create_column.element
+            try:
+                processed = self.process(
+                    create_column, first_pk=column.primary_key and not first_pk
+                )
+                if processed is not None:
+                    text += separator
+                    separator = ", \n"
+                    text += "\t" + processed
+                if column.primary_key:
+                    first_pk = True
+            except exc.CompileError as ce:
+>               raise exc.CompileError(
+                    "(in table '%s', column '%s'): %s"
+                    % (table.description, column.name, ce.args[0])
+                ) from ce
+E               sqlalchemy.exc.CompileError: (in table 'users', column 'id'): Compiler <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B10E8430> can't render element of type UUID
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6532: CompileError
+_____________ ERROR at setup of test_create_schedule_invalid_cron _____________
+
+self = UUID()
+visitor = <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B0DEDFA0>
+kw = {'type_expression': Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColumnDefault(<function uuid4 at 0x000001C59DCD0940>))}
+
+    def _compiler_dispatch(
+        self: Visitable, visitor: Any, **kw: Any
+    ) -> str:
+        """Look for an attribute named "visit_<visit_name>" on the
+        visitor, and call it with the same kw params.
+    
+        """
+        try:
+>           meth = getter(visitor)
+E           AttributeError: 'SQLiteTypeCompiler' object has no attribute 'visit_UUID'
+
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:139: AttributeError
+
+The above exception was the direct cause of the following exception:
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteDDLCompiler object at 0x000001C5B0DFF100>
+create = <sqlalchemy.sql.ddl.CreateTable object at 0x000001C5B0DFFA30>, kw = {}
+table = Table('users', MetaData(), Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColum...e=<users>, nullable=False, default=CallableColumnDefault(<function User.<lambda> at 0x000001C59DCD0D30>)), schema=None)
+preparer = <sqlalchemy.dialects.sqlite.base.SQLiteIdentifierPreparer object at 0x000001C5B0DEDF10>
+text = '\nCREATE TABLE users (', create_table_suffix = '', separator = '\n'
+first_pk = False
+create_column = <sqlalchemy.sql.ddl.CreateColumn object at 0x000001C5B0DFF190>
+
+    def visit_create_table(self, create, **kw):
+        table = create.element
+        preparer = self.preparer
+    
+        text = "\nCREATE "
+        if table._prefixes:
+            text += " ".join(table._prefixes) + " "
+    
+        text += "TABLE "
+        if create.if_not_exists:
+            text += "IF NOT EXISTS "
+    
+        text += preparer.format_table(table) + " "
+    
+        create_table_suffix = self.create_table_suffix(table)
+        if create_table_suffix:
+            text += create_table_suffix + " "
+    
+        text += "("
+    
+        separator = "\n"
+    
+        # if only one primary key, specify it along with the column
+        first_pk = False
+        for create_column in create.columns:
+            column = create_column.element
+            try:
+>               processed = self.process(
+                    create_column, first_pk=column.primary_key and not first_pk
+                )
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6522: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:912: in process
+    return obj._compiler_dispatch(self, **kwargs)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:143: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6553: in visit_create_column
+    text = self.get_column_specification(column, first_pk=first_pk)
+venv\lib\site-packages\sqlalchemy\dialects\sqlite\base.py:1534: in get_column_specification
+    coltype = self.dialect.type_compiler_instance.process(
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:957: in process
+    return type_._compiler_dispatch(self, **kw)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:141: in _compiler_dispatch
+    return visitor.visit_unsupported_compilation(self, err, **kw)  # type: ignore  # noqa: E501
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B0DEDFA0>
+element = UUID()
+err = AttributeError("'SQLiteTypeCompiler' object has no attribute 'visit_UUID'")
+kw = {'type_expression': Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColumnDefault(<function uuid4 at 0x000001C59DCD0940>))}
+
+    def visit_unsupported_compilation(
+        self, element: Any, err: Exception, **kw: Any
+    ) -> NoReturn:
+>       raise exc.UnsupportedCompilationError(self, element) from err
+E       sqlalchemy.exc.UnsupportedCompilationError: Compiler <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B0DEDFA0> can't render element of type UUID (Background on this error at: https://sqlalche.me/e/20/l7de)
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:962: UnsupportedCompilationError
+
+The above exception was the direct cause of the following exception:
+
+request = <SubRequest 'test_engine' for <Coroutine test_create_schedule_invalid_cron>>
+kwargs = {}, func = <function test_engine at 0x000001C5AF2FF040>
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0x000001C5B150C040>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0x000001C5B150CC10>
+
+    @functools.wraps(fixture)
+    def _asyncgen_fixture_wrapper(request: SubRequest, **kwargs: Any):
+        func = _perhaps_rebind_fixture_func(
+            fixture, request.instance, fixturedef.unittest
+        )
+        event_loop = kwargs.pop(event_loop_fixture_id)
+        gen_obj = func(
+            **_add_kwargs(func, kwargs, event_loop_fixture_id, event_loop, request)
+        )
+    
+        async def setup():
+            res = await gen_obj.__anext__()
+            return res
+    
+        def finalizer() -> None:
+            """Yield again, to finalize."""
+    
+            async def async_finalizer() -> None:
+                try:
+                    await gen_obj.__anext__()
+                except StopAsyncIteration:
+                    pass
+                else:
+                    msg = "Async generator fixture didn't stop."
+                    msg += "Yield only once."
+                    raise ValueError(msg)
+    
+            event_loop.run_until_complete(async_finalizer())
+    
+>       result = event_loop.run_until_complete(setup())
+
+venv\lib\site-packages\pytest_asyncio\plugin.py:337: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Program Files\Python39\lib\asyncio\base_events.py:642: in run_until_complete
+    return future.result()
+venv\lib\site-packages\pytest_asyncio\plugin.py:319: in setup
+    res = await gen_obj.__anext__()
+tests\conftest.py:43: in test_engine
+    await conn.run_sync(Base.metadata.create_all)
+venv\lib\site-packages\sqlalchemy\ext\asyncio\engine.py:891: in run_sync
+    return await greenlet_spawn(fn, self._proxied, *arg, **kw)
+venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py:202: in greenlet_spawn
+    result = context.switch(value)
+venv\lib\site-packages\sqlalchemy\sql\schema.py:5832: in create_all
+    bind._run_ddl_visitor(
+venv\lib\site-packages\sqlalchemy\engine\base.py:2448: in _run_ddl_visitor
+    visitorcallable(self.dialect, self, **kwargs).traverse_single(element)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:671: in traverse_single
+    return meth(obj, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:919: in visit_metadata
+    self.traverse_single(
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:671: in traverse_single
+    return meth(obj, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:952: in visit_table
+    CreateTable(
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:315: in _invoke_with
+    return bind.execute(self)
+venv\lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:181: in _execute_on_connection
+    return connection._execute_ddl(
+venv\lib\site-packages\sqlalchemy\engine\base.py:1525: in _execute_ddl
+    compiled = ddl.compile(
+venv\lib\site-packages\sqlalchemy\sql\elements.py:309: in compile
+    return self._compiler(dialect, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:69: in _compiler
+    return dialect.ddl_compiler(dialect, self, **kw)
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:867: in __init__
+    self.string = self.process(self.statement, **compile_kwargs)
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:912: in process
+    return obj._compiler_dispatch(self, **kwargs)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:143: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteDDLCompiler object at 0x000001C5B0DFF100>
+create = <sqlalchemy.sql.ddl.CreateTable object at 0x000001C5B0DFFA30>, kw = {}
+table = Table('users', MetaData(), Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColum...e=<users>, nullable=False, default=CallableColumnDefault(<function User.<lambda> at 0x000001C59DCD0D30>)), schema=None)
+preparer = <sqlalchemy.dialects.sqlite.base.SQLiteIdentifierPreparer object at 0x000001C5B0DEDF10>
+text = '\nCREATE TABLE users (', create_table_suffix = '', separator = '\n'
+first_pk = False
+create_column = <sqlalchemy.sql.ddl.CreateColumn object at 0x000001C5B0DFF190>
+
+    def visit_create_table(self, create, **kw):
+        table = create.element
+        preparer = self.preparer
+    
+        text = "\nCREATE "
+        if table._prefixes:
+            text += " ".join(table._prefixes) + " "
+    
+        text += "TABLE "
+        if create.if_not_exists:
+            text += "IF NOT EXISTS "
+    
+        text += preparer.format_table(table) + " "
+    
+        create_table_suffix = self.create_table_suffix(table)
+        if create_table_suffix:
+            text += create_table_suffix + " "
+    
+        text += "("
+    
+        separator = "\n"
+    
+        # if only one primary key, specify it along with the column
+        first_pk = False
+        for create_column in create.columns:
+            column = create_column.element
+            try:
+                processed = self.process(
+                    create_column, first_pk=column.primary_key and not first_pk
+                )
+                if processed is not None:
+                    text += separator
+                    separator = ", \n"
+                    text += "\t" + processed
+                if column.primary_key:
+                    first_pk = True
+            except exc.CompileError as ce:
+>               raise exc.CompileError(
+                    "(in table '%s', column '%s'): %s"
+                    % (table.description, column.name, ce.args[0])
+                ) from ce
+E               sqlalchemy.exc.CompileError: (in table 'users', column 'id'): Compiler <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B0DEDFA0> can't render element of type UUID
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6532: CompileError
+____________________ ERROR at setup of test_list_schedules ____________________
+
+self = UUID()
+visitor = <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B1039070>
+kw = {'type_expression': Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColumnDefault(<function uuid4 at 0x000001C59DCD0940>))}
+
+    def _compiler_dispatch(
+        self: Visitable, visitor: Any, **kw: Any
+    ) -> str:
+        """Look for an attribute named "visit_<visit_name>" on the
+        visitor, and call it with the same kw params.
+    
+        """
+        try:
+>           meth = getter(visitor)
+E           AttributeError: 'SQLiteTypeCompiler' object has no attribute 'visit_UUID'
+
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:139: AttributeError
+
+The above exception was the direct cause of the following exception:
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteDDLCompiler object at 0x000001C5AF835700>
+create = <sqlalchemy.sql.ddl.CreateTable object at 0x000001C5AF835580>, kw = {}
+table = Table('users', MetaData(), Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColum...e=<users>, nullable=False, default=CallableColumnDefault(<function User.<lambda> at 0x000001C59DCD0D30>)), schema=None)
+preparer = <sqlalchemy.dialects.sqlite.base.SQLiteIdentifierPreparer object at 0x000001C5B10390A0>
+text = '\nCREATE TABLE users (', create_table_suffix = '', separator = '\n'
+first_pk = False
+create_column = <sqlalchemy.sql.ddl.CreateColumn object at 0x000001C5AF835460>
+
+    def visit_create_table(self, create, **kw):
+        table = create.element
+        preparer = self.preparer
+    
+        text = "\nCREATE "
+        if table._prefixes:
+            text += " ".join(table._prefixes) + " "
+    
+        text += "TABLE "
+        if create.if_not_exists:
+            text += "IF NOT EXISTS "
+    
+        text += preparer.format_table(table) + " "
+    
+        create_table_suffix = self.create_table_suffix(table)
+        if create_table_suffix:
+            text += create_table_suffix + " "
+    
+        text += "("
+    
+        separator = "\n"
+    
+        # if only one primary key, specify it along with the column
+        first_pk = False
+        for create_column in create.columns:
+            column = create_column.element
+            try:
+>               processed = self.process(
+                    create_column, first_pk=column.primary_key and not first_pk
+                )
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6522: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:912: in process
+    return obj._compiler_dispatch(self, **kwargs)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:143: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6553: in visit_create_column
+    text = self.get_column_specification(column, first_pk=first_pk)
+venv\lib\site-packages\sqlalchemy\dialects\sqlite\base.py:1534: in get_column_specification
+    coltype = self.dialect.type_compiler_instance.process(
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:957: in process
+    return type_._compiler_dispatch(self, **kw)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:141: in _compiler_dispatch
+    return visitor.visit_unsupported_compilation(self, err, **kw)  # type: ignore  # noqa: E501
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B1039070>
+element = UUID()
+err = AttributeError("'SQLiteTypeCompiler' object has no attribute 'visit_UUID'")
+kw = {'type_expression': Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColumnDefault(<function uuid4 at 0x000001C59DCD0940>))}
+
+    def visit_unsupported_compilation(
+        self, element: Any, err: Exception, **kw: Any
+    ) -> NoReturn:
+>       raise exc.UnsupportedCompilationError(self, element) from err
+E       sqlalchemy.exc.UnsupportedCompilationError: Compiler <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B1039070> can't render element of type UUID (Background on this error at: https://sqlalche.me/e/20/l7de)
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:962: UnsupportedCompilationError
+
+The above exception was the direct cause of the following exception:
+
+request = <SubRequest 'test_engine' for <Coroutine test_list_schedules>>
+kwargs = {}, func = <function test_engine at 0x000001C5AF2FF040>
+setup = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.setup at 0x000001C5B14B1670>
+finalizer = <function _wrap_asyncgen_fixture.<locals>._asyncgen_fixture_wrapper.<locals>.finalizer at 0x000001C5B1182EE0>
+
+    @functools.wraps(fixture)
+    def _asyncgen_fixture_wrapper(request: SubRequest, **kwargs: Any):
+        func = _perhaps_rebind_fixture_func(
+            fixture, request.instance, fixturedef.unittest
+        )
+        event_loop = kwargs.pop(event_loop_fixture_id)
+        gen_obj = func(
+            **_add_kwargs(func, kwargs, event_loop_fixture_id, event_loop, request)
+        )
+    
+        async def setup():
+            res = await gen_obj.__anext__()
+            return res
+    
+        def finalizer() -> None:
+            """Yield again, to finalize."""
+    
+            async def async_finalizer() -> None:
+                try:
+                    await gen_obj.__anext__()
+                except StopAsyncIteration:
+                    pass
+                else:
+                    msg = "Async generator fixture didn't stop."
+                    msg += "Yield only once."
+                    raise ValueError(msg)
+    
+            event_loop.run_until_complete(async_finalizer())
+    
+>       result = event_loop.run_until_complete(setup())
+
+venv\lib\site-packages\pytest_asyncio\plugin.py:337: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Program Files\Python39\lib\asyncio\base_events.py:642: in run_until_complete
+    return future.result()
+venv\lib\site-packages\pytest_asyncio\plugin.py:319: in setup
+    res = await gen_obj.__anext__()
+tests\conftest.py:43: in test_engine
+    await conn.run_sync(Base.metadata.create_all)
+venv\lib\site-packages\sqlalchemy\ext\asyncio\engine.py:891: in run_sync
+    return await greenlet_spawn(fn, self._proxied, *arg, **kw)
+venv\lib\site-packages\sqlalchemy\util\_concurrency_py3k.py:202: in greenlet_spawn
+    result = context.switch(value)
+venv\lib\site-packages\sqlalchemy\sql\schema.py:5832: in create_all
+    bind._run_ddl_visitor(
+venv\lib\site-packages\sqlalchemy\engine\base.py:2448: in _run_ddl_visitor
+    visitorcallable(self.dialect, self, **kwargs).traverse_single(element)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:671: in traverse_single
+    return meth(obj, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:919: in visit_metadata
+    self.traverse_single(
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:671: in traverse_single
+    return meth(obj, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:952: in visit_table
+    CreateTable(
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:315: in _invoke_with
+    return bind.execute(self)
+venv\lib\site-packages\sqlalchemy\engine\base.py:1416: in execute
+    return meth(
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:181: in _execute_on_connection
+    return connection._execute_ddl(
+venv\lib\site-packages\sqlalchemy\engine\base.py:1525: in _execute_ddl
+    compiled = ddl.compile(
+venv\lib\site-packages\sqlalchemy\sql\elements.py:309: in compile
+    return self._compiler(dialect, **kw)
+venv\lib\site-packages\sqlalchemy\sql\ddl.py:69: in _compiler
+    return dialect.ddl_compiler(dialect, self, **kw)
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:867: in __init__
+    self.string = self.process(self.statement, **compile_kwargs)
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:912: in process
+    return obj._compiler_dispatch(self, **kwargs)
+venv\lib\site-packages\sqlalchemy\sql\visitors.py:143: in _compiler_dispatch
+    return meth(self, **kw)  # type: ignore  # noqa: E501
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <sqlalchemy.dialects.sqlite.base.SQLiteDDLCompiler object at 0x000001C5AF835700>
+create = <sqlalchemy.sql.ddl.CreateTable object at 0x000001C5AF835580>, kw = {}
+table = Table('users', MetaData(), Column('id', UUID(), table=<users>, primary_key=True, nullable=False, default=CallableColum...e=<users>, nullable=False, default=CallableColumnDefault(<function User.<lambda> at 0x000001C59DCD0D30>)), schema=None)
+preparer = <sqlalchemy.dialects.sqlite.base.SQLiteIdentifierPreparer object at 0x000001C5B10390A0>
+text = '\nCREATE TABLE users (', create_table_suffix = '', separator = '\n'
+first_pk = False
+create_column = <sqlalchemy.sql.ddl.CreateColumn object at 0x000001C5AF835460>
+
+    def visit_create_table(self, create, **kw):
+        table = create.element
+        preparer = self.preparer
+    
+        text = "\nCREATE "
+        if table._prefixes:
+            text += " ".join(table._prefixes) + " "
+    
+        text += "TABLE "
+        if create.if_not_exists:
+            text += "IF NOT EXISTS "
+    
+        text += preparer.format_table(table) + " "
+    
+        create_table_suffix = self.create_table_suffix(table)
+        if create_table_suffix:
+            text += create_table_suffix + " "
+    
+        text += "("
+    
+        separator = "\n"
+    
+        # if only one primary key, specify it along with the column
+        first_pk = False
+        for create_column in create.columns:
+            column = create_column.element
+            try:
+                processed = self.process(
+                    create_column, first_pk=column.primary_key and not first_pk
+                )
+                if processed is not None:
+                    text += separator
+                    separator = ", \n"
+                    text += "\t" + processed
+                if column.primary_key:
+                    first_pk = True
+            except exc.CompileError as ce:
+>               raise exc.CompileError(
+                    "(in table '%s', column '%s'): %s"
+                    % (table.description, column.name, ce.args[0])
+                ) from ce
+E               sqlalchemy.exc.CompileError: (in table 'users', column 'id'): Compiler <sqlalchemy.dialects.sqlite.base.SQLiteTypeCompiler object at 0x000001C5B1039070> can't render element of type UUID
+
+venv\lib\site-packages\sqlalchemy\sql\compiler.py:6532: CompileError
+============================== warnings summary ===============================
+venv\lib\site-packages\pydantic\_internal\_fields.py:184
+  d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pydantic\_internal\_fields.py:184: UserWarning: Field name "schema" shadows an attribute in parent "BaseModel"; 
+    warnings.warn(
+
+venv\lib\site-packages\matplotlib\_fontconfig_pattern.py:88
+venv\lib\site-packages\matplotlib\_fontconfig_pattern.py:88
+venv\lib\site-packages\matplotlib\_fontconfig_pattern.py:88
+venv\lib\site-packages\matplotlib\_fontconfig_pattern.py:88
+venv\lib\site-packages\matplotlib\_fontconfig_pattern.py:88
+venv\lib\site-packages\matplotlib\_fontconfig_pattern.py:88
+  d:\pdf generator\pdf-report-generator\venv\lib\site-packages\matplotlib\_fontconfig_pattern.py:88: PyparsingDeprecationWarning: 'parseString' deprecated - use 'parse_string'
+    parse = parser.parseString(pattern)
+
+venv\lib\site-packages\matplotlib\_fontconfig_pattern.py:92
+venv\lib\site-packages\matplotlib\_fontconfig_pattern.py:92
+venv\lib\site-packages\matplotlib\_fontconfig_pattern.py:92
+venv\lib\site-packages\matplotlib\_fontconfig_pattern.py:92
+venv\lib\site-packages\matplotlib\_fontconfig_pattern.py:92
+venv\lib\site-packages\matplotlib\_fontconfig_pattern.py:92
+  d:\pdf generator\pdf-report-generator\venv\lib\site-packages\matplotlib\_fontconfig_pattern.py:92: PyparsingDeprecationWarning: 'resetCache' deprecated - use 'reset_cache'
+    parser.resetCache()
+
+venv\lib\site-packages\matplotlib\_mathtext.py:45
+  d:\pdf generator\pdf-report-generator\venv\lib\site-packages\matplotlib\_mathtext.py:45: PyparsingDeprecationWarning: 'enablePackrat' deprecated - use 'enable_packrat'
+    ParserElement.enablePackrat()
+
+tests/test_api/test_auth.py::test_register_user
+  d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pytest_asyncio\plugin.py:749: DeprecationWarning: The event_loop fixture provided by pytest-asyncio has been redefined in
+  D:\PDF Generator\pdf-report-generator\tests\conftest.py:25
+  Replacing the event_loop fixture with a custom implementation is deprecated
+  and will lead to errors in the future.
+  If you want to request an asyncio event loop with a scope other than function
+  scope, use the "scope" argument to the asyncio mark when marking the tests.
+  If you want to return different types of event loops, use the event_loop_policy
+  fixture.
+  
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+ERROR tests/test_api/test_auth.py::test_register_user - sqlalchemy.exc.Compil...
+ERROR tests/test_api/test_auth.py::test_register_duplicate_email - sqlalchemy...
+ERROR tests/test_api/test_auth.py::test_login_success - sqlalchemy.exc.Compil...
+ERROR tests/test_api/test_auth.py::test_login_wrong_password - sqlalchemy.exc...
+ERROR tests/test_api/test_auth.py::test_login_nonexistent_user - sqlalchemy.e...
+ERROR tests/test_api/test_auth.py::test_get_me - sqlalchemy.exc.CompileError:...
+ERROR tests/test_api/test_auth.py::test_get_me_unauthorized - sqlalchemy.exc....
+ERROR tests/test_api/test_auth.py::test_refresh_token - sqlalchemy.exc.Compil...
+ERROR tests/test_api/test_reports.py::test_generate_report - sqlalchemy.exc.C...
+ERROR tests/test_api/test_reports.py::test_generate_report_invalid_template
+ERROR tests/test_api/test_reports.py::test_list_reports - sqlalchemy.exc.Comp...
+ERROR tests/test_api/test_reports.py::test_list_reports_unauthorized - sqlalc...
+ERROR tests/test_api/test_reports.py::test_get_report_not_found - sqlalchemy....
+ERROR tests/test_api/test_schedules.py::test_create_schedule - sqlalchemy.exc...
+ERROR tests/test_api/test_schedules.py::test_create_schedule_invalid_cron - s...
+ERROR tests/test_api/test_schedules.py::test_list_schedules - sqlalchemy.exc....
+================= 9 passed, 15 warnings, 16 errors in 26.60s ==================
+pytest : Exception ignored in: <function _ProactorBasePipeTransport.__del__ at 
+0x000001C59A1E48B0>
+At line:1 char:26
++ ... env\Scripts\activate; pytest tests/ -v > pytest_out2.txt 2>&1; Get-Co ...
++                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Exception ignor...0001C59A1E48B0> 
+   :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Traceback (most recent call last):
+  File "C:\Program Files\Python39\lib\asyncio\proactor_events.py", line 115, 
+in __del__
+    _warn(f"unclosed transport {self!r}", ResourceWarning, source=self)
+  File "C:\Program Files\Python39\lib\asyncio\proactor_events.py", line 79, in 
+__repr__
+    info.append(f'fd={self._sock.fileno()}')
+  File "C:\Program Files\Python39\lib\asyncio\windows_utils.py", line 102, in 
+fileno
+    raise ValueError("I/O operation on closed pipe")
+ValueError: I/O operation on closed pipe
+Exception ignored in: <function BaseSubprocessTransport.__del__ at 
+0x000001C59A1DB040>
+Traceback (most recent call last):
+  File "C:\Program Files\Python39\lib\asyncio\base_subprocess.py", line 125, 
+in __del__
+    _warn(f"unclosed transport {self!r}", ResourceWarning, source=self)
+  File "C:\Program Files\Python39\lib\asyncio\base_subprocess.py", line 70, in 
+__repr__
+    info.append(f'stdin={stdin.pipe}')
+  File "C:\Program Files\Python39\lib\asyncio\proactor_events.py", line 79, in 
+__repr__
+    info.append(f'fd={self._sock.fileno()}')
+  File "C:\Program Files\Python39\lib\asyncio\windows_utils.py", line 102, in 
+fileno
+    raise ValueError("I/O operation on closed pipe")
+ValueError: I/O operation on closed pipe
+Exception ignored in: <function _ProactorBasePipeTransport.__del__ at 
+0x000001C59A1E48B0>
+Traceback (most recent call last):
+  File "C:\Program Files\Python39\lib\asyncio\proactor_events.py", line 115, 
+in __del__
+    _warn(f"unclosed transport {self!r}", ResourceWarning, source=self)
+  File "C:\Program Files\Python39\lib\asyncio\proactor_events.py", line 79, in 
+__repr__
+    info.append(f'fd={self._sock.fileno()}')
+  File "C:\Program Files\Python39\lib\asyncio\windows_utils.py", line 102, in 
+fileno
+    raise ValueError("I/O operation on closed pipe")
+ValueError: I/O operation on closed pipe
+Task was destroyed but it is pending!
+task: <Task pending name='Task-34' coro=<Connection.run() running at d:\pdf gen
+erator\pdf-report-generator\venv\lib\site-packages\playwright\_impl\_connection
+.py:278> wait_for=<Future pending cb=[<TaskWakeupMethWrapper object at 
+0x000001C5B103F2E0>()]>>
+Task was destroyed but it is pending!
+task: <Task pending name='Task-38' coro=<Connection.run() running at d:\pdf gen
+erator\pdf-report-generator\venv\lib\site-packages\playwright\_impl\_connection
+.py:278> wait_for=<Future pending cb=[<TaskWakeupMethWrapper object at 
+0x000001C5AFACFD00>()]>>
+Exception ignored in: <function _ProactorBasePipeTransport.__del__ at 
+0x000001C59A1E48B0>
+Traceback (most recent call last):
+  File "C:\Program Files\Python39\lib\asyncio\proactor_events.py", line 115, 
+in __del__
+    _warn(f"unclosed transport {self!r}", ResourceWarning, source=self)
+  File "C:\Program Files\Python39\lib\asyncio\proactor_events.py", line 79, in 
+__repr__
+    info.append(f'fd={self._sock.fileno()}')
+  File "C:\Program Files\Python39\lib\asyncio\windows_utils.py", line 102, in 
+fileno
+    raise ValueError("I/O operation on closed pipe")
+ValueError: I/O operation on closed pipe
+Exception ignored in: <function BaseSubprocessTransport.__del__ at 
+0x000001C59A1DB040>
+Traceback (most recent call last):
+  File "C:\Program Files\Python39\lib\asyncio\base_subprocess.py", line 125, 
+in __del__
+    _warn(f"unclosed transport {self!r}", ResourceWarning, source=self)
+  File "C:\Program Files\Python39\lib\asyncio\base_subprocess.py", line 70, in 
+__repr__
+    info.append(f'stdin={stdin.pipe}')
+  File "C:\Program Files\Python39\lib\asyncio\proactor_events.py", line 79, in 
+__repr__
+    info.append(f'fd={self._sock.fileno()}')
+  File "C:\Program Files\Python39\lib\asyncio\windows_utils.py", line 102, in 
+fileno
+    raise ValueError("I/O operation on closed pipe")
+ValueError: I/O operation on closed pipe
+Exception ignored in: <function _ProactorBasePipeTransport.__del__ at 
+0x000001C59A1E48B0>
+Traceback (most recent call last):
+  File "C:\Program Files\Python39\lib\asyncio\proactor_events.py", line 115, 
+in __del__
+    _warn(f"unclosed transport {self!r}", ResourceWarning, source=self)
+  File "C:\Program Files\Python39\lib\asyncio\proactor_events.py", line 79, in 
+__repr__
+    info.append(f'fd={self._sock.fileno()}')
+  File "C:\Program Files\Python39\lib\asyncio\windows_utils.py", line 102, in 
+fileno
+    raise ValueError("I/O operation on closed pipe")
+ValueError: I/O operation on closed pipe

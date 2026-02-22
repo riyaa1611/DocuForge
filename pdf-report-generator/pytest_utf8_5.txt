@@ -1,0 +1,499 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.9.2rc1, pytest-7.4.4, pluggy-1.6.0 -- d:\pdf generator\pdf-report-generator\venv\scripts\python.exe
+cachedir: .pytest_cache
+rootdir: D:\PDF Generator\pdf-report-generator
+plugins: anyio-4.12.1, asyncio-0.23.3, cov-4.1.0
+asyncio: mode=strict
+collecting ... collected 25 items
+
+tests/test_api/test_auth.py::test_register_user PASSED                   [  4%]
+tests/test_api/test_auth.py::test_register_duplicate_email PASSED        [  8%]
+tests/test_api/test_auth.py::test_login_success PASSED                   [ 12%]
+tests/test_api/test_auth.py::test_login_wrong_password PASSED            [ 16%]
+tests/test_api/test_auth.py::test_login_nonexistent_user PASSED          [ 20%]
+tests/test_api/test_auth.py::test_get_me PASSED                          [ 24%]
+tests/test_api/test_auth.py::test_get_me_unauthorized PASSED             [ 28%]
+tests/test_api/test_auth.py::test_refresh_token PASSED                   [ 32%]
+tests/test_api/test_reports.py::test_generate_report PASSED              [ 36%]
+tests/test_api/test_reports.py::test_generate_report_invalid_template PASSED [ 40%]
+tests/test_api/test_reports.py::test_list_reports PASSED                 [ 44%]
+tests/test_api/test_reports.py::test_list_reports_unauthorized PASSED    [ 48%]
+tests/test_api/test_reports.py::test_get_report_not_found PASSED         [ 52%]
+tests/test_api/test_schedules.py::test_create_schedule FAILED            [ 56%]
+tests/test_api/test_schedules.py::test_create_schedule_invalid_cron PASSED [ 60%]
+tests/test_api/test_schedules.py::test_list_schedules PASSED             [ 64%]
+tests/test_services/test_chart_generator.py::TestChartGenerator::test_generate_bar_chart PASSED [ 68%]
+tests/test_services/test_chart_generator.py::TestChartGenerator::test_generate_line_chart PASSED [ 72%]
+tests/test_services/test_chart_generator.py::TestChartGenerator::test_generate_pie_chart PASSED [ 76%]
+tests/test_services/test_chart_generator.py::TestChartGenerator::test_invalid_chart_type PASSED [ 80%]
+tests/test_services/test_data_fetcher_csv_content.py::test_fetch_from_csv_content PASSED [ 84%]
+tests/test_services/test_data_fetcher_csv_content.py::test_fetch_from_csv_content_empty PASSED [ 88%]
+tests/test_services/test_data_fetcher_csv_content.py::test_fetch_from_csv_error_no_input PASSED [ 92%]
+tests/test_services/test_pdf_generator.py::test_generate_pdf PASSED      [ 96%]
+tests/test_services/test_pdf_generator.py::test_generate_pdf_with_options PASSED [100%]
+
+================================== FAILURES ===================================
+____________________________ test_create_schedule _____________________________
+  + Exception Group Traceback (most recent call last):
+  |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\starlette\_utils.py", line 85, in collapse_excgroups
+  |     yield
+  |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+  |     response_sent.set()
+  |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\anyio\_backends\_asyncio.py", line 783, in __aexit__
+  |     raise BaseExceptionGroup(
+  | exceptiongroup.ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\_pytest\runner.py", line 341, in from_call
+    |     result: Optional[TResult] = func()
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\_pytest\runner.py", line 262, in <lambda>
+    |     lambda: ihook(item=item, **kwds), when=when, reraise=reraise
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pluggy\_hooks.py", line 512, in __call__
+    |     return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pluggy\_manager.py", line 120, in _hookexec
+    |     return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pluggy\_callers.py", line 167, in _multicall
+    |     raise exception
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pluggy\_callers.py", line 139, in _multicall
+    |     teardown.throw(exception)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pluggy\_callers.py", line 53, in run_old_style_hookwrapper
+    |     return result.get_result()
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pluggy\_result.py", line 103, in get_result
+    |     raise exc.with_traceback(tb)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pluggy\_callers.py", line 38, in run_old_style_hookwrapper
+    |     res = yield
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pluggy\_callers.py", line 139, in _multicall
+    |     teardown.throw(exception)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pluggy\_callers.py", line 53, in run_old_style_hookwrapper
+    |     return result.get_result()
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pluggy\_result.py", line 103, in get_result
+    |     raise exc.with_traceback(tb)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pluggy\_callers.py", line 38, in run_old_style_hookwrapper
+    |     res = yield
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pluggy\_callers.py", line 139, in _multicall
+    |     teardown.throw(exception)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pluggy\_callers.py", line 53, in run_old_style_hookwrapper
+    |     return result.get_result()
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pluggy\_result.py", line 103, in get_result
+    |     raise exc.with_traceback(tb)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pluggy\_callers.py", line 38, in run_old_style_hookwrapper
+    |     res = yield
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pluggy\_callers.py", line 139, in _multicall
+    |     teardown.throw(exception)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pluggy\_callers.py", line 53, in run_old_style_hookwrapper
+    |     return result.get_result()
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pluggy\_result.py", line 103, in get_result
+    |     raise exc.with_traceback(tb)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pluggy\_callers.py", line 38, in run_old_style_hookwrapper
+    |     res = yield
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pluggy\_callers.py", line 139, in _multicall
+    |     teardown.throw(exception)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pluggy\_callers.py", line 53, in run_old_style_hookwrapper
+    |     return result.get_result()
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pluggy\_result.py", line 103, in get_result
+    |     raise exc.with_traceback(tb)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pluggy\_callers.py", line 38, in run_old_style_hookwrapper
+    |     res = yield
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pluggy\_callers.py", line 121, in _multicall
+    |     res = hook_impl.function(*args)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\_pytest\runner.py", line 177, in pytest_runtest_call
+    |     raise e
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\_pytest\runner.py", line 169, in pytest_runtest_call
+    |     item.runtest()
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pytest_asyncio\plugin.py", line 430, in runtest
+    |     super().runtest()
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\_pytest\python.py", line 1792, in runtest
+    |     self.ihook.pytest_pyfunc_call(pyfuncitem=self)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pluggy\_hooks.py", line 512, in __call__
+    |     return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pluggy\_manager.py", line 120, in _hookexec
+    |     return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pluggy\_callers.py", line 167, in _multicall
+    |     raise exception
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pluggy\_callers.py", line 139, in _multicall
+    |     teardown.throw(exception)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pluggy\_callers.py", line 53, in run_old_style_hookwrapper
+    |     return result.get_result()
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pluggy\_result.py", line 103, in get_result
+    |     raise exc.with_traceback(tb)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pluggy\_callers.py", line 38, in run_old_style_hookwrapper
+    |     res = yield
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pluggy\_callers.py", line 121, in _multicall
+    |     res = hook_impl.function(*args)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\_pytest\python.py", line 194, in pytest_pyfunc_call
+    |     result = testfunction(**testargs)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pytest_asyncio\plugin.py", line 887, in inner
+    |     _loop.run_until_complete(task)
+    |   File "C:\Program Files\Python39\lib\asyncio\base_events.py", line 642, in run_until_complete
+    |     return future.result()
+    |   File "D:\PDF Generator\pdf-report-generator\tests\test_api\test_schedules.py", line 11, in test_create_schedule
+    |     response = await test_client.post(
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\httpx\_client.py", line 1877, in post
+    |     return await self.request(
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\httpx\_client.py", line 1559, in request
+    |     return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\httpx\_client.py", line 1646, in send
+    |     response = await self._send_handling_auth(
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\httpx\_client.py", line 1674, in _send_handling_auth
+    |     response = await self._send_handling_redirects(
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\httpx\_client.py", line 1711, in _send_handling_redirects
+    |     response = await self._send_single_request(request)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\httpx\_client.py", line 1748, in _send_single_request
+    |     response = await transport.handle_async_request(request)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\httpx\_transports\asgi.py", line 162, in handle_async_request
+    |     await self.app(scope, receive, send)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\fastapi\applications.py", line 1054, in __call__
+    |     await super().__call__(scope, receive, send)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\starlette\applications.py", line 123, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    |     raise exc
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response_sent.set()
+    |   File "C:\Program Files\Python39\lib\contextlib.py", line 135, in __exit__
+    |     self.gen.throw(type, value, traceback)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\starlette\_utils.py", line 91, in collapse_excgroups
+    |     raise exc
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |   File "D:\PDF Generator\pdf-report-generator\app\core\rate_limit.py", line 76, in dispatch
+    |     return await call_next(request)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\starlette\middleware\base.py", line 165, in call_next
+    |     raise app_exc
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\starlette\middleware\base.py", line 151, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\starlette\middleware\cors.py", line 83, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\starlette\middleware\exceptions.py", line 62, in __call__
+    |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\starlette\_exception_handler.py", line 64, in wrapped_app
+    |     raise exc
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\starlette\routing.py", line 762, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\starlette\routing.py", line 782, in app
+    |     await route.handle(scope, receive, send)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\starlette\routing.py", line 297, in handle
+    |     await self.app(scope, receive, send)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\starlette\routing.py", line 77, in app
+    |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\starlette\_exception_handler.py", line 64, in wrapped_app
+    |     raise exc
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\starlette\routing.py", line 72, in app
+    |     response = await func(request)
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\fastapi\routing.py", line 299, in app
+    |     raise e
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\fastapi\routing.py", line 294, in app
+    |     raw_response = await run_endpoint_function(
+    |   File "d:\pdf generator\pdf-report-generator\venv\lib\site-packages\fastapi\routing.py", line 191, in run_endpoint_function
+    |     return await dependant.call(**values)
+    |   File "D:\PDF Generator\pdf-report-generator\app\api\routes\schedules.py", line 119, in create_schedule
+    |     SchedulerService.add_job(
+    |   File "D:\PDF Generator\pdf-report-generator\app\services\scheduler.py", line 102, in add_job
+    |     next_run = job.next_run_time
+    | AttributeError: next_run_time
+    +------------------------------------
+
+During handling of the above exception, another exception occurred:
+
+test_client = <httpx.AsyncClient object at 0x0000026BCB2AFA90>
+auth_headers = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhM2EzZWVmNC1jOTE2LTQ3Y2ItYThjMC1iNWUwODFkN2Y...CI6InRlc3RAZXhhbXBsZS5jb20iLCJleHAiOjE3NzE3MzkwOTIsInR5cGUiOiJhY2Nlc3MifQ.xN-iRA3_1Hj-Hgco4tLTk5cxFPcXdp5fkdHsM2kb1YE'}
+test_template = <Template(id=649e1589-d6da-428b-a63c-dfecf9a8f1db, name=financial_report.html)>
+
+    @pytest.mark.asyncio
+    async def test_create_schedule(test_client: AsyncClient, auth_headers, test_template):
+        """Test schedule creation."""
+>       response = await test_client.post(
+            "/api/v1/schedules",
+            headers=auth_headers,
+            json={
+                "name": "Daily Report",
+                "template_id": str(test_template.id),
+                "cron_expression": "0 8 * * *",
+            },
+        )
+
+tests\test_api\test_schedules.py:11: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+venv\lib\site-packages\httpx\_client.py:1877: in post
+    return await self.request(
+venv\lib\site-packages\httpx\_client.py:1559: in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+venv\lib\site-packages\httpx\_client.py:1646: in send
+    response = await self._send_handling_auth(
+venv\lib\site-packages\httpx\_client.py:1674: in _send_handling_auth
+    response = await self._send_handling_redirects(
+venv\lib\site-packages\httpx\_client.py:1711: in _send_handling_redirects
+    response = await self._send_single_request(request)
+venv\lib\site-packages\httpx\_client.py:1748: in _send_single_request
+    response = await transport.handle_async_request(request)
+venv\lib\site-packages\httpx\_transports\asgi.py:162: in handle_async_request
+    await self.app(scope, receive, send)
+venv\lib\site-packages\fastapi\applications.py:1054: in __call__
+    await super().__call__(scope, receive, send)
+venv\lib\site-packages\starlette\applications.py:123: in __call__
+    await self.middleware_stack(scope, receive, send)
+venv\lib\site-packages\starlette\middleware\errors.py:186: in __call__
+    raise exc
+venv\lib\site-packages\starlette\middleware\errors.py:164: in __call__
+    await self.app(scope, receive, _send)
+venv\lib\site-packages\starlette\middleware\base.py:193: in __call__
+    response_sent.set()
+C:\Program Files\Python39\lib\contextlib.py:135: in __exit__
+    self.gen.throw(type, value, traceback)
+venv\lib\site-packages\starlette\_utils.py:91: in collapse_excgroups
+    raise exc
+venv\lib\site-packages\starlette\middleware\base.py:191: in __call__
+    response = await self.dispatch_func(request, call_next)
+app\core\rate_limit.py:76: in dispatch
+    return await call_next(request)
+venv\lib\site-packages\starlette\middleware\base.py:165: in call_next
+    raise app_exc
+venv\lib\site-packages\starlette\middleware\base.py:151: in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+venv\lib\site-packages\starlette\middleware\cors.py:83: in __call__
+    await self.app(scope, receive, send)
+venv\lib\site-packages\starlette\middleware\exceptions.py:62: in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+venv\lib\site-packages\starlette\_exception_handler.py:64: in wrapped_app
+    raise exc
+venv\lib\site-packages\starlette\_exception_handler.py:53: in wrapped_app
+    await app(scope, receive, sender)
+venv\lib\site-packages\starlette\routing.py:762: in __call__
+    await self.middleware_stack(scope, receive, send)
+venv\lib\site-packages\starlette\routing.py:782: in app
+    await route.handle(scope, receive, send)
+venv\lib\site-packages\starlette\routing.py:297: in handle
+    await self.app(scope, receive, send)
+venv\lib\site-packages\starlette\routing.py:77: in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+venv\lib\site-packages\starlette\_exception_handler.py:64: in wrapped_app
+    raise exc
+venv\lib\site-packages\starlette\_exception_handler.py:53: in wrapped_app
+    await app(scope, receive, sender)
+venv\lib\site-packages\starlette\routing.py:72: in app
+    response = await func(request)
+venv\lib\site-packages\fastapi\routing.py:299: in app
+    raise e
+venv\lib\site-packages\fastapi\routing.py:294: in app
+    raw_response = await run_endpoint_function(
+venv\lib\site-packages\fastapi\routing.py:191: in run_endpoint_function
+    return await dependant.call(**values)
+app\api\routes\schedules.py:119: in create_schedule
+    SchedulerService.add_job(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+cls = <class 'app.services.scheduler.SchedulerService'>
+job_id = '3823d9ab-edaf-4599-998f-6d6fabfe910a'
+func = <function execute_scheduled_report at 0x0000026BCAC74B80>
+cron_expression = '0 8 * * *'
+args = (UUID('3823d9ab-edaf-4599-998f-6d6fabfe910a'),), kwargs = None
+
+    @classmethod
+    def add_job(
+        cls,
+        job_id: str,
+        func: Callable,
+        cron_expression: str,
+        args: Optional[tuple] = None,
+        kwargs: Optional[dict[str, Any]] = None,
+    ) -> datetime:
+        """
+        Add a scheduled job.
+    
+        Args:
+            job_id: Unique identifier for the job
+            func: Function to execute
+            cron_expression: Cron expression for scheduling
+            args: Positional arguments for the function
+            kwargs: Keyword arguments for the function
+    
+        Returns:
+            Next run time
+        """
+        scheduler = cls.get_scheduler()
+    
+        # Parse cron expression into trigger
+        cron_parts = cron_expression.split()
+        if len(cron_parts) == 5:
+            trigger = CronTrigger(
+                minute=cron_parts[0],
+                hour=cron_parts[1],
+                day=cron_parts[2],
+                month=cron_parts[3],
+                day_of_week=cron_parts[4],
+            )
+        else:
+            raise ValueError(f"Invalid cron expression: {cron_expression}")
+    
+        # Add job
+        job = scheduler.add_job(
+            func,
+            trigger=trigger,
+            id=job_id,
+            args=args or (),
+            kwargs=kwargs or {},
+            replace_existing=True,
+        )
+    
+>       next_run = job.next_run_time
+E       AttributeError: next_run_time
+
+app\services\scheduler.py:102: AttributeError
+---------------------------- Captured stdout setup ----------------------------
+2026-02-22 10:44:52 | ERROR    | app.core.rate_limit:get_redis:38 - Failed to connect to Redis: object AsyncMock can't be used in 'await' expression
+2026-02-22 10:44:52 | ERROR    | app.core.rate_limit:dispatch:74 - Rate limit error: object AsyncMock can't be used in 'await' expression
+2026-02-22 10:44:52 | INFO     | app.api.routes.auth:login:89 - Login attempt for email: test@example.com
+2026-02-22 10:44:52 | INFO     | app.api.routes.auth:login:120 - User logged in: test@example.com
+---------------------------- Captured stdout call -----------------------------
+2026-02-22 10:44:52 | ERROR    | app.core.rate_limit:get_redis:38 - Failed to connect to Redis: object AsyncMock can't be used in 'await' expression
+2026-02-22 10:44:52 | ERROR    | app.core.rate_limit:dispatch:74 - Rate limit error: object AsyncMock can't be used in 'await' expression
+============================== warnings summary ===============================
+venv\lib\site-packages\pydantic\_internal\_fields.py:184
+  d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pydantic\_internal\_fields.py:184: UserWarning: Field name "schema" shadows an attribute in parent "BaseModel"; 
+    warnings.warn(
+
+venv\lib\site-packages\matplotlib\_fontconfig_pattern.py:88
+venv\lib\site-packages\matplotlib\_fontconfig_pattern.py:88
+venv\lib\site-packages\matplotlib\_fontconfig_pattern.py:88
+venv\lib\site-packages\matplotlib\_fontconfig_pattern.py:88
+venv\lib\site-packages\matplotlib\_fontconfig_pattern.py:88
+venv\lib\site-packages\matplotlib\_fontconfig_pattern.py:88
+  d:\pdf generator\pdf-report-generator\venv\lib\site-packages\matplotlib\_fontconfig_pattern.py:88: PyparsingDeprecationWarning: 'parseString' deprecated - use 'parse_string'
+    parse = parser.parseString(pattern)
+
+venv\lib\site-packages\matplotlib\_fontconfig_pattern.py:92
+venv\lib\site-packages\matplotlib\_fontconfig_pattern.py:92
+venv\lib\site-packages\matplotlib\_fontconfig_pattern.py:92
+venv\lib\site-packages\matplotlib\_fontconfig_pattern.py:92
+venv\lib\site-packages\matplotlib\_fontconfig_pattern.py:92
+venv\lib\site-packages\matplotlib\_fontconfig_pattern.py:92
+  d:\pdf generator\pdf-report-generator\venv\lib\site-packages\matplotlib\_fontconfig_pattern.py:92: PyparsingDeprecationWarning: 'resetCache' deprecated - use 'reset_cache'
+    parser.resetCache()
+
+venv\lib\site-packages\matplotlib\_mathtext.py:45
+  d:\pdf generator\pdf-report-generator\venv\lib\site-packages\matplotlib\_mathtext.py:45: PyparsingDeprecationWarning: 'enablePackrat' deprecated - use 'enable_packrat'
+    ParserElement.enablePackrat()
+
+tests/test_api/test_auth.py::test_register_user
+  d:\pdf generator\pdf-report-generator\venv\lib\site-packages\pytest_asyncio\plugin.py:749: DeprecationWarning: The event_loop fixture provided by pytest-asyncio has been redefined in
+  D:\PDF Generator\pdf-report-generator\tests\conftest.py:26
+  Replacing the event_loop fixture with a custom implementation is deprecated
+  and will lead to errors in the future.
+  If you want to request an asyncio event loop with a scope other than function
+  scope, use the "scope" argument to the asyncio mark when marking the tests.
+  If you want to return different types of event loops, use the event_loop_policy
+  fixture.
+  
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_api/test_schedules.py::test_create_schedule - AttributeErro...
+================= 1 failed, 24 passed, 15 warnings in 17.12s ==================
+pytest : Exception ignored in: <function _ProactorBasePipeTransport.__del__ at 
+0x0000026BB46A48B0>
+At line:1 char:26
++ ... env\Scripts\activate; pytest tests/ -v > pytest_out5.txt 2>&1; Get-Co ...
++                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Exception ignor...00026BB46A48B0> 
+   :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Traceback (most recent call last):
+  File "C:\Program Files\Python39\lib\asyncio\proactor_events.py", line 115, 
+in __del__
+    _warn(f"unclosed transport {self!r}", ResourceWarning, source=self)
+  File "C:\Program Files\Python39\lib\asyncio\proactor_events.py", line 79, in 
+__repr__
+    info.append(f'fd={self._sock.fileno()}')
+  File "C:\Program Files\Python39\lib\asyncio\windows_utils.py", line 102, in 
+fileno
+    raise ValueError("I/O operation on closed pipe")
+ValueError: I/O operation on closed pipe
+Exception ignored in: <function BaseSubprocessTransport.__del__ at 
+0x0000026BB469B040>
+Traceback (most recent call last):
+  File "C:\Program Files\Python39\lib\asyncio\base_subprocess.py", line 125, 
+in __del__
+    _warn(f"unclosed transport {self!r}", ResourceWarning, source=self)
+  File "C:\Program Files\Python39\lib\asyncio\base_subprocess.py", line 70, in 
+__repr__
+    info.append(f'stdin={stdin.pipe}')
+  File "C:\Program Files\Python39\lib\asyncio\proactor_events.py", line 79, in 
+__repr__
+    info.append(f'fd={self._sock.fileno()}')
+  File "C:\Program Files\Python39\lib\asyncio\windows_utils.py", line 102, in 
+fileno
+    raise ValueError("I/O operation on closed pipe")
+ValueError: I/O operation on closed pipe
+Task was destroyed but it is pending!
+task: <Task pending name='Task-372' coro=<Connection.run() running at d:\pdf ge
+nerator\pdf-report-generator\venv\lib\site-packages\playwright\_impl\_connectio
+n.py:278> wait_for=<Future pending cb=[<TaskWakeupMethWrapper object at 
+0x0000026BCC882A30>()]>>
+Exception ignored in: <function _ProactorBasePipeTransport.__del__ at 
+0x0000026BB46A48B0>
+Traceback (most recent call last):
+  File "C:\Program Files\Python39\lib\asyncio\proactor_events.py", line 115, 
+in __del__
+    _warn(f"unclosed transport {self!r}", ResourceWarning, source=self)
+  File "C:\Program Files\Python39\lib\asyncio\proactor_events.py", line 79, in 
+__repr__
+    info.append(f'fd={self._sock.fileno()}')
+  File "C:\Program Files\Python39\lib\asyncio\windows_utils.py", line 102, in 
+fileno
+    raise ValueError("I/O operation on closed pipe")
+ValueError: I/O operation on closed pipe
+Task was destroyed but it is pending!
+task: <Task pending name='Task-378' coro=<Connection.run() running at d:\pdf ge
+nerator\pdf-report-generator\venv\lib\site-packages\playwright\_impl\_connectio
+n.py:278> wait_for=<Future pending cb=[<TaskWakeupMethWrapper object at 
+0x0000026BCC5694F0>()]>>
+Exception ignored in: <function _ProactorBasePipeTransport.__del__ at 
+0x0000026BB46A48B0>
+Traceback (most recent call last):
+  File "C:\Program Files\Python39\lib\asyncio\proactor_events.py", line 115, 
+in __del__
+    _warn(f"unclosed transport {self!r}", ResourceWarning, source=self)
+  File "C:\Program Files\Python39\lib\asyncio\proactor_events.py", line 79, in 
+__repr__
+    info.append(f'fd={self._sock.fileno()}')
+  File "C:\Program Files\Python39\lib\asyncio\windows_utils.py", line 102, in 
+fileno
+    raise ValueError("I/O operation on closed pipe")
+ValueError: I/O operation on closed pipe
+Exception ignored in: <function BaseSubprocessTransport.__del__ at 
+0x0000026BB469B040>
+Traceback (most recent call last):
+  File "C:\Program Files\Python39\lib\asyncio\base_subprocess.py", line 125, 
+in __del__
+    _warn(f"unclosed transport {self!r}", ResourceWarning, source=self)
+  File "C:\Program Files\Python39\lib\asyncio\base_subprocess.py", line 70, in 
+__repr__
+    info.append(f'stdin={stdin.pipe}')
+  File "C:\Program Files\Python39\lib\asyncio\proactor_events.py", line 79, in 
+__repr__
+    info.append(f'fd={self._sock.fileno()}')
+  File "C:\Program Files\Python39\lib\asyncio\windows_utils.py", line 102, in 
+fileno
+    raise ValueError("I/O operation on closed pipe")
+ValueError: I/O operation on closed pipe
+Exception ignored in: <function _ProactorBasePipeTransport.__del__ at 
+0x0000026BB46A48B0>
+Traceback (most recent call last):
+  File "C:\Program Files\Python39\lib\asyncio\proactor_events.py", line 115, 
+in __del__
+    _warn(f"unclosed transport {self!r}", ResourceWarning, source=self)
+  File "C:\Program Files\Python39\lib\asyncio\proactor_events.py", line 79, in 
+__repr__
+    info.append(f'fd={self._sock.fileno()}')
+  File "C:\Program Files\Python39\lib\asyncio\windows_utils.py", line 102, in 
+fileno
+    raise ValueError("I/O operation on closed pipe")
+ValueError: I/O operation on closed pipe
