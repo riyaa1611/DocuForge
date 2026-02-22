@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}{{ report_title }}{% endblock %}
+
+{% block header_title %}{{ report_title }}{% endblock %}
+{% block header_subtitle %}{{ report_date }}{% endblock %}
+
+{% block content %}
+<div class="section">
+    <h2 class="section-title">Key Metrics</h2>
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <div class="metric-value">{{ total_sales|format_currency }}</div>
+            <div class="metric-label">Total Sales</div>
+            {% if growth_percent %}
+            <div class="metric-change {{ 'positive' if growth_percent > 0 else 'negative' }}">
+                {{ '+' if growth_percent > 0 else '' }}{{ growth_percent }}% vs last period
+            </div>
+            {% endif %}
+        </div>
+        <div class="metric-card" style="background: linear-gradient(135deg, #10B981 0%, #34D399 100%);">
+            <div class="metric-value">{{ total_orders|format_number }}</div>
+            <div class="metric-label">Total Orders</div>
+        </div>
+        <div class="metric-card" style="background: linear-gradient(135deg, #8B5CF6 0%, #A78BFA 100%);">
+            <div class="metric-value">{{ average_order|format_currency }}</div>
+            <div class="metric-label">Average Order Value</div>
+        </div>
+    </div>
+</div>
+
+{% if charts.region_chart %}
+<div class="section">
+    <h2 class="section-title">Sales by Region</h2>
+    <div class="chart-container">
+        <img src="{{ charts.region_chart }}" alt="Sales by Region">
+    </div>
+</div>
+{% endif %}
+
+{% if charts.trend_chart %}
+<div class="section">
+    <h2 class="section-title">Sales Trend</h2>
+    <div class="chart-container">
+        <img src="{{ charts.trend_chart }}" alt="Sales Trend">
+    </div>
+</div>
+{% endif %}
+
+{% if top_products %}
+<div class="section">
+    <h2 class="section-title">Top Products</h2>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 10%;">#</th>
+                <th>Product</th>
+                <th class="text-center">Units Sold</th>
+                <th class="text-right">Revenue</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in top_products %}
+            <tr>
+                <td>
+                    {% if loop.index == 1 %}
+                    <span style="font-size: 16pt;">🥇</span>
+                    {% elif loop.index == 2 %}
+                    <span style="font-size: 16pt;">🥈</span>
+                    {% elif loop.index == 3 %}
+                    <span style="font-size: 16pt;">🥉</span>
+                    {% else %}
+                    {{ loop.index }}
+                    {% endif %}
+                </td>
+                <td class="font-bold">{{ product.name }}</td>
+                <td class="text-center">{{ product.units|format_number }}</td>
+                <td class="text-right font-bold">{{ product.revenue|format_currency }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+{% if sales_by_region %}
+<div class="section">
+    <h2 class="section-title">Regional Breakdown</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Region</th>
+                <th class="text-right">Sales</th>
+                <th class="text-right">% of Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% set total = sales_by_region.values|sum %}
+            {% for region, value in zip(sales_by_region.labels, sales_by_region.values) %}
+            <tr>
+                <td class="font-bold">{{ region }}</td>
+                <td class="text-right">{{ value|format_currency }}</td>
+                <td class="text-right">
+                    <span class="badge badge-primary">{{ "%.1f"|format(value / total * 100 if total else 0) }}%</span>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr style="background: var(--bg-light);">
+                <td class="font-bold">Total</td>
+                <td class="text-right font-bold">{{ total|format_currency }}</td>
+                <td class="text-right font-bold">100%</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+{% endif %}
+
+{% if insights %}
+<div class="section">
+    <h2 class="section-title">Key Insights</h2>
+    <div class="card">
+        <ul style="margin-left: 20px;">
+            {% for insight in insights %}
+            <li style="margin-bottom: 8px;">{{ insight }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,270 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* PDF Report Generator - Professional SaaS Design System */
+
+@layer base {
+  :root {
+    /* Core palette - Warm red/coral PDF theme */
+    --background: 20 20% 98%;
+    --foreground: 15 30% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 15 30% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 15 30% 11%;
+
+    /* Primary - Warm coral red matching PDF icon */
+    --primary: 8 85% 56%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary - Warm neutral */
+    --secondary: 20 15% 94%;
+    --secondary-foreground: 15 30% 11%;
+
+    --muted: 20 15% 94%;
+    --muted-foreground: 15 10% 47%;
+
+    --accent: 8 85% 96%;
+    --accent-foreground: 8 85% 40%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 20 10% 90%;
+    --input: 20 10% 90%;
+    --ring: 8 85% 56%;
+
+    --radius: 0.625rem;
+
+    /* Status colors */
+    --status-pending: 45 93% 47%;
+    --status-pending-foreground: 45 100% 20%;
+    --status-pending-bg: 45 100% 94%;
+
+    --status-processing: 217 91% 60%;
+    --status-processing-foreground: 217 91% 30%;
+    --status-processing-bg: 217 100% 96%;
+
+    --status-completed: 142 76% 36%;
+    --status-completed-foreground: 142 76% 20%;
+    --status-completed-bg: 142 76% 95%;
+
+    --status-failed: 0 84% 60%;
+    --status-failed-foreground: 0 84% 30%;
+    --status-failed-bg: 0 84% 96%;
+
+    /* Sidebar - Light warm cream for light mode */
+    --sidebar-background: 30 30% 97%;
+    --sidebar-foreground: 15 30% 25%;
+    --sidebar-primary: 8 85% 56%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 30 25% 92%;
+    --sidebar-accent-foreground: 15 30% 15%;
+    --sidebar-border: 30 20% 90%;
+    --sidebar-ring: 8 85% 56%;
+    --sidebar-muted: 30 25% 94%;
+    --sidebar-muted-foreground: 15 10% 45%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(8 85% 56%), hsl(20 85% 50%));
+    --gradient-hero: linear-gradient(135deg, hsl(15 30% 11%), hsl(8 30% 18%));
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%), hsl(20 20% 98%));
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 hsl(15 30% 11% / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(15 30% 11% / 0.07), 0 2px 4px -1px hsl(15 30% 11% / 0.05);
+    --shadow-lg: 0 10px 15px -3px hsl(15 30% 11% / 0.08), 0 4px 6px -2px hsl(15 30% 11% / 0.04);
+    --shadow-card: 0 1px 3px hsl(15 30% 11% / 0.06), 0 1px 2px hsl(15 30% 11% / 0.04);
+    --shadow-elevated: 0 20px 25px -5px hsl(15 30% 11% / 0.1), 0 10px 10px -5px hsl(15 30% 11% / 0.04);
+  }
+
+  .dark {
+    /* Evening horizon - deep navy blue theme */
+    --background: 220 25% 8%;
+    --foreground: 210 20% 95%;
+
+    --card: 220 25% 11%;
+    --card-foreground: 210 20% 95%;
+
+    --popover: 220 25% 11%;
+    --popover-foreground: 210 20% 95%;
+
+    --primary: 8 85% 56%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 25% 16%;
+    --secondary-foreground: 210 20% 95%;
+
+    --muted: 220 25% 16%;
+    --muted-foreground: 210 15% 55%;
+
+    --accent: 220 40% 20%;
+    --accent-foreground: 210 80% 75%;
+
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 25% 18%;
+    --input: 220 25% 18%;
+    --ring: 8 85% 56%;
+
+    /* Sidebar - Deep evening navy */
+    --sidebar-background: 222 30% 6%;
+    --sidebar-foreground: 210 20% 80%;
+    --sidebar-primary: 8 85% 56%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 222 30% 14%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 222 30% 15%;
+    --sidebar-ring: 8 85% 56%;
+    --sidebar-muted: 222 30% 12%;
+    --sidebar-muted-foreground: 210 15% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  /* Smooth theme transitions */
+  html {
+    transition: background-color 0.25s ease-out, color 0.25s ease-out;
+  }
+
+  html * {
+    transition: background-color 0.25s ease-out, color 0.25s ease-out, border-color 0.25s ease-out, fill 0.25s ease-out, stroke 0.25s ease-out;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/30;
+  }
+}
+
+@layer components {
+
+  /* Status badge variants */
+  .status-pending {
+    @apply bg-[hsl(var(--status-pending-bg))] text-[hsl(var(--status-pending-foreground))] border border-[hsl(var(--status-pending)/0.3)];
+  }
+
+  .status-processing {
+    @apply bg-[hsl(var(--status-processing-bg))] text-[hsl(var(--status-processing-foreground))] border border-[hsl(var(--status-processing)/0.3)];
+  }
+
+  .status-completed {
+    @apply bg-[hsl(var(--status-completed-bg))] text-[hsl(var(--status-completed-foreground))] border border-[hsl(var(--status-completed)/0.3)];
+  }
+
+  .status-failed {
+    @apply bg-[hsl(var(--status-failed-bg))] text-[hsl(var(--status-failed-foreground))] border border-[hsl(var(--status-failed)/0.3)];
+  }
+
+  /* Card with subtle gradient and shadow */
+  .card-elevated {
+    background: var(--gradient-card);
+    box-shadow: var(--shadow-card);
+  }
+
+  /* Stat card styling */
+  .stat-card {
+    @apply relative overflow-hidden rounded-xl border bg-card p-6;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .stat-card::before {
+    content: '';
+    @apply absolute inset-0 opacity-[0.02];
+    background: var(--gradient-primary);
+  }
+
+  /* Sidebar active link */
+  .sidebar-link-active {
+    @apply bg-sidebar-accent text-sidebar-accent-foreground;
+  }
+
+  /* Form input focus ring */
+  .input-focus-ring {
+    @apply focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+  }
+}
+
+@layer utilities {
+
+  /* Gradient text */
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-primary);
+  }
+
+  /* Animated pulse for processing status */
+  .animate-status-pulse {
+    animation: status-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes status-pulse {
+
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0.6;
+    }
+  }
+
+  /* Fade in animation */
+  .animate-fade-in {
+    animation: fade-in 0.3s ease-out;
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Slide in from left for sidebar */
+  .animate-slide-in {
+    animation: slide-in 0.2s ease-out;
+  }
+
+  @keyframes slide-in {
+    from {
+      transform: translateX(-100%);
+    }
+
+    to {
+      transform: translateX(0);
+    }
+  }
+}

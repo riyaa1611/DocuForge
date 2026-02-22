@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}Financial Report - {{ company_name }}{% endblock %}
+
+{% block header_title %}Financial Report{% endblock %}
+{% block header_subtitle %}{{ company_name }} - {{ period }}{% endblock %}
+
+{% block content %}
+<div class="section">
+    <h2 class="section-title">Executive Summary</h2>
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <div class="metric-value">{{ revenue|format_currency }}</div>
+            <div class="metric-label">Total Revenue</div>
+        </div>
+        <div class="metric-card" style="background: linear-gradient(135deg, #EF4444 0%, #F87171 100%);">
+            <div class="metric-value">{{ expenses|format_currency }}</div>
+            <div class="metric-label">Total Expenses</div>
+        </div>
+        <div class="metric-card" style="background: linear-gradient(135deg, #10B981 0%, #34D399 100%);">
+            <div class="metric-value">{{ net_income|format_currency }}</div>
+            <div class="metric-label">Net Income</div>
+        </div>
+    </div>
+</div>
+
+{% if charts.revenue_chart %}
+<div class="section">
+    <h2 class="section-title">Revenue Overview</h2>
+    <div class="chart-container">
+        <img src="{{ charts.revenue_chart }}" alt="Revenue Chart">
+    </div>
+</div>
+{% endif %}
+
+{% if charts.expense_chart %}
+<div class="section">
+    <h2 class="section-title">Expense Breakdown</h2>
+    <div class="chart-container">
+        <img src="{{ charts.expense_chart }}" alt="Expense Breakdown">
+    </div>
+</div>
+{% endif %}
+
+{% if metrics %}
+<div class="section">
+    <h2 class="section-title">Key Performance Metrics</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Metric</th>
+                <th class="text-right">Value</th>
+                <th class="text-center">Change</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for metric in metrics %}
+            <tr>
+                <td>{{ metric.name }}</td>
+                <td class="text-right font-bold">{{ metric.value }}</td>
+                <td class="text-center">
+                    {% if metric.change.startswith('+') %}
+                    <span class="badge badge-success">{{ metric.change }}</span>
+                    {% elif metric.change.startswith('-') %}
+                    <span class="badge badge-danger">{{ metric.change }}</span>
+                    {% else %}
+                    <span class="badge badge-primary">{{ metric.change }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+<div class="section">
+    <h2 class="section-title">Financial Summary</h2>
+    <div class="card">
+        <table>
+            <tbody>
+                <tr>
+                    <td>Total Revenue</td>
+                    <td class="text-right font-bold">{{ revenue|format_currency }}</td>
+                </tr>
+                <tr>
+                    <td>Total Expenses</td>
+                    <td class="text-right font-bold" style="color: #EF4444;">{{ expenses|format_currency }}</td>
+                </tr>
+                <tr style="background: var(--bg-light);">
+                    <td class="font-bold">Net Income</td>
+                    <td class="text-right font-bold" style="color: #10B981;">{{ net_income|format_currency }}</td>
+                </tr>
+                <tr>
+                    <td>Profit Margin</td>
+                    <td class="text-right font-bold">{{ "%.1f"|format((net_income / revenue * 100) if revenue else 0)
+                        }}%</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% if notes %}
+<div class="section">
+    <h2 class="section-title">Notes</h2>
+    <div class="card">
+        <p>{{ notes }}</p>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
